@@ -1,5 +1,17 @@
 <!DOCTYPE HTML>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en">
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3ZY845XSCQ"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-3ZY845XSCQ');
+    </script>
+    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
   <title>Mateo Guaman Castro</title>
   
@@ -77,7 +89,7 @@
               </script>
             </td>
             <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://www.howdoesitfeel.dev/">
+              <a href="https://mateoguaman.github.io/hdif/">
                 <papertitle>How Does It Feel? Self-Supervised Costmap Learning for Off-Road Vehicle Traversability</papertitle>
               </a>
               <br>
@@ -92,15 +104,15 @@
               ">John G. Rogers III</a>, 
               <a href="https://theairlab.org/team/sebastian/">Sebastian Scherer</a>
               <br>
-              <em>In submission</em>, 2022
+              <em>Accepted to ICRA 2023</em>
               <br>
               <a href="https://arxiv.org/abs/2209.10788">arXiv</a>
               /
               <a href="https://arxiv.org/pdf/2209.10788.pdf">pdf</a>
               /
-              <a href="https://www.howdoesitfeel.dev/">project page</a>
+              <a href="https://mateoguaman.github.io/hdif/">project page</a>
               /
-              <a href="https://www.youtube.com/watch?v=e-8IHjIEgck">short video</a>
+              <a href="https://www.youtube.com/watch?v=19sDs1S8IGk">short video</a>
               <p></p>
               <p>
                 We propose a method that learns to predict traversability costmaps by combining exteroceptive environmental information with proprioceptive terrain interaction feedback in a self-supervised manner. Additionally, we propose a novel way of incorporating robot velocity in the costmap prediction pipeline. We validate our method in multiple short and large-scale navigation tasks on a large, autonomous all-terrain vehicle (ATV) on challenging off-road terrains, and demonstrate ease of integration on a separate large ground robot. Our short-scale navigation results show that using our learned costmaps leads to overall smoother navigation, and provides the robot with a more fine-grained understanding of the interactions between the robot and different terrain types, such as grass and gravel. Our large-scale navigation trials show that we can reduce the number of interventions by up to 57% compared to an occupancy-based navigation baseline in challenging off-road courses ranging from 400 m to 3150 m.
@@ -139,15 +151,14 @@
               <a href="https://theairlab.org/team/wenshan/">Wenshan Wang</a>, 
               <a href="https://theairlab.org/team/sebastian/">Sebastian Scherer</a>
               <br>
-              <em>In submission</em>, 2022
+              <em>Accepted to ICRA 2023</em>
               <br>
-              <!-- <a href="https://markboss.me/publication/2022-samurai/">project page</a> /
-              <a href="https://www.youtube.com/watch?v=LlYuGDjXp-8">video</a> /
-              <a href="https://arxiv.org/abs/2205.15768">arXiv</a> -->
+              <a href="https://arxiv.org/abs/2302.00134">arXiv</a>
+              /
+              <a href="https://arxiv.org/pdf/2302.00134.pdf">pdf</a>
               <p></p>
               <p>
-                We present an inverse reinforcement
-                learning-based method of efficiently training deep cost functions that are uncertainty-aware. We do so by leveraging recent advances in highly parallel model-predictive control and robotic risk estimation.
+                The process of designing costmaps for off-road driving tasks is often a challenging and engineering-intensive task. Recent work in costmap design for off-road driving focuses on training deep neural networks to predict costmaps from sensory observations using corpora of expert driving data. However, such approaches are generally subject to over-confident mispredictions and are rarely evaluated in-the-loop on physical hardware. We present an inverse reinforcement learning-based method of efficiently training deep cost functions that are uncertainty-aware. We do so by leveraging recent advances in highly parallel model-predictive control and robotic risk estimation. In addition to demonstrating improvement at reproducing expert trajectories, we also evaluate the efficacy of these methods in challenging off-road navigation scenarios. We observe that our method significantly outperforms a geometric baseline, resulting in 44% improvement in expert path reconstruction and 57% fewer interventions in practice. We also observe that varying the risk tolerance of the vehicle results in qualitatively different navigation behaviors, especially with respect to higher-risk scenarios such as slopes and tall grass.
               </p>
             </td>
           </tr>		
