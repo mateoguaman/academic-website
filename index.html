@@ -32,11 +32,11 @@
               <p style="text-align:center">
                 <name>Mateo Guaman Castro</name>
               </p><b>I am a PhD student at the University of Washington working on Robotics and Machine Learning, advised by <a href="https://homes.cs.washington.edu/~bboots/">Prof. Byron Boots</a> and <a href="https://homes.cs.washington.edu/~abhgupta/">Prof. Abhishek Gupta</a>.</b></p>
-              <p>Previously, I was a Master's student in Robotics in the <a href="https://www.ri.cmu.edu/">Robotics Institute</a> at Carnegie Mellon University, advised by <a href="https://theairlab.org/team/sebastian/">Prof. Sebastian Scherer</a> as a member of the <a href="https://theairlab.org/">AirLab</a> and the <a href="https://frc.ri.cmu.edu/">Field Robotics Center</a>. 
+              <p>Previously, I was a Master's student in Robotics in the <a href="https://www.ri.cmu.edu/">Robotics Institute</a> at Carnegie Mellon University, advised by <a href="https://theairlab.org/team/sebastian/">Prof. Sebastian Scherer</a> as a member of the <a href="https://theairlab.org/">AirLab</a> and the <a href="https://frc.ri.cmu.edu/">Field Robotics Center</a>.  Before that, I studied electrical engineering at Tufts Univesity, where I recieved my BS.
               </p>
 
-              <p>Before that, I studied electrical engineering at Tufts Univesity, where I recieved my BS. I was a researcher in the <a href="https://mulip.cs.tufts.edu/">Multimodal Learning, Interaction, and Perception Lab (MuLIP)</a> advised by <a href="https://www.eecs.tufts.edu/~jsinapov/">Dr. Jivko Sinapov</a> and <a href="https://scholar.google.com/citations?user=QI6VNEgAAAAJ&hl=en">Dr. Evana Gizzi</a>. I was also a research intern working with <a href="https://www.cs.cmu.edu/~./choset/">Dr. Howie Choset</a> in the <a href="http://biorobotics.ri.cmu.edu/">Biorobotics lab</a> at Carnegie Mellon University, and <a href="https://www.marmotlab.org/bio.html">Dr. Guillaume Sartoretti</a> in the <a href="https://www.marmotlab.org/">Multi-Agent Robotic Motion (MARMoT) Lab</a> at the National University of Singapore. 
-              </p>
+              <!-- <p>Before that, I studied electrical engineering at Tufts Univesity, where I recieved my BS. I was a researcher in the <a href="https://mulip.cs.tufts.edu/">Multimodal Learning, Interaction, and Perception Lab (MuLIP)</a> advised by <a href="https://www.eecs.tufts.edu/~jsinapov/">Dr. Jivko Sinapov</a> and <a href="https://scholar.google.com/citations?user=QI6VNEgAAAAJ&hl=en">Dr. Evana Gizzi</a>. I was also a research intern working with <a href="https://www.cs.cmu.edu/~./choset/">Dr. Howie Choset</a> in the <a href="http://biorobotics.ri.cmu.edu/">Biorobotics lab</a> at Carnegie Mellon University, and <a href="https://www.marmotlab.org/bio.html">Dr. Guillaume Sartoretti</a> in the <a href="https://www.marmotlab.org/">Multi-Agent Robotic Motion (MARMoT) Lab</a> at the National University of Singapore. 
+              </p> -->
 
 
               <p style="text-align:center">
@@ -57,13 +57,13 @@
             <tr>
             <td style="padding:20px;width:100%;vertical-align:middle">
               <heading>Research</heading>
-              <p>My research lies at the intersection of Robot Learning, Reinforcement Learning, VLMs, and Field Robotics. I am interested in reinforcement learning and representation learning for fast adaptation and generalization in unstructured environments. My ultimate goal is to develop robots that adapt fast during deployment, probe when uncertain, and make mistakes only once, if at all.
+              <p>I am interested in reinforcement learning and representation learning for fast adaptation and generalization in messy environments. My ultimate goal is to develop robots that adapt fast during deployment, probe when uncertain, and make mistakes only once, if at all.
               </p>
             </td>
           </tr>
         </tbody></table>
 
-        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="10">
+        <!-- <table width="100%" align="center" border="0" cellspacing="0" cellpadding="10">
           <tr><td>
             <heading>News</heading>
             <ul>
@@ -73,10 +73,153 @@
             <li> <b>May 2023:</b> I presented two conference papers and one workshop paper at ICRA 2023, my first ever in-person conference.</li>
             </ul>
           </td></tr>
-        </table>
+        </table> -->
 
 
         <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+
+          <!-- <tr onmouseout="vamos_stop()" onmouseover="vamos_start()"> -->
+            <!-- <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='vamos_image'><video  width=100% height=100% muted autoplay loop>
+                <source src="images/cropped_vamos.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video></div>
+                <img src='images/cropped_vamos_preview.png' width="160">
+              </div>
+              
+              <script type="text/javascript">
+                function vamos_start() {
+                  document.getElementById('vamos_image').style.opacity = "1";
+                }
+
+                function vamos_stop() {
+                  document.getElementById('vamos_image').style.opacity = "0";
+                }
+                vamos_stop()
+              </script>
+            </td> -->
+          <tr onmouseout="vamos_stop()" onmouseover="vamos_start()"  bgcolor="#ffffd0"></tr>
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='vamos_image'>
+                  <img src='images/vamos_after.png' width="160"></div>
+                <img src='images/vamos_before.png' width="160">
+              </div>
+              <script type="text/javascript">
+                function vamos_start() {
+                  document.getElementById('vamos_image').style.opacity = "1";
+                }
+
+                function vamos_stop() {
+                  document.getElementById('vamos_image').style.opacity = "0";
+                }
+                vamos_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://vamos-vla.github.io">
+                <papertitle>VAMOS: A Hierarchical Vision-Language-Action Model for Capability-Modulated and Steerable Navigation</papertitle>
+              </a>
+              <br>
+              <strong>Mateo Guaman Castro</strong>,
+              <a href="https://www.linkedin.com/in/sidharth-rajagopal-66932a221">Sidharth Rajagopal</a>, 
+              <a href="https://www.linkedin.com/in/daniel-gorbatov-892166220">Daniel Gorbatov</a>, 
+              <a href="https://www.mattschmittle.com/">Matthew Schmittle</a>, 
+              <a href="https://rohanblueboybaijal.github.io/">Rohan Baijal</a>, 
+              <a href="https://zoctipus.github.io/">Octi Zhang</a>, 
+              <a href="https://rosarioscalise.com/">Rosario Scalise</a>, 
+              <a href="https://www.sidharthtalia.com/">Sidharth Talia</a>, 
+              <a href="https://www.linkedin.com/in/emma-romig-97201617">Emma Romig</a>, 
+              <a href="https://celsodemelo.net/">Celso de Melo</a>, 
+              <a href="https://homes.cs.washington.edu/~bboots/">Byron Boots</a>,
+              <a href="https://abhishekunique.github.io">Abhishek Gupta</a>, 
+              <br>
+              <em>Submitted to International Conference on Robotics and Automation (ICRA), 2026</em>
+              <br>
+              <em>Oral at the CoRL 2025 Workshop on Generalist Policies in the Wild & Robo-Arena Challenge</em>
+              <br>
+              <!-- <a href="https://arxiv.org/abs/2409.10923">arXiv</a>
+              / -->
+              <a href="https://vamos-vla.github.io/VAMOS.pdf">pdf</a>
+              /
+              <a href="https://vamos-vla.github.io/">project page</a>
+              <p></p>
+              <p>
+                VAMOS is a hierarchical vision-language-action model that decouples semantic planning from embodiment grounding, enabling robust cross-embodiment navigation with natural language steerability.
+              </p>
+            </td>
+          </tr>
+
+          <!-- <tr onmouseout="lrn_stop()" onmouseover="lrn_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='lrn_image'><video  width=100% height=100% muted autoplay loop>
+                <source src="images/cropped_lrn.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+                </video></div>
+                <img src='images/cropped_lrn_preview.png' width="160">
+              </div>
+              
+              <script type="text/javascript">
+                function lrn_start() {
+                  document.getElementById('lrn_image').style.opacity = "1";
+                }
+
+                function lrn_stop() {
+                  document.getElementById('lrn_image').style.opacity = "0";
+                }
+                lrn_stop()
+              </script>
+            </td> -->
+          <tr onmouseout="lrn_stop()" onmouseover="lrn_start()"></tr>
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='lrn_image'>
+                  <img src='images/lrn_after.png' width="160"></div>
+                <img src='images/lrn_before.png' width="160">
+              </div>
+              <script type="text/javascript">
+                function lrn_start() {
+                  document.getElementById('lrn_image').style.opacity = "1";
+                }
+
+                function lrn_stop() {
+                  document.getElementById('lrn_image').style.opacity = "0";
+                }
+                lrn_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+              <a href="https://personalrobotics.github.io/lrn/">
+                <papertitle>Long Range Navigator: Extending robot planning horizons beyond metric maps</papertitle>
+              </a>
+              <br>
+              <a href="https://www.mattschmittle.com/">Matthew Schmittle</a>, 
+              <a href="https://rohanblueboybaijal.github.io/">Rohan Baijal</a>,
+              <a href="https://nhatch.github.io/">Nathan Hatch</a>,
+              <a href="https://rosarioscalise.com/">Rosario Scalise</a>,
+              <strong>Mateo Guaman Castro</strong>
+              <a href="https://www.sidharthtalia.com/">Sidharth Talia</a>, 
+              <a href="https://kkhetarpal.github.io/">Khimya Khetarpal</a>, 
+              <a href="https://goodrobot.ai/">Siddhartha Srinivasa</a>, 
+              <a href="https://homes.cs.washington.edu/~bboots/">Byron Boots</a>,
+              <br>
+              <em>Conference on Robot Learning (CoRL), 2025</em>
+              <br>
+              <em style="color:red;">Best Paper Award, RSS 2025 Workshop on Resilient Off-road Autonomous Robotics</em>
+              <br>
+              <a href="https://arxiv.org/abs/2504.13149">arXiv</a>
+              /
+              <a href="https://arxiv.org/pdf/2504.13149">pdf</a>
+              /
+              <a href="https://personalrobotics.github.io/lrn/">project page</a>
+              <p></p>
+              <p>
+                Long Range Navigator enables robots to look beyond local maps through affordances in image space.
+              </p>
+            </td>
+          </tr>
 
           <tr onmouseout="jcod_stop()" onmouseover="jcod_start()">
             <td style="padding:20px;width:25%;vertical-align:middle">
@@ -116,7 +259,7 @@
               <a href="https://www.jie-tan.net/">Jie Tan</a>, 
               <a href="https://homes.cs.washington.edu/~bboots/">Byron Boots</a>
               <br>
-              <em>Submitted to International Conference on Robotics and Automation (ICRA), 2025</em>
+              <em>International Conference on Robotics and Automation (ICRA), 2025</em>
               <br>
               <a href="https://arxiv.org/abs/2409.10923">arXiv</a>
               /
