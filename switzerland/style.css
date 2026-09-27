@@ -1,10 +1,9 @@
-/* Swiss style: red, black and white on a strict grid. Hover and selection on the
-   map come in three treatments to compare, set by data-highlight on <html>. */
+/* Swiss style: red, black and white on a strict grid. Touched cantons are pale red
+   and turn full red on hover or when open; untouched ones stay white and inert. */
 
 :root {
   --red: #da291c;
-  --red-tint: #f7cfcc;
-  --red-deep: #a81f15;
+  --red-tint: #f6c7c3;
   --ink: #000;
   --bg: #fff;
   --muted: #666;
@@ -84,28 +83,6 @@ button {
   white-space: nowrap;
 }
 
-.style-switch {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  color: var(--muted);
-}
-
-.style-switch button {
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-  color: var(--muted);
-}
-
-.style-switch button[aria-pressed="true"] {
-  color: var(--ink);
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
 /* ---------- Masthead ---------- */
 
 .masthead {
@@ -157,10 +134,15 @@ h1 {
   stroke-width: 0.6;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
-  cursor: pointer;
 }
 
 .canton.touched {
+  fill: var(--red-tint);
+  cursor: pointer;
+}
+
+.canton.touched.is-hover,
+.canton.touched.is-selected {
   fill: var(--red);
 }
 
@@ -181,23 +163,6 @@ h1 {
   pointer-events: none;
 }
 
-/* Outlines drawn above everything for the hovered and selected canton. */
-.highlight {
-  fill: none;
-  stroke: #000;
-  stroke-linejoin: round;
-  vector-effect: non-scaling-stroke;
-  pointer-events: none;
-}
-
-.highlight-selected {
-  stroke-width: 2.5;
-}
-
-.highlight-hover {
-  stroke-width: 1.5;
-}
-
 .label {
   font-family: var(--font);
   font-size: calc(var(--fs) * 1px);
@@ -208,65 +173,10 @@ h1 {
   pointer-events: none;
 }
 
-.label.touched {
-  fill: #fff;
-}
-
 .label.is-hover,
 .label.is-selected {
+  fill: #fff;
   font-weight: 700;
-}
-
-/* Tint: a pale red for untouched cantons, a deeper red for touched ones. */
-[data-highlight="tint"] .canton.is-hover,
-[data-highlight="tint"] .canton.is-selected {
-  fill: var(--red-tint);
-}
-
-[data-highlight="tint"] .canton.touched.is-hover,
-[data-highlight="tint"] .canton.touched.is-selected {
-  fill: var(--red-deep);
-}
-
-[data-highlight="tint"] .highlight-hover {
-  display: none;
-}
-
-/* Outline: colours stay put; only a heavier black border. */
-[data-highlight="outline"] .highlight-hover {
-  stroke-width: 2;
-}
-
-[data-highlight="outline"] .highlight-selected {
-  stroke-width: 3;
-}
-
-/* Hatch: red stripes on white; deep-red stripes on touched cantons so they stay red. */
-[data-highlight="hatch"] .canton.is-hover,
-[data-highlight="hatch"] .canton.is-selected {
-  fill: url(#hatch);
-}
-
-[data-highlight="hatch"] .canton.touched.is-hover,
-[data-highlight="hatch"] .canton.touched.is-selected {
-  fill: url(#hatch-touched);
-}
-
-[data-highlight="hatch"] .highlight-hover {
-  display: none;
-}
-
-[data-highlight="hatch"] .label.is-hover,
-[data-highlight="hatch"] .label.is-selected {
-  paint-order: stroke;
-  stroke: #fff;
-  stroke-width: 4px;
-  stroke-linejoin: round;
-}
-
-[data-highlight="hatch"] .label.touched.is-hover,
-[data-highlight="hatch"] .label.touched.is-selected {
-  stroke: var(--red);
 }
 
 .count {
@@ -342,8 +252,7 @@ h1 {
 }
 
 .swatch-touched {
-  background: var(--red);
-  border-color: var(--red);
+  background: var(--red-tint);
 }
 
 .swatch-todo {
@@ -679,7 +588,11 @@ h1 {
   font-variant-numeric: tabular-nums;
 }
 
-.index-row:hover .name,
+.index-row:disabled {
+  cursor: default;
+}
+
+.index-row:not(:disabled):hover .name,
 .index-row.is-hover .name {
   color: var(--red);
 }

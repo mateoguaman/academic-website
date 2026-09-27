@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" data-highlight="tint">
+<html lang="en">
 <head>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-3ZY845XSCQ"></script>
@@ -17,14 +17,6 @@
   <meta name="description" content="A side quest: touching every one of Switzerland's 26 cantons.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <script>
-    // Pick the map highlight before first paint: ?highlight=tint|outline|hatch, else the last choice.
-    (function () {
-      var h = new URLSearchParams(location.search).get("highlight");
-      try { h = h || localStorage.getItem("canton-highlight"); } catch (e) {}
-      document.documentElement.setAttribute("data-highlight", /^(tint|outline|hatch)$/.test(h) ? h : "tint");
-    })();
-  </script>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
@@ -32,12 +24,6 @@
   <div class="page" id="top">
     <nav class="topbar">
       <a href="../index.html">Mateo Guaman Castro</a>
-      <div class="style-switch" role="group" aria-label="Map highlight style">
-        <span>Highlight</span>
-        <button type="button" data-highlight-choice="tint">Tint</button>
-        <button type="button" data-highlight-choice="outline">Outline</button>
-        <button type="button" data-highlight-choice="hatch">Hatch</button>
-      </div>
     </nav>
 
     <header class="masthead">

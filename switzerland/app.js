@@ -94,41 +94,20 @@
     }
   }
 
-  // Stripe patterns for the "hatch" highlight. The tile is resized to keep a
-  // constant on-screen stripe width however big the map is drawn.
-  const defs = el("defs", {}, SVG_NS);
-  defs.innerHTML =
-    `<pattern id="hatch" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="100%" height="100%" fill="#fff"/><rect class="stripe" height="100%" fill="#da291c"/></pattern>` +
-    `<pattern id="hatch-touched" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="100%" height="100%" fill="#da291c"/><rect class="stripe" height="100%" fill="#a81f15"/></pattern>`;
-  function sizeHatch() {
-    const unitsPerPx = MAP.width / (svg.clientWidth || MAP.width);
-    const tile = 6 * unitsPerPx; // 6px stripe period
-    defs.querySelectorAll("pattern").forEach((p) => {
-      p.setAttribute("width", tile);
-      p.setAttribute("height", tile);
-    });
-    defs.querySelectorAll(".stripe").forEach((r) => r.setAttribute("width", tile * 0.4));
-  }
-  new ResizeObserver(sizeHatch).observe(svg);
-
-  const hlSelected = el("path", { class: "highlight highlight-selected", d: "" }, SVG_NS);
-  const hlHover = el("path", { class: "highlight highlight-hover", d: "" }, SVG_NS);
   svg.append(
-    defs,
     cantonGroup,
     el("path", { class: "lakes", d: MAP.lakes }, SVG_NS),
     el("path", { class: "outline", d: MAP.outline }, SVG_NS),
-    hlSelected,
-    hlHover,
     labelGroup
   );
 
   // ---------- List ----------
 
+  // Rows start disabled; touched cantons are enabled once the stories load.
   const rows = {};
   if (indexGrid) {
     for (const c of CANTONS) {
-      const b = el("button", { class: "index-row", type: "button", "data-code": c.code, "aria-pressed": "false" });
+      const b = el("button", { class: "index-row", type: "button", "data-code": c.code, "aria-pressed": "false", disabled: "" });
       b.innerHTML = `<span class="code">${c.code}</span><span class="name">${escapeHtml(c.name)}</span><span class="date"></span>`;
       rows[c.code] = indexGrid.appendChild(b);
     }
@@ -150,23 +129,20 @@
       }
       if (rows[c.code]) rows[c.code].setAttribute("aria-pressed", String(selected));
     }
-    hlSelected.setAttribute("d", state.selected ? MAP.cantons[state.selected].d : "");
-    hlHover.setAttribute("d", preview && preview !== state.selected ? MAP.cantons[preview].d : "");
   }
 
   function renderReadout() {
     const code = state.hover || state.focus || state.selected;
     if (!code) {
       readout.innerHTML = `<p class="readout-hint">${
-        CAN_HOVER ? "Hover over a canton to see it. Click to read its story." : "Tap a canton to read its story."
+        CAN_HOVER ? "Hover over a red canton to see it. Click to read its story." : "Tap a red canton to read its story."
       }</p>`;
       return;
     }
-    const touched = isTouched(code);
     readout.innerHTML =
-      `<p class="readout-code${touched ? " touched" : ""}">${code}</p>` +
+      `<p class="readout-code touched">${code}</p>` +
       `<p class="readout-name">${escapeHtml(BY_CODE[code].name)}</p>` +
-      `<p class="readout-status">${touched ? "Touched " + escapeHtml(formatDate(meta(code).date)) : state.loaded ? "Not yet" : ""}</p>`;
+      `<p class="readout-status">${state.loaded ? "Touched " + escapeHtml(formatDate(meta(code).date)) : ""}</p>`;
   }
 
   function renderStory() {
@@ -182,7 +158,7 @@
     const m = meta(code);
     const touched = isTouched(code);
 
-    const facts = [["Touched", touched ? formatDate(m.date) : state.loaded ? "Not yet" : "…"]];
+    const facts = [["Touched", state.loaded ? formatDate(m.date) : "…"]];
     if (m.place) facts.push(["Where", m.place]);
     facts.push(["Capital", c.capital]);
 
@@ -193,9 +169,7 @@
     } else {
       const rendered = renderMarkdown((entries[code] && entries[code].body) || "");
       storyMedia = rendered.media;
-      body = rendered.html.trim()
-        ? rendered.html
-        : `<p class="empty">${touched ? "No story written yet." : "Not touched yet."}</p>`;
+      body = rendered.html.trim() ? rendered.html : `<p class="empty">No story written yet.</p>`;
     }
 
     let nav = "";
@@ -230,7 +204,10 @@
     $("count").textContent = String(n).padStart(2, "0");
     if (n === CANTONS.length) document.querySelector(".lede").textContent = "All 26 cantons touched. Quest complete.";
     for (const c of CANTONS) {
-      if (rows[c.code]) rows[c.code].querySelector(".date").textContent = isTouched(c.code) ? formatDate(meta(c.code).date) : "—";
+      const row = rows[c.code];
+      if (!row) continue;
+      row.disabled = !isTouched(c.code);
+      row.querySelector(".date").textContent = isTouched(c.code) ? formatDate(meta(c.code).date) : "—";
     }
   }
 
@@ -250,7 +227,11 @@
     if (top < 0 || top > window.innerHeight * 0.6) story.scrollIntoView({ behavior: SMOOTH, block: "start" });
   }
 
+  // Only touched cantons have a story. (Before the stories load we can't tell yet.)
+  const canOpen = (code) => !state.loaded || isTouched(code);
+
   function select(code, reveal) {
+    if (code && !canOpen(code)) return;
     state.selected = code;
     history.replaceState(null, "", code ? "#" + code : location.pathname + location.search);
     update();
@@ -260,23 +241,26 @@
 
   // ---------- Events ----------
 
-  // Map: preview on mouse hover, open the story on click/tap. Touch has no hover.
-  svg.addEventListener("pointerover", (ev) => {
-    if (ev.pointerType === "touch") return;
+  // Map: touched cantons light up on mouse hover and open their story on
+  // click/tap. Untouched cantons don't react. Touch has no hover.
+  const touchedTarget = (ev) => {
     const p = ev.target.closest(".canton");
-    setHover(p ? p.dataset.code : null);
+    return p && isTouched(p.dataset.code) ? p.dataset.code : null;
+  };
+  svg.addEventListener("pointerover", (ev) => {
+    if (ev.pointerType !== "touch") setHover(touchedTarget(ev));
   });
   svg.addEventListener("pointerleave", () => setHover(null));
   svg.addEventListener("click", (ev) => {
-    const p = ev.target.closest(".canton");
-    if (p) select(p.dataset.code, true);
+    const code = touchedTarget(ev);
+    if (code) select(code, true);
   });
 
   if (indexGrid) {
     indexGrid.addEventListener("pointerover", (ev) => {
       if (ev.pointerType === "touch") return;
       const b = ev.target.closest(".index-row");
-      setHover(b ? b.dataset.code : null);
+      setHover(b && !b.disabled ? b.dataset.code : null);
     });
     indexGrid.addEventListener("pointerleave", () => setHover(null));
     indexGrid.addEventListener("focusin", (ev) => {
@@ -292,7 +276,7 @@
     });
     indexGrid.addEventListener("click", (ev) => {
       const b = ev.target.closest(".index-row");
-      if (b) select(b.dataset.code, true);
+      if (b && !b.disabled) select(b.dataset.code, true);
     });
   }
 
@@ -318,29 +302,6 @@
     if (!code) select(null);
     else if (BY_CODE[code]) select(code, true);
   });
-
-  // ---------- Highlight switch (tint / outline / hatch) ----------
-
-  const highlightButtons = document.querySelectorAll("[data-highlight-choice]");
-  function markHighlight() {
-    const current = document.documentElement.getAttribute("data-highlight");
-    highlightButtons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.highlightChoice === current)));
-  }
-  highlightButtons.forEach((b) =>
-    b.addEventListener("click", () => {
-      const h = b.dataset.highlightChoice;
-      document.documentElement.setAttribute("data-highlight", h);
-      try {
-        localStorage.setItem("canton-highlight", h);
-      } catch (e) {}
-      const url = new URL(location.href);
-      url.searchParams.delete("style");
-      url.searchParams.set("highlight", h);
-      history.replaceState(null, "", url);
-      markHighlight();
-    })
-  );
-  markHighlight();
 
   // ---------- Lightbox ----------
 
@@ -413,6 +374,7 @@
           : "The stories couldn't be loaded. Try refreshing the page.";
     }
     renderSummary();
+    if (state.selected && !isTouched(state.selected)) select(null); // e.g. a #UR link
     update();
     renderStory();
     if (state.selected) revealStory();
