@@ -132,7 +132,7 @@ h1 {
 .canton {
   fill: var(--canton);
   stroke: var(--canton-stroke);
-  stroke-width: 0.6;
+  stroke-width: var(--canton-stroke-w, 0.6px); /* scaled with the map in app.js */
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
 }
@@ -155,7 +155,7 @@ h1 {
 .outline {
   fill: none;
   stroke: #000;
-  stroke-width: 1.4;
+  stroke-width: var(--outline-w, 1.4px); /* scaled with the map in app.js */
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
   pointer-events: none;

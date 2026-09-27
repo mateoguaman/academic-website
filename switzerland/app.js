@@ -82,17 +82,25 @@
     paths[c.code] = cantonGroup.appendChild(el("path", { d: MAP.cantons[c.code].d, class: "canton", "data-code": c.code }, SVG_NS));
   }
 
-  // Red stripes for touched cantons. They scale with the map so it looks the same
-  // at every size (about 166 stripes across, i.e. 5px apart on a full desktop map),
-  // but never get closer than 4 device pixels apart, where they'd blur.
+  // Red stripes for touched cantons.
   const defs = el("defs", {}, SVG_NS);
   defs.innerHTML =
     `<pattern id="stripes" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">` +
     `<rect width="100%" height="100%" fill="#fff"/><rect class="stripe" height="100%" fill="#da291c"/></pattern>`;
+
+  // Borders and stripes are sized for the full desktop map (828px wide) and scale
+  // down with it, so a phone shows the same picture, just smaller. Each has a
+  // floor in device pixels so nothing gets too fine to draw cleanly.
+  const DESKTOP_MAP_WIDTH = 828;
   new ResizeObserver(() => {
-    const width = svg.clientWidth || MAP.width;
-    const periodPx = Math.max(width / 166, 4 / (window.devicePixelRatio || 1));
-    const tile = (periodPx * MAP.width) / width;
+    const width = svg.clientWidth || DESKTOP_MAP_WIDTH;
+    const devicePx = 1 / (window.devicePixelRatio || 1);
+    const px = (desktop, minDevicePx) => Math.max((desktop * width) / DESKTOP_MAP_WIDTH, minDevicePx * devicePx);
+
+    svg.style.setProperty("--canton-stroke-w", px(0.6, 0.5) + "px");
+    svg.style.setProperty("--outline-w", px(1.4, 1) + "px");
+
+    const tile = (px(5, 4) * MAP.width) / width; // stripe spacing, in map units
     const pattern = defs.firstElementChild;
     pattern.setAttribute("width", tile);
     pattern.setAttribute("height", tile);
