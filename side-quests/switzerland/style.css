@@ -84,6 +84,15 @@ button {
   white-space: nowrap;
 }
 
+.crumbs {
+  margin: 0;
+}
+
+.crumbs span {
+  margin: 0 6px;
+  color: var(--muted);
+}
+
 /* ---------- Masthead ---------- */
 
 .masthead {

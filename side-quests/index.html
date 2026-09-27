@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3ZY845XSCQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-3ZY845XSCQ');
+  </script>
+
+  <meta charset="UTF-8">
+  <title>Side Quests</title>
+  <meta name="author" content="Mateo Guaman Castro">
+  <meta name="description" content="Side quests: small personal projects, documented.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    :root {
+      --red: #da291c;
+      --ink: #000;
+      --muted: #666;
+      --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #fff;
+      color: var(--ink);
+      font-family: var(--font);
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px 48px;
+    }
+
+    @media (min-width: 800px) {
+      .page {
+        padding: 0 32px 64px;
+      }
+    }
+
+    .topbar {
+      padding: 14px 0 12px;
+      border-bottom: 1px solid var(--ink);
+      font-size: 14px;
+    }
+
+    .topbar a {
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .topbar a:hover {
+      color: var(--red);
+    }
+
+    h1 {
+      margin: 0;
+      padding: 36px 0 28px;
+      font-size: clamp(44px, 7vw, 84px);
+      font-weight: 700;
+      line-height: 0.95;
+      letter-spacing: -0.035em;
+    }
+
+    .quests {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--ink);
+    }
+
+    /* One row per quest. To add a quest, copy an <li>. */
+    .quests li {
+      border-bottom: 1px solid var(--ink);
+    }
+
+    .quests a {
+      display: grid;
+      gap: 4px 32px;
+      padding: 18px 0;
+      text-decoration: none;
+    }
+
+    @media (min-width: 800px) {
+      .quests a {
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+        align-items: baseline;
+      }
+    }
+
+    .quest-title {
+      font-size: clamp(26px, 3.5vw, 40px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+
+    .quest-note {
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .quests a:hover .quest-title {
+      color: var(--red);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <nav class="topbar">
+      <a href="../index.html">Mateo Guaman Castro</a>
+    </nav>
+
+    <h1>Side quests</h1>
+
+    <ul class="quests">
+      <li>
+        <a href="switzerland/">
+          <span class="quest-title">Touching all 26 cantons</span>
+          <span class="quest-note">Setting foot in, and laying a hand on, every one of Switzerland's cantons.</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</body>
+</html>

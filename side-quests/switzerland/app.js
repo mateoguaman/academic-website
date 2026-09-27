@@ -384,7 +384,7 @@
       notice.hidden = false;
       notice.textContent =
         location.protocol === "file:"
-          ? "Stories can't load from a file:// page. From the repository folder, run `python3 -m http.server` and open http://localhost:8000/switzerland/."
+          ? "Stories can't load from a file:// page. From the repository folder, run `python3 -m http.server` and open http://localhost:8000/side-quests/switzerland/."
           : "The stories couldn't be loaded. Try refreshing the page.";
     }
     renderSummary();
