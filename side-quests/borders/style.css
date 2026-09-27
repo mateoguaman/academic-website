@@ -1,6 +1,6 @@
-/* Borders map: rides are yellow lines with a thin black edge (like roads on Swiss
-   maps), and each stretch of the Swiss border turns thick red once crossed.
-   Shared styles are in ../shared/base.css. Line widths are scaled in app.js. */
+/* Borders map: rides are yellow lines, and each stretch of the Swiss border turns
+   thick red once crossed. Shared styles are in ../shared/base.css. Line widths
+   are scaled with the map in app.js. */
 
 :root {
   --neighbour: #ececec;
@@ -49,21 +49,10 @@
   pointer-events: none;
 }
 
-/* The black edge is a wider black line drawn under the yellow one. */
-.ride-casing {
-  fill: none;
-  stroke: #000;
-  stroke-width: var(--ride-casing-w, 4.2px);
-  stroke-linejoin: round;
-  stroke-linecap: round;
-  vector-effect: non-scaling-stroke;
-  pointer-events: none;
-}
-
 .ride-line {
   fill: none;
   stroke: var(--yellow);
-  stroke-width: var(--ride-w, 2.2px);
+  stroke-width: var(--ride-w, 3px);
   stroke-linejoin: round;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
@@ -81,14 +70,9 @@
   cursor: pointer;
 }
 
-.ride.is-hover .ride-casing,
-.ride.is-selected .ride-casing {
-  stroke-width: var(--ride-hover-casing-w, 5.8px);
-}
-
 .ride.is-hover .ride-line,
 .ride.is-selected .ride-line {
-  stroke-width: var(--ride-hover-w, 3.6px);
+  stroke-width: var(--ride-hover-w, 4.5px);
 }
 
 .rides.has-hover .ride:not(.is-hover) {
@@ -97,8 +81,8 @@
 
 .crossing {
   fill: var(--yellow);
-  stroke: #000;
-  stroke-width: var(--crossing-ring-w, 1.2px);
+  stroke: #fff;
+  stroke-width: var(--crossing-ring-w, 1.5px);
   vector-effect: non-scaling-stroke;
   pointer-events: none;
 }
@@ -156,9 +140,7 @@
 }
 
 .line-key.ride {
-  height: 4px;
-  background: var(--yellow);
-  box-shadow: 0 0 0 1px #000;
+  border-top: 3px solid var(--yellow);
 }
 
 .legend .line-key:not(:first-child) {
@@ -190,12 +172,8 @@
   border: 1px solid var(--rule-light);
 }
 
-.route-map .ride-casing {
-  stroke-width: 5px;
-}
-
 .route-map .ride-line {
-  stroke-width: 3px;
+  stroke-width: 3.5px;
 }
 
 .route-dot {
