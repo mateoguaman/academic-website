@@ -82,14 +82,17 @@
     paths[c.code] = cantonGroup.appendChild(el("path", { d: MAP.cantons[c.code].d, class: "canton", "data-code": c.code }, SVG_NS));
   }
 
-  // Red stripes for touched cantons. The tile is resized so the stripes keep
-  // the same on-screen width however big the map is drawn.
+  // Red stripes for touched cantons. They scale with the map so it looks the same
+  // at every size (about 166 stripes across, i.e. 5px apart on a full desktop map),
+  // but never get closer than 4 device pixels apart, where they'd blur.
   const defs = el("defs", {}, SVG_NS);
   defs.innerHTML =
     `<pattern id="stripes" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">` +
     `<rect width="100%" height="100%" fill="#fff"/><rect class="stripe" height="100%" fill="#da291c"/></pattern>`;
   new ResizeObserver(() => {
-    const tile = (5 * MAP.width) / (svg.clientWidth || MAP.width); // 5px stripe period
+    const width = svg.clientWidth || MAP.width;
+    const periodPx = Math.max(width / 166, 4 / (window.devicePixelRatio || 1));
+    const tile = (periodPx * MAP.width) / width;
     const pattern = defs.firstElementChild;
     pattern.setAttribute("width", tile);
     pattern.setAttribute("height", tile);
