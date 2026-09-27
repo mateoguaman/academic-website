@@ -1,4 +1,4 @@
-// Interactive canton map. Content lives in cantons.js; geometry in map-data.js.
+// Interactive canton map. Stories live in entries/<code>.md; geometry in map-data.js.
 (function () {
   "use strict";
 
@@ -33,23 +33,26 @@
 
   const BY_CODE = Object.fromEntries(CANTONS.map((c) => [c.code, c]));
   const MAP = window.SWISS_MAP;
-  const LOG = window.CANTON_LOG || {};
+  const { render: renderMarkdown, parseFrontMatter, escapeHtml } = window.Markdown;
   const SVG_NS = "http://www.w3.org/2000/svg";
   const CAN_HOVER = window.matchMedia("(hover: hover)").matches;
+  const SMOOTH = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
 
-  const entry = (code) => LOG[code] || {};
-  const isVisited = (code) => !!entry(code).visited;
-  const photosOf = (code) => (Array.isArray(entry(code).photos) ? entry(code).photos : []);
+  // code -> { meta: { date, place, title }, body }. A canton is touched once its file has a date.
+  const entries = {};
+  const meta = (code) => (entries[code] && entries[code].meta) || {};
+  const isTouched = (code) => !!meta(code).date;
 
   // hover: mouse over a canton (map or list); focus: keyboard focus in the list;
-  // selected: pinned by click/tap. The panel shows the first one that is set.
-  const state = { hover: null, focus: null, selected: null, photo: 0 };
-  const shown = () => state.hover || state.focus || state.selected;
+  // selected: the canton whose story is open.
+  const state = { hover: null, focus: null, selected: null, loaded: false };
+  let storyMedia = [];
 
   const $ = (id) => document.getElementById(id);
   const svg = $("map");
-  const panel = $("panel");
-  const chipsEl = $("chips");
+  const story = $("story");
+  const readout = $("readout");
+  const indexGrid = $("index-grid"); // optional: the list can be deleted from the HTML
 
   function el(tag, attrs, ns) {
     const node = ns ? document.createElementNS(ns, tag) : document.createElement(tag);
@@ -57,38 +60,21 @@
     return node;
   }
 
-  function escapeHtml(s) {
-    return String(s).replace(/[&<>"']/g, (ch) =>
-      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[ch]
-    );
-  }
-
-  // "2025-06-01" -> "1 June 2025"; also accepts "2025-06" and "2025".
+  // "2025-07-14" -> "14.07.2025"; "2025-07" -> "07.2025". Anything else is shown as written.
   function formatDate(s) {
-    if (!s) return "";
-    const [y, m, d] = String(s).split("-").map(Number);
-    if (!y) return String(s);
-    if (!m) return String(y);
-    const date = new Date(y, m - 1, d || 1);
-    const opts = d ? { day: "numeric", month: "long", year: "numeric" } : { month: "long", year: "numeric" };
-    return date.toLocaleDateString("en-GB", opts);
+    const m = String(s || "").match(/^(\d{4})(?:-(\d{1,2}))?(?:-(\d{1,2}))?$/);
+    if (!m) return String(s || "");
+    const pad = (n) => String(n).padStart(2, "0");
+    return [m[3] && pad(m[3]), m[2] && pad(m[2]), m[1]].filter(Boolean).join(".");
   }
 
-  const isVideo = (src) => /\.(mp4|webm|mov)$/i.test(src);
+  // Touched cantons in the order they were touched.
+  const chronological = () =>
+    CANTONS.filter((c) => isTouched(c.code)).sort((a, b) => (meta(a.code).date < meta(b.code).date ? -1 : 1));
 
-  function mediaTag(src, alt, forThumb) {
-    if (isVideo(src)) {
-      // "#t=0.1" makes browsers (notably iOS Safari) show the first frame as a poster.
-      const controls = forThumb ? "" : " controls";
-      return `<video src="${escapeHtml(src)}#t=0.1" muted playsinline preload="metadata"${controls}></video>`;
-    }
-    return `<img src="${escapeHtml(src)}" alt="${escapeHtml(alt || "")}" loading="lazy">`;
-  }
-
-  // ---------- Build the map ----------
+  // ---------- Map ----------
 
   svg.setAttribute("viewBox", `0 0 ${MAP.width} ${MAP.height}`);
-
   const cantonGroup = el("g", {}, SVG_NS);
   const labelGroup = el("g", {}, SVG_NS);
   const paths = {};
@@ -96,24 +82,20 @@
 
   for (const c of CANTONS) {
     const geo = MAP.cantons[c.code];
-    const p = el("path", { d: geo.d, class: "canton", "data-code": c.code }, SVG_NS);
-    cantonGroup.appendChild(p);
-    paths[c.code] = p;
+    paths[c.code] = cantonGroup.appendChild(el("path", { d: geo.d, class: "canton", "data-code": c.code }, SVG_NS));
 
-    // Skip labels that would not fit (Basel-Stadt); the list covers those.
+    // Skip labels that would not fit (Basel-Stadt).
     if (geo.r >= 7) {
       const t = el("text", { x: geo.label[0], y: geo.label[1], class: "label" }, SVG_NS);
-      t.style.setProperty("--fs", Math.min(17, geo.r).toFixed(1));
+      t.style.setProperty("--fs", Math.min(16, geo.r).toFixed(1));
       t.style.setProperty("--fs-small", Math.min(26, geo.r * 1.3).toFixed(1));
       t.textContent = c.code;
-      labelGroup.appendChild(t);
-      labels[c.code] = t;
+      labels[c.code] = labelGroup.appendChild(t);
     }
   }
 
   const hlSelected = el("path", { class: "highlight highlight-selected", d: "" }, SVG_NS);
   const hlHover = el("path", { class: "highlight highlight-hover", d: "" }, SVG_NS);
-
   svg.append(
     cantonGroup,
     el("path", { class: "lakes", d: MAP.lakes }, SVG_NS),
@@ -123,169 +105,144 @@
     labelGroup
   );
 
-  // ---------- Build the list + progress bar ----------
+  // ---------- List ----------
 
-  const chips = {};
-  const bar = $("progress-bar");
-  for (const c of CANTONS) {
-    const b = el("button", { class: "chip", type: "button", "data-code": c.code, "aria-pressed": "false" });
-    b.innerHTML =
-      `<span class="chip-code">${c.code}</span>` +
-      `<span class="chip-name">${escapeHtml(c.name)}</span>` +
-      (isVisited(c.code) ? `<span class="chip-check" aria-label="touched">✓</span>` : "");
-    chipsEl.appendChild(b);
-    chips[c.code] = b;
-
-    const seg = el("span", { title: c.name });
-    bar.appendChild(seg);
-
-    for (const node of [paths[c.code], labels[c.code], b, seg]) {
-      if (node && isVisited(c.code)) node.classList.add("visited");
-    }
-  }
-
-  const visitedCount = CANTONS.filter((c) => isVisited(c.code)).length;
-  $("count").textContent = visitedCount;
-  if (visitedCount === CANTONS.length) {
-    document.querySelector(".tagline").textContent = "All 26 cantons touched. Quest complete!";
-  }
-
-  // ---------- Panel ----------
-
-  function silhouette(code) {
-    // Crop the canton's own path so it fills the placeholder.
-    const box = paths[code].getBBox();
-    const pad = Math.max(box.width, box.height) * 0.06;
-    const vb = [box.x - pad, box.y - pad, box.width + 2 * pad, box.height + 2 * pad].map((n) => n.toFixed(1)).join(" ");
-    return `<svg viewBox="${vb}" aria-hidden="true"><path d="${MAP.cantons[code].d}"/></svg>`;
-  }
-
-  function renderCanton(code) {
-    const c = BY_CODE[code];
-    const e = entry(code);
-    const visited = isVisited(code);
-    const photos = photosOf(code);
-    const photo = photos[Math.min(state.photo, photos.length - 1)];
-    const pinned = state.selected === code;
-
-    let html =
-      `<div class="panel-head">` +
-      `<span class="badge${visited ? " visited" : ""}">${code}</span>` +
-      `<div><h2>${escapeHtml(c.name)}</h2><p class="sub">Capital: ${escapeHtml(c.capital)}</p></div>` +
-      `</div>`;
-
-    html += visited
-      ? `<p class="status visited">✓ Touched${e.date ? " · " + escapeHtml(formatDate(e.date)) : ""}</p>`
-      : `<p class="status">Not touched yet</p>`;
-
-    if (e.place) html += `<p class="place"><strong>Where:</strong> ${escapeHtml(e.place)}</p>`;
-
-    if (photo) {
-      html +=
-        `<figure class="media">` +
-        `<button class="media-open" type="button" data-action="open" aria-label="Open photo full size">${mediaTag(photo.src, photo.caption)}</button>` +
-        (photo.caption ? `<figcaption>${escapeHtml(photo.caption)}</figcaption>` : "") +
-        `</figure>`;
-      if (photos.length > 1) {
-        html += `<div class="thumbs">`;
-        photos.forEach((p, i) => {
-          html += `<button class="thumb" type="button" data-photo="${i}" aria-label="Photo ${i + 1}" aria-current="${i === state.photo}">${mediaTag(p.src, "", true)}</button>`;
-        });
-        html += `</div>`;
-      }
-    } else {
-      html +=
-        `<div class="placeholder${visited ? " visited" : ""}">${silhouette(code)}` +
-        `<p>${visited ? "No photo added yet." : "No photo yet. Still on the to-do list."}</p></div>`;
-    }
-
-    if (e.note) html += `<p class="note">${e.note}</p>`;
-
-    if (!pinned) {
-      html += `<p class="hint">${CAN_HOVER ? "Click to pin this canton." : ""}</p>`;
-    } else {
-      html += `<p class="hint">Pinned. ${CAN_HOVER ? "Click it again or press Esc to unpin." : "Tap it again to unpin."}</p>`;
-    }
-
-    panel.innerHTML = html;
-  }
-
-  function renderOverview() {
-    const recent = CANTONS.filter((c) => isVisited(c.code))
-      .map((c) => ({ ...c, date: entry(c.code).date || "" }))
-      .sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
-      .slice(0, 5);
-
-    let html =
-      `<h2>Pick a canton</h2>` +
-      `<p class="sub" style="margin-top:6px">${
-        CAN_HOVER
-          ? "Hover over a canton to see it, click to pin it."
-          : "Tap a canton on the map, or in the list below."
-      }</p>`;
-
-    html += `<h3>Most recent</h3>`;
-    if (recent.length) {
-      html += `<ul class="recent">`;
-      for (const c of recent) {
-        html += `<li><button type="button" data-code="${c.code}"><span>${escapeHtml(c.name)}</span><span class="date">${escapeHtml(formatDate(c.date))}</span></button></li>`;
-      }
-      html += `</ul>`;
-    } else {
-      html += `<p style="margin-top:8px">Nothing yet. The quest begins soon.</p>`;
-    }
-
-    panel.innerHTML = html;
-  }
-
-  // ---------- State ----------
-
-  let panelKey = null;
-
-  function render() {
-    const current = shown();
-    const active = new Set([state.hover, state.focus, state.selected].filter(Boolean));
-
+  const rows = {};
+  if (indexGrid) {
     for (const c of CANTONS) {
-      const on = active.has(c.code);
-      paths[c.code].classList.toggle("is-active", on);
-      if (labels[c.code]) labels[c.code].classList.toggle("is-active", on);
-      chips[c.code].classList.toggle("is-active", on);
-      chips[c.code].setAttribute("aria-pressed", String(state.selected === c.code));
+      const b = el("button", { class: "index-row", type: "button", "data-code": c.code, "aria-pressed": "false" });
+      b.innerHTML = `<span class="code">${c.code}</span><span class="name">${escapeHtml(c.name)}</span><span class="date"></span>`;
+      rows[c.code] = indexGrid.appendChild(b);
     }
+  }
 
-    hlSelected.setAttribute("d", state.selected ? MAP.cantons[state.selected].d : "");
+  // ---------- Rendering ----------
+
+  function renderMap() {
     const preview = state.hover || state.focus;
-    hlHover.setAttribute("d", preview && preview !== state.selected ? MAP.cantons[preview].d : "");
-
-    // Only re-render the panel when what it shows changes, so images don't flicker.
-    const key = current ? `${current}|${state.selected === current}|${state.photo}` : "overview";
-    if (key !== panelKey) {
-      panelKey = key;
-      current ? renderCanton(current) : renderOverview();
+    for (const c of CANTONS) {
+      const touched = isTouched(c.code);
+      const hovered = c.code === preview;
+      const selected = c.code === state.selected;
+      for (const node of [paths[c.code], labels[c.code], rows[c.code]]) {
+        if (!node) continue;
+        node.classList.toggle("touched", touched);
+        node.classList.toggle("is-hover", hovered);
+        node.classList.toggle("is-selected", selected);
+      }
+      if (rows[c.code]) rows[c.code].setAttribute("aria-pressed", String(selected));
     }
+    hlSelected.setAttribute("d", state.selected ? MAP.cantons[state.selected].d : "");
+    hlHover.setAttribute("d", preview && preview !== state.selected ? MAP.cantons[preview].d : "");
+  }
+
+  function renderReadout() {
+    const code = state.hover || state.focus || state.selected;
+    if (!code) {
+      readout.innerHTML = `<p class="readout-hint">${
+        CAN_HOVER ? "Hover over a canton to see it. Click to read its story." : "Tap a canton to read its story."
+      }</p>`;
+      return;
+    }
+    const touched = isTouched(code);
+    readout.innerHTML =
+      `<p class="readout-code${touched ? " touched" : ""}">${code}</p>` +
+      `<p class="readout-name">${escapeHtml(BY_CODE[code].name)}</p>` +
+      `<p class="readout-status">${touched ? "Touched " + escapeHtml(formatDate(meta(code).date)) : state.loaded ? "Not yet" : ""}</p>`;
+  }
+
+  function renderStory() {
+    const code = state.selected;
+    story.hidden = !code;
+    if (!code) {
+      story.innerHTML = "";
+      storyMedia = [];
+      return;
+    }
+
+    const c = BY_CODE[code];
+    const m = meta(code);
+    const touched = isTouched(code);
+
+    const facts = [["Touched", touched ? formatDate(m.date) : state.loaded ? "Not yet" : "…"]];
+    if (m.place) facts.push(["Where", m.place]);
+    facts.push(["Capital", c.capital]);
+
+    let body;
+    if (!state.loaded) {
+      body = `<p class="empty">Loading…</p>`;
+      storyMedia = [];
+    } else {
+      const rendered = renderMarkdown((entries[code] && entries[code].body) || "");
+      storyMedia = rendered.media;
+      body = rendered.html.trim()
+        ? rendered.html
+        : `<p class="empty">${touched ? "No story written yet." : "Not touched yet."}</p>`;
+    }
+
+    let nav = "";
+    if (touched) {
+      const order = chronological();
+      const i = order.findIndex((x) => x.code === code);
+      const link = (x, label) =>
+        x
+          ? `<button type="button" data-code="${x.code}"><small>${label}</small><strong>${escapeHtml(x.name)}</strong> ${escapeHtml(formatDate(meta(x.code).date))}</button>`
+          : "";
+      const prev = link(order[i - 1], "← Earlier");
+      const next = link(order[i + 1], "Later →");
+      if (prev || next) nav = `<nav class="story-nav" aria-label="More stories">${prev}${next}</nav>`;
+    }
+
+    story.innerHTML =
+      `<header class="story-meta">` +
+      `<p class="story-code${touched ? " touched" : ""}">${code}</p>` +
+      `<h2 class="story-name">${escapeHtml(c.name)}</h2>` +
+      `<dl class="facts">${facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${escapeHtml(v)}</dd></div>`).join("")}</dl>` +
+      `<a class="to-map" href="#top" data-action="to-map">↑ Map</a>` +
+      `</header>` +
+      `<div class="story-body">` +
+      (m.title ? `<h3 class="story-title">${escapeHtml(m.title)}</h3>` : "") +
+      body +
+      nav +
+      `</div>`;
+  }
+
+  function renderSummary() {
+    const n = CANTONS.filter((c) => isTouched(c.code)).length;
+    $("count").textContent = String(n).padStart(2, "0");
+    if (n === CANTONS.length) document.querySelector(".lede").textContent = "All 26 cantons touched. Quest complete.";
+    for (const c of CANTONS) {
+      if (rows[c.code]) rows[c.code].querySelector(".date").textContent = isTouched(c.code) ? formatDate(meta(c.code).date) : "—";
+    }
+  }
+
+  function update() {
+    renderMap();
+    renderReadout();
   }
 
   function setHover(code) {
     if (state.hover === code) return;
     state.hover = code;
-    if (!state.focus) state.photo = 0;
-    render();
+    update();
   }
 
-  function select(code) {
+  function revealStory() {
+    const top = story.getBoundingClientRect().top;
+    if (top < 0 || top > window.innerHeight * 0.6) story.scrollIntoView({ behavior: SMOOTH, block: "start" });
+  }
+
+  function select(code, reveal) {
     state.selected = code;
-    state.photo = 0;
-    const url = code ? "#" + code : location.pathname + location.search;
-    history.replaceState(null, "", url);
-    render();
+    history.replaceState(null, "", code ? "#" + code : location.pathname + location.search);
+    update();
+    renderStory();
+    if (code && reveal) revealStory();
   }
-
-  const toggle = (code) => select(state.selected === code ? null : code);
 
   // ---------- Events ----------
 
-  // Map: preview on mouse hover, pin on click/tap. Touch has no hover, so a tap selects.
+  // Map: preview on mouse hover, open the story on click/tap. Touch has no hover.
   svg.addEventListener("pointerover", (ev) => {
     if (ev.pointerType === "touch") return;
     const p = ev.target.closest(".canton");
@@ -294,45 +251,43 @@
   svg.addEventListener("pointerleave", () => setHover(null));
   svg.addEventListener("click", (ev) => {
     const p = ev.target.closest(".canton");
-    p ? toggle(p.dataset.code) : select(null);
+    if (p) select(p.dataset.code, true);
   });
 
-  chipsEl.addEventListener("pointerover", (ev) => {
-    if (ev.pointerType === "touch") return;
-    const b = ev.target.closest(".chip");
-    setHover(b ? b.dataset.code : null);
-  });
-  chipsEl.addEventListener("pointerleave", () => setHover(null));
-  chipsEl.addEventListener("focusin", (ev) => {
-    const b = ev.target.closest(".chip");
-    if (b && b.matches(":focus-visible")) {
-      state.focus = b.dataset.code;
-      render();
-    }
-  });
-  chipsEl.addEventListener("focusout", () => {
-    state.focus = null;
-    render();
-  });
-  chipsEl.addEventListener("click", (ev) => {
-    const b = ev.target.closest(".chip");
-    if (!b) return;
-    toggle(b.dataset.code);
-    if (state.selected && !CAN_HOVER) panel.scrollIntoView({ behavior: "smooth", block: "nearest" });
-  });
+  if (indexGrid) {
+    indexGrid.addEventListener("pointerover", (ev) => {
+      if (ev.pointerType === "touch") return;
+      const b = ev.target.closest(".index-row");
+      setHover(b ? b.dataset.code : null);
+    });
+    indexGrid.addEventListener("pointerleave", () => setHover(null));
+    indexGrid.addEventListener("focusin", (ev) => {
+      const b = ev.target.closest(".index-row");
+      if (b && b.matches(":focus-visible")) {
+        state.focus = b.dataset.code;
+        update();
+      }
+    });
+    indexGrid.addEventListener("focusout", () => {
+      state.focus = null;
+      update();
+    });
+    indexGrid.addEventListener("click", (ev) => {
+      const b = ev.target.closest(".index-row");
+      if (b) select(b.dataset.code, true);
+    });
+  }
 
-  panel.addEventListener("click", (ev) => {
-    const t = ev.target.closest("[data-code], [data-photo], [data-action]");
+  story.addEventListener("click", (ev) => {
+    const t = ev.target.closest("[data-code], [data-index], [data-action]");
     if (!t) return;
     if (t.dataset.code) {
-      select(t.dataset.code);
-    } else if (t.dataset.photo) {
-      // Pin whatever is on screen so the gallery doesn't vanish on mouse-out.
-      if (state.selected !== shown()) state.selected = shown();
-      state.photo = Number(t.dataset.photo);
-      render();
-    } else if (t.dataset.action === "open") {
-      openLightbox(shown(), state.photo);
+      select(t.dataset.code, true);
+    } else if (t.dataset.index) {
+      openLightbox(Number(t.dataset.index));
+    } else if (t.dataset.action === "to-map") {
+      ev.preventDefault();
+      $("top").scrollIntoView({ behavior: SMOOTH });
     }
   });
 
@@ -340,39 +295,60 @@
     if (ev.key === "Escape" && !lightbox.open && state.selected) select(null);
   });
 
-  function selectFromHash() {
+  window.addEventListener("hashchange", () => {
     const code = decodeURIComponent(location.hash.slice(1)).toUpperCase();
-    select(BY_CODE[code] ? code : null);
+    if (!code) select(null);
+    else if (BY_CODE[code]) select(code, true);
+  });
+
+  // ---------- Style switch (strict / soft) ----------
+
+  const styleButtons = document.querySelectorAll("[data-style-choice]");
+  function markStyle() {
+    const current = document.documentElement.getAttribute("data-style");
+    styleButtons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.styleChoice === current)));
   }
-  window.addEventListener("hashchange", selectFromHash);
+  styleButtons.forEach((b) =>
+    b.addEventListener("click", () => {
+      const s = b.dataset.styleChoice;
+      document.documentElement.setAttribute("data-style", s);
+      try {
+        localStorage.setItem("canton-style", s);
+      } catch (e) {}
+      const url = new URL(location.href);
+      url.searchParams.set("style", s);
+      history.replaceState(null, "", url);
+      markStyle();
+    })
+  );
+  markStyle();
 
   // ---------- Lightbox ----------
 
   const lightbox = $("lightbox");
-  const lb = { code: null, index: 0 };
+  let lbIndex = 0;
 
-  function showLightboxPhoto() {
-    const photos = photosOf(lb.code);
-    const p = photos[lb.index];
-    $("lb-media").innerHTML = mediaTag(p.src, p.caption);
-    const media = $("lb-media").firstElementChild;
-    if (media.tagName === "VIDEO") media.muted = false;
-    $("lb-caption").textContent = [BY_CODE[lb.code].name, p.caption].filter(Boolean).join(" · ");
-    $("lb-prev").hidden = $("lb-next").hidden = photos.length < 2;
+  function showLightboxItem() {
+    const item = storyMedia[lbIndex];
+    const src = escapeHtml(item.src);
+    $("lb-media").innerHTML = /\.(mp4|webm|mov)$/i.test(item.src)
+      ? `<video src="${src}" controls playsinline autoplay></video>`
+      : `<img src="${src}" alt="${escapeHtml(item.caption)}">`;
+    const count = storyMedia.length > 1 ? `${lbIndex + 1}/${storyMedia.length}` : "";
+    $("lb-caption").textContent = [count, item.caption].filter(Boolean).join("   ");
+    $("lb-prev").hidden = $("lb-next").hidden = storyMedia.length < 2;
   }
 
-  function openLightbox(code, index) {
-    if (!code || !photosOf(code).length) return;
-    lb.code = code;
-    lb.index = index;
-    showLightboxPhoto();
+  function openLightbox(index) {
+    if (!storyMedia[index]) return;
+    lbIndex = index;
+    showLightboxItem();
     lightbox.showModal();
   }
 
   function stepLightbox(delta) {
-    const n = photosOf(lb.code).length;
-    lb.index = (lb.index + delta + n) % n;
-    showLightboxPhoto();
+    lbIndex = (lbIndex + delta + storyMedia.length) % storyMedia.length;
+    showLightboxItem();
   }
 
   $("lb-close").addEventListener("click", () => lightbox.close());
@@ -389,5 +365,37 @@
     $("lb-media").innerHTML = ""; // stops video playback
   });
 
-  selectFromHash();
+  // ---------- Load stories ----------
+
+  async function loadEntry(code) {
+    try {
+      const res = await fetch(`entries/${code.toLowerCase()}.md`, { cache: "no-cache" });
+      if (!res.ok) throw new Error(res.status);
+      entries[code] = parseFrontMatter(await res.text());
+      return true;
+    } catch (err) {
+      entries[code] = { meta: {}, body: "" };
+      return false;
+    }
+  }
+
+  const initial = decodeURIComponent(location.hash.slice(1)).toUpperCase();
+  update();
+  if (BY_CODE[initial]) select(initial);
+
+  Promise.all(CANTONS.map((c) => loadEntry(c.code))).then((ok) => {
+    state.loaded = true;
+    if (!ok.some(Boolean)) {
+      const notice = $("notice");
+      notice.hidden = false;
+      notice.textContent =
+        location.protocol === "file:"
+          ? "Stories can't load from a file:// page. From the repository folder, run `python3 -m http.server` and open http://localhost:8000/switzerland/."
+          : "The stories couldn't be loaded. Try refreshing the page.";
+    }
+    renderSummary();
+    update();
+    renderStory();
+    if (state.selected) revealStory();
+  });
 })();
