@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3ZY845XSCQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-3ZY845XSCQ');
+  </script>
+
+  <meta charset="UTF-8">
+  <title>Every Border by Bike</title>
+  <meta name="author" content="Mateo Guaman Castro">
+  <meta name="description" content="A side quest: crossing each of Switzerland's international borders by bike.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" type="text/css" href="../shared/base.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+  <div class="page" id="top">
+    <nav class="topbar">
+      <p class="crumbs"><a href="../../index.html">Mateo Guaman Castro</a> <span>/</span> <a href="../">Side quests</a></p>
+    </nav>
+
+    <header class="masthead">
+      <h1>Every border by bike</h1>
+      <p class="lede">A side quest: cycling across each of Switzerland's international borders, into France, Germany, Italy, Austria and Liechtenstein.</p>
+    </header>
+
+    <section class="atlas">
+      <div class="map-col">
+        <svg id="map" role="img" aria-label="Map of Switzerland and its neighbours with the rides so far. Neighbours already crossed into are striped red."></svg>
+      </div>
+      <aside class="side">
+        <p class="count"><span id="count">0</span><span class="count-total">/5</span></p>
+        <p class="count-label">borders crossed</p>
+        <div class="readout" id="readout" aria-live="polite"></div>
+        <ul class="countries" id="countries" aria-label="Borders"></ul>
+        <p class="legend">
+          <span class="swatch swatch-crossed"></span>Crossed
+          <span class="swatch swatch-todo"></span>Not yet
+          <span class="line-key"></span>Ride
+        </p>
+      </aside>
+    </section>
+
+    <p class="notice" id="notice" hidden></p>
+
+    <article class="story" id="story" hidden></article>
+
+    <section class="index">
+      <h2 class="section-label">Rides</h2>
+      <div class="rides" id="rides"></div>
+    </section>
+
+    <footer class="credits">
+      Swiss boundaries and lakes: Bundesamt für Statistik (BFS), GEOSTAT, via
+      <a href="https://github.com/interactivethings/swiss-maps">swiss-maps</a>.
+      Neighbouring countries: <a href="https://www.naturalearthdata.com/">Natural Earth</a>.
+    </footer>
+  </div>
+
+  <script src="map-data.js"></script>
+  <script src="rides.js"></script>
+  <script src="../shared/markdown.js"></script>
+  <script src="../shared/common.js"></script>
+  <script src="../shared/lightbox.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

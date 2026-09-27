@@ -1,0 +1,332 @@
+/* Borders map: neighbours already crossed into are striped red (like touched
+   cantons); rides are thin black lines that turn red on hover. Shared styles are
+   in ../shared/base.css. Line widths are scaled with the map in app.js. */
+
+:root {
+  --neighbour: #ececec;
+}
+
+/* ---------- Map ---------- */
+
+.land {
+  fill: var(--neighbour);
+}
+
+.country {
+  fill: var(--neighbour);
+  stroke: #fff;
+  stroke-width: var(--country-stroke-w, 1px);
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.country.crossed {
+  fill: url(#stripes);
+}
+
+.country.crossed.is-hover {
+  fill: var(--red);
+}
+
+.switzerland {
+  fill: #fff;
+}
+
+.canton-lines {
+  fill: none;
+  stroke: #d2d2d2;
+  stroke-width: var(--canton-line-w, 0.5px);
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
+.ride-line {
+  fill: none;
+  stroke: #000;
+  stroke-width: var(--ride-w, 1.4px);
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
+/* A wide invisible stroke so thin ride lines are easy to hover and tap. */
+.ride-hit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: var(--ride-hit-w, 14px);
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: stroke;
+  cursor: pointer;
+}
+
+.ride.is-hover .ride-line,
+.ride.is-selected .ride-line {
+  stroke: var(--red);
+  stroke-width: var(--ride-hover-w, 2.6px);
+}
+
+.crossing {
+  fill: #000;
+  stroke: #fff;
+  stroke-width: var(--crossing-ring-w, 2px);
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
+.ride.is-hover .crossing,
+.ride.is-selected .crossing {
+  fill: var(--red);
+}
+
+/* ---------- Side column ---------- */
+
+.countries {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  font-size: 14px;
+}
+
+.countries li {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 8px;
+  padding: 6px 0;
+  border-top: 1px solid var(--rule);
+}
+
+.countries li:last-child {
+  border-bottom: 1px solid var(--rule);
+}
+
+.countries .status {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.countries li.crossed .name {
+  font-weight: 700;
+}
+
+.countries li.crossed .status {
+  color: var(--red);
+}
+
+.countries li.crossed {
+  cursor: default;
+}
+
+.countries li.is-hover .name {
+  color: var(--red);
+}
+
+.swatch-crossed {
+  background: var(--stripes);
+}
+
+.swatch-todo {
+  background: var(--neighbour);
+  border-color: var(--neighbour);
+  margin-left: 14px;
+}
+
+.line-key {
+  display: inline-block;
+  width: 16px;
+  height: 0;
+  margin-left: 14px;
+  border-top: 2px solid #000;
+}
+
+@media (max-width: 799px) {
+  .countries {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- Ride story: route map and elevation profile ---------- */
+
+.route-figure {
+  margin: 0 0 12px;
+}
+
+.route-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 60vh;
+  border: 1px solid var(--rule-light);
+}
+
+.route-map .ride-line {
+  stroke: var(--red);
+  stroke-width: 2px;
+}
+
+.route-map .country.crossed {
+  fill: var(--neighbour);
+}
+
+.route-dot {
+  fill: var(--red);
+  stroke: #fff;
+  stroke-width: 2px;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
+.profile {
+  position: relative;
+  margin: 0 0 32px;
+}
+
+.profile-label {
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.profile svg {
+  display: block;
+  width: 100%;
+  height: 150px;
+  overflow: visible;
+  touch-action: pan-y;
+}
+
+.profile .area {
+  fill: var(--red);
+  fill-opacity: 0.1;
+}
+
+.profile .line {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 2px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.profile .grid {
+  stroke: #e3e3e3;
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.profile .axis {
+  stroke: #000;
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.profile .crosshair {
+  stroke: #000;
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.profile .tick,
+.profile .peak-label {
+  font-family: var(--font);
+  font-size: 11px;
+  fill: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.profile .peak-label {
+  fill: var(--ink);
+  font-weight: 700;
+}
+
+.profile .peak {
+  fill: var(--red);
+  stroke: #fff;
+  stroke-width: 2px;
+  vector-effect: non-scaling-stroke;
+}
+
+.profile-tip {
+  position: absolute;
+  top: 18px;
+  padding: 4px 8px;
+  background: #fff;
+  border: 1px solid #000;
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+.profile-tip strong {
+  font-size: 13px;
+}
+
+/* ---------- Ride list ---------- */
+
+.rides-empty {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.ride-row {
+  display: grid;
+  grid-template-columns: 6.5em minmax(0, 1fr) auto auto;
+  align-items: baseline;
+  gap: 16px;
+  width: 100%;
+  padding: 8px 6px;
+  border: 0;
+  border-top: 1px solid var(--rule-light);
+  background: none;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.ride-row:last-child {
+  border-bottom: 1px solid var(--rule-light);
+}
+
+.ride-row .date,
+.ride-row .km {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.ride-row .codes {
+  font-weight: 700;
+  color: var(--red);
+}
+
+.ride-row .title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ride-row:hover .title,
+.ride-row.is-hover .title {
+  color: var(--red);
+}
+
+.ride-row[aria-pressed="true"] {
+  font-weight: 700;
+  box-shadow: inset 3px 0 0 var(--red);
+}
+
+@media (max-width: 520px) {
+  .ride-row {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 2px 12px;
+  }
+
+  .ride-row .title {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+}
