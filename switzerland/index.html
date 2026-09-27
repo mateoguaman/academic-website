@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3ZY845XSCQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-3ZY845XSCQ');
+  </script>
+
+  <meta charset="UTF-8">
+  <title>Touching All 26 Cantons</title>
+  <meta name="author" content="Mateo Guaman Castro">
+  <meta name="description" content="A side quest: touching every one of Switzerland's 26 cantons.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" type="text/css" href="../stylesheet.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+  <main class="page">
+    <header class="intro">
+      <a class="back" href="../index.html">&larr; Mateo Guaman Castro</a>
+      <h1>Touching all 26 cantons</h1>
+      <p class="tagline">A side quest: set foot in, and lay a hand on, every one of Switzerland's 26 cantons.</p>
+      <div class="progress">
+        <p class="progress-count"><strong id="count">0</strong> of 26 touched</p>
+        <div class="progress-bar" id="progress-bar" aria-hidden="true"></div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <section class="map-wrap">
+        <svg id="map" role="img" aria-label="Map of Switzerland's 26 cantons. Touched cantons are shown in red."></svg>
+        <p class="legend">
+          <span class="swatch swatch-visited"></span> Touched
+          <span class="swatch swatch-todo"></span> Not yet
+        </p>
+      </section>
+
+      <aside class="panel" id="panel" aria-live="polite"></aside>
+    </div>
+
+    <section class="list-wrap">
+      <h2>All cantons</h2>
+      <div class="chips" id="chips"></div>
+    </section>
+
+    <footer class="credits">
+      Canton boundaries: Bundesamt für Statistik (BFS), GEOSTAT, via
+      <a href="https://github.com/interactivethings/swiss-maps">swiss-maps</a>.
+    </footer>
+  </main>
+
+  <dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
+    <button class="lb-btn lb-close" id="lb-close" aria-label="Close">&times;</button>
+    <button class="lb-btn lb-prev" id="lb-prev" aria-label="Previous photo">&lsaquo;</button>
+    <div class="lb-media" id="lb-media"></div>
+    <button class="lb-btn lb-next" id="lb-next" aria-label="Next photo">&rsaquo;</button>
+    <p class="lb-caption" id="lb-caption"></p>
+  </dialog>
+
+  <script src="map-data.js"></script>
+  <script src="cantons.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
