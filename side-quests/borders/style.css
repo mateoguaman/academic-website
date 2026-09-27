@@ -1,6 +1,6 @@
-/* Borders map: neighbours already crossed into are striped red (like touched
-   cantons); rides are thin black lines that turn red on hover. Shared styles are
-   in ../shared/base.css. Line widths are scaled with the map in app.js. */
+/* Borders map: red is what's been done. Rides are red lines, and each stretch of
+   the Swiss border turns thick red once crossed. Shared styles are in
+   ../shared/base.css. Line widths are scaled with the map in app.js. */
 
 :root {
   --neighbour: #ececec;
@@ -14,18 +14,25 @@
 
 .country {
   fill: var(--neighbour);
-  stroke: #fff;
-  stroke-width: var(--country-stroke-w, 1px);
+}
+
+.country.is-hover {
+  fill: #dcdcdc;
+}
+
+/* Borders between neighbouring countries. */
+.neighbour-lines {
+  fill: none;
+  stroke: #8c8c8c;
+  stroke-width: var(--neighbour-line-w, 0.9px);
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
+  pointer-events: none;
 }
 
-.country.crossed {
-  fill: url(#stripes);
-}
-
-.country.crossed.is-hover {
-  fill: var(--red);
+.border.crossed {
+  stroke: var(--red);
+  stroke-width: var(--border-crossed-w, 3.5px);
 }
 
 .switzerland {
@@ -43,8 +50,8 @@
 
 .ride-line {
   fill: none;
-  stroke: #000;
-  stroke-width: var(--ride-w, 1.4px);
+  stroke: var(--red);
+  stroke-width: var(--ride-w, 1.6px);
   stroke-linejoin: round;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
@@ -64,21 +71,19 @@
 
 .ride.is-hover .ride-line,
 .ride.is-selected .ride-line {
-  stroke: var(--red);
-  stroke-width: var(--ride-hover-w, 2.6px);
+  stroke-width: var(--ride-hover-w, 3px);
+}
+
+.rides.has-hover .ride:not(.is-hover) {
+  opacity: 0.3;
 }
 
 .crossing {
-  fill: #000;
+  fill: var(--red);
   stroke: #fff;
   stroke-width: var(--crossing-ring-w, 2px);
   vector-effect: non-scaling-stroke;
   pointer-events: none;
-}
-
-.ride.is-hover .crossing,
-.ride.is-selected .crossing {
-  fill: var(--red);
 }
 
 /* ---------- Side column ---------- */
@@ -123,22 +128,19 @@
   color: var(--red);
 }
 
-.swatch-crossed {
-  background: var(--stripes);
-}
-
-.swatch-todo {
-  background: var(--neighbour);
-  border-color: var(--neighbour);
-  margin-left: 14px;
-}
-
 .line-key {
   display: inline-block;
-  width: 16px;
+  width: 18px;
   height: 0;
+  border-top: 2px solid var(--red);
+}
+
+.line-key.crossed {
+  border-top-width: 4px;
+}
+
+.legend .line-key:not(:first-child) {
   margin-left: 14px;
-  border-top: 2px solid #000;
 }
 
 @media (max-width: 799px) {
@@ -148,6 +150,11 @@
 }
 
 /* ---------- Ride story: route map and elevation profile ---------- */
+
+/* Ride titles run longer than canton names. */
+.story-name {
+  font-size: clamp(32px, 4.2vw, 50px);
+}
 
 .route-figure {
   margin: 0 0 12px;
@@ -164,10 +171,6 @@
 .route-map .ride-line {
   stroke: var(--red);
   stroke-width: 2px;
-}
-
-.route-map .country.crossed {
-  fill: var(--neighbour);
 }
 
 .route-dot {

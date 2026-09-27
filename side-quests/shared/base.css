@@ -299,7 +299,10 @@ h1 {
   font-weight: 700;
   line-height: 0.95;
   letter-spacing: -0.035em;
-  overflow-wrap: anywhere;
+  /* Long words hyphenate rather than break at an arbitrary letter. */
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  overflow-wrap: break-word;
 }
 
 .facts {

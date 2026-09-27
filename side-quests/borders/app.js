@@ -78,20 +78,20 @@
   const viewBox = [box[0] - PAD, box[1] - PAD, box[2] - box[0] + 2 * PAD, box[3] - box[1] + 2 * PAD];
   svg.setAttribute("viewBox", viewBox.join(" "));
 
-  const stripes = window.SideQuest.stripePattern("stripes");
-  const defs = el("defs", {}, SVG_NS);
-  defs.appendChild(stripes.pattern);
-
   const countryPaths = {};
   const countryGroup = el("g", {}, SVG_NS);
   for (const c of COUNTRIES) {
     countryPaths[c.code] = countryGroup.appendChild(el("path", { d: MAP.countries[c.code], class: "country", "data-code": c.code }, SVG_NS));
   }
 
-  // The Swiss outline is drawn from the five border stretches.
-  const outline = Object.values(MAP.borders).join("");
+  // The Swiss outline is drawn as its five border stretches, which turn red once crossed.
+  const borderPaths = {};
+  const borderGroup = el("g", {}, SVG_NS);
+  for (const c of COUNTRIES) {
+    borderPaths[c.code] = borderGroup.appendChild(el("path", { d: MAP.borders[c.code], class: "outline border", "data-code": c.code }, SVG_NS));
+  }
 
-  const rideGroup = el("g", {}, SVG_NS);
+  const rideGroup = el("g", { class: "rides" }, SVG_NS);
   const rideEls = {};
   const crossingDots = [];
   for (const r of RIDES) {
@@ -105,24 +105,24 @@
   // borders don't quite meet read as neighbouring land rather than white gaps.
   const [vx, vy, vw, vh] = viewBox;
   svg.append(
-    defs,
     el("rect", { x: vx, y: vy, width: vw, height: vh, class: "land" }, SVG_NS),
     countryGroup,
+    el("path", { d: MAP.neighbourLines, class: "neighbour-lines" }, SVG_NS),
     el("path", { d: MAP.switzerland, class: "switzerland" }, SVG_NS),
     el("path", { d: MAP.cantonLines, class: "canton-lines" }, SVG_NS),
     el("path", { d: MAP.lakes, class: "lakes" }, SVG_NS),
-    el("path", { d: outline, class: "outline" }, SVG_NS),
+    borderGroup,
     rideGroup
   );
 
   window.SideQuest.watchMapScale(svg, (px, unitsPerPx) => {
-    svg.style.setProperty("--country-stroke-w", px(1, 0.5) + "px");
+    svg.style.setProperty("--neighbour-line-w", px(0.9, 0.5) + "px");
     svg.style.setProperty("--canton-line-w", px(0.5, 0.5) + "px");
     svg.style.setProperty("--outline-w", px(1.4, 1) + "px");
-    svg.style.setProperty("--ride-w", px(1.4, 1) + "px");
-    svg.style.setProperty("--ride-hover-w", px(2.6, 1.5) + "px");
+    svg.style.setProperty("--border-crossed-w", px(3.5, 2) + "px");
+    svg.style.setProperty("--ride-w", px(1.6, 1) + "px");
+    svg.style.setProperty("--ride-hover-w", px(3, 1.5) + "px");
     svg.style.setProperty("--crossing-ring-w", px(1.5, 1) + "px");
-    stripes.setSpacing(px(5, 4) * unitsPerPx);
     const r = px(3.5, 3) * unitsPerPx;
     for (const dot of crossingDots) dot.setAttribute("r", r);
   });
@@ -167,6 +167,8 @@
       const hovered = preview && preview.country === c.code;
       countryPaths[c.code].classList.toggle("crossed", crossed);
       countryPaths[c.code].classList.toggle("is-hover", !!hovered);
+      borderPaths[c.code].classList.toggle("crossed", crossed);
+      borderPaths[c.code].classList.toggle("is-hover", !!hovered);
       countryRows[c.code].classList.toggle("crossed", crossed);
       countryRows[c.code].classList.toggle("is-hover", !!hovered);
     }
@@ -180,6 +182,8 @@
         rideRows[r.id].setAttribute("aria-pressed", String(selected));
       }
     }
+    // Fade the other rides while one is hovered.
+    rideGroup.classList.toggle("has-hover", !!(preview && preview.ride));
     // Draw the open ride, then the hovered one, on top of the others.
     if (state.selected) rideGroup.appendChild(rideEls[state.selected]);
     if (preview && preview.ride) rideGroup.appendChild(rideEls[preview.ride]);
@@ -192,7 +196,7 @@
         !RIDES.length
           ? "No rides yet."
           : CAN_HOVER
-            ? "Hover over a ride or a striped country. Click a ride to read about it."
+            ? "Hover over a ride, or a country you've crossed into. Click a ride to read about it."
             : "Tap a ride to read about it."
       }</p>`;
       return;
@@ -263,7 +267,8 @@
       `<figure class="route-figure">` +
       `<svg class="route-map" viewBox="${vb}" role="img" aria-label="Route of this ride">` +
       `<rect class="land" x="${cx - w}" y="${cy - h}" width="${2 * w}" height="${2 * h}"/>` +
-      `${countries}<path class="switzerland" d="${D.switzerland}"/><path class="canton-lines" d="${MAP.cantonLines}"/>` +
+      `${countries}<path class="neighbour-lines" d="${MAP.neighbourLines}"/>` +
+      `<path class="switzerland" d="${D.switzerland}"/><path class="canton-lines" d="${MAP.cantonLines}"/>` +
       `<path class="lakes" d="${D.lakes}"/><path class="outline" d="${D.outline}"/>` +
       `<path class="ride-line" d="${r.path}"/>${dots}<circle class="route-dot" r="1" hidden/>` +
       `</svg></figure>`
@@ -456,7 +461,7 @@
   svg.addEventListener("click", (ev) => {
     const t = mapTarget(ev);
     if (!t) return;
-    // A striped country opens the first ride that crossed into it.
+    // A crossed country opens the first ride that crossed into it.
     select(t.ride || ridesByCountry()[t.country][0], true);
   });
 
