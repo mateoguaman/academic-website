@@ -94,7 +94,7 @@
     }
   }
 
-  // Red stripes for the "stripes" look. The tile is resized so the stripes keep
+  // Red stripes for touched cantons. The tile is resized so the stripes keep
   // the same on-screen width however big the map is drawn.
   const defs = el("defs", {}, SVG_NS);
   defs.innerHTML =
@@ -318,27 +318,28 @@
     else if (BY_CODE[code]) select(code, true);
   });
 
-  // ---------- Touched-look switch (temporary, for comparing options) ----------
+  // ---------- Lake colour switch (temporary, for comparing options) ----------
 
-  const touchedButtons = document.querySelectorAll("[data-touched-choice]");
-  function markTouchedChoice() {
-    const current = document.documentElement.getAttribute("data-touched") || "pale";
-    touchedButtons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.touchedChoice === current)));
+  const lakeButtons = document.querySelectorAll("[data-lake-choice]");
+  function markLakeChoice() {
+    const current = document.documentElement.getAttribute("data-lake") || "blue";
+    lakeButtons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lakeChoice === current)));
   }
-  touchedButtons.forEach((b) =>
+  lakeButtons.forEach((b) =>
     b.addEventListener("click", () => {
-      const choice = b.dataset.touchedChoice;
-      document.documentElement.setAttribute("data-touched", choice);
+      const choice = b.dataset.lakeChoice;
+      document.documentElement.setAttribute("data-lake", choice);
       try {
-        localStorage.setItem("canton-touched", choice);
+        localStorage.setItem("canton-lake", choice);
       } catch (e) {}
       const url = new URL(location.href);
-      url.searchParams.set("touched", choice);
+      url.searchParams.delete("touched");
+      url.searchParams.set("lake", choice);
       history.replaceState(null, "", url);
-      markTouchedChoice();
+      markLakeChoice();
     })
   );
-  markTouchedChoice();
+  markLakeChoice();
 
   // ---------- Lightbox ----------
 

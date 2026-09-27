@@ -18,11 +18,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <script>
-    // Resting look of touched cantons, before first paint: ?touched=<choice>, else the last choice.
+    // Lake colour before first paint: ?lake=<choice>, else the last choice.
     (function () {
-      var t = new URLSearchParams(location.search).get("touched");
-      try { t = t || localStorage.getItem("canton-touched"); } catch (e) {}
-      if (/^(blush|pale|rose|stripes|grey|yellow)$/.test(t)) document.documentElement.setAttribute("data-touched", t);
+      var l = new URLSearchParams(location.search).get("lake");
+      try { l = l || localStorage.getItem("canton-lake"); } catch (e) {}
+      if (/^(blue|shore|pale|glacier)$/.test(l)) document.documentElement.setAttribute("data-lake", l);
     })();
   </script>
   <link rel="stylesheet" type="text/css" href="style.css">
@@ -32,14 +32,12 @@
   <div class="page" id="top">
     <nav class="topbar">
       <a href="../index.html">Mateo Guaman Castro</a>
-      <div class="choice-switch" role="group" aria-label="Touched canton colour">
-        <span>Touched</span>
-        <button type="button" data-touched-choice="blush"><span class="sw"></span>Blush</button>
-        <button type="button" data-touched-choice="pale"><span class="sw"></span>Pale</button>
-        <button type="button" data-touched-choice="rose"><span class="sw"></span>Rose</button>
-        <button type="button" data-touched-choice="stripes"><span class="sw"></span>Stripes</button>
-        <button type="button" data-touched-choice="grey"><span class="sw"></span>Grey</button>
-        <button type="button" data-touched-choice="yellow"><span class="sw"></span>Yellow</button>
+      <div class="choice-switch" role="group" aria-label="Lake colour">
+        <span>Lakes</span>
+        <button type="button" data-lake-choice="blue"><span class="sw"></span>Blue</button>
+        <button type="button" data-lake-choice="shore"><span class="sw"></span>Blue + shore</button>
+        <button type="button" data-lake-choice="pale"><span class="sw"></span>Pale</button>
+        <button type="button" data-lake-choice="glacier"><span class="sw"></span>Glacier</button>
       </div>
     </nav>
 

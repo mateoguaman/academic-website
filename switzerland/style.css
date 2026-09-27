@@ -1,15 +1,9 @@
-/* Swiss style: red, black and white on a strict grid. Touched cantons rest in a
-   lighter treatment and turn full red on hover or when open; untouched ones stay
-   white and inert. The resting treatment is picked by data-touched on <html>. */
+/* Swiss style: red, black and white on a strict grid. Touched cantons are striped
+   red and turn solid red on hover or when open; untouched ones stay white and inert. */
 
 :root {
   --red: #da291c;
-  --t-blush: #fbe1de;
-  --t-pale: #f6c7c3;
-  --t-rose: #ee9f99;
-  --t-grey: #d4d4d4;
-  --t-yellow: #ffcc00;
-  --t-stripes: repeating-linear-gradient(-45deg, var(--red) 0 2px, #fff 2px 5px);
+  --stripes: repeating-linear-gradient(-45deg, var(--red) 0 2px, #fff 2px 5px);
   --ink: #000;
   --bg: #fff;
   --muted: #666;
@@ -19,34 +13,25 @@
   --canton-stroke: #000;
   --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-  /* The resting look of touched cantons: a map fill and a CSS swatch for the legend. */
-  --touched-fill: var(--t-pale);
-  --touched-swatch: var(--t-pale);
+  /* Lakes. Options to compare are picked by data-lake on <html>. */
+  --lake-blue: #a9d3f0;
+  --lake-pale: #d6ebf8;
+  --lake-glacier: #c4e3e6;
+  --lake-fill: var(--lake-blue);
+  --lake-stroke: none;
 }
 
-[data-touched="blush"] {
-  --touched-fill: var(--t-blush);
-  --touched-swatch: var(--t-blush);
+[data-lake="shore"] {
+  --lake-fill: #b7dcf3;
+  --lake-stroke: #5a9fd4;
 }
 
-[data-touched="rose"] {
-  --touched-fill: var(--t-rose);
-  --touched-swatch: var(--t-rose);
+[data-lake="pale"] {
+  --lake-fill: var(--lake-pale);
 }
 
-[data-touched="stripes"] {
-  --touched-fill: url(#stripes);
-  --touched-swatch: var(--t-stripes);
-}
-
-[data-touched="grey"] {
-  --touched-fill: var(--t-grey);
-  --touched-swatch: var(--t-grey);
-}
-
-[data-touched="yellow"] {
-  --touched-fill: var(--t-yellow);
-  --touched-swatch: var(--t-yellow);
+[data-lake="glacier"] {
+  --lake-fill: var(--lake-glacier);
 }
 
 * {
@@ -118,7 +103,7 @@ button {
   white-space: nowrap;
 }
 
-/* Temporary switch for comparing the touched-canton look. */
+/* Temporary switch for comparing options. */
 .choice-switch {
   display: flex;
   flex-wrap: wrap;
@@ -151,12 +136,11 @@ button {
   border: 1px solid #000;
 }
 
-[data-touched-choice="blush"] .sw { background: var(--t-blush); }
-[data-touched-choice="pale"] .sw { background: var(--t-pale); }
-[data-touched-choice="rose"] .sw { background: var(--t-rose); }
-[data-touched-choice="stripes"] .sw { background: var(--t-stripes); }
-[data-touched-choice="grey"] .sw { background: var(--t-grey); }
-[data-touched-choice="yellow"] .sw { background: var(--t-yellow); }
+[data-lake-choice="blue"] .sw { background: var(--lake-blue); border-color: var(--lake-blue); }
+[data-lake-choice="shore"] .sw { background: #b7dcf3; border-color: #5a9fd4; }
+[data-lake-choice="pale"] .sw { background: var(--lake-pale); border-color: var(--lake-pale); }
+[data-lake-choice="glacier"] .sw { background: var(--lake-glacier); border-color: var(--lake-glacier); }
+
 
 /* ---------- Masthead ---------- */
 
@@ -212,7 +196,7 @@ h1 {
 }
 
 .canton.touched {
-  fill: var(--touched-fill);
+  fill: url(#stripes);
   cursor: pointer;
 }
 
@@ -222,9 +206,9 @@ h1 {
 }
 
 .lakes {
-  fill: #fff;
-  stroke: #000;
-  stroke-width: 0.5;
+  fill: var(--lake-fill);
+  stroke: var(--lake-stroke);
+  stroke-width: 0.6;
   vector-effect: non-scaling-stroke;
   pointer-events: none;
 }
@@ -255,7 +239,7 @@ h1 {
 }
 
 /* Keep labels readable on top of the stripes. */
-[data-touched="stripes"] .label.touched:not(.is-hover):not(.is-selected) {
+.label.touched:not(.is-hover):not(.is-selected) {
   paint-order: stroke;
   stroke: #fff;
   stroke-width: 4px;
@@ -335,7 +319,7 @@ h1 {
 }
 
 .swatch-touched {
-  background: var(--touched-swatch);
+  background: var(--stripes);
 }
 
 .swatch-todo {
