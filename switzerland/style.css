@@ -1,47 +1,18 @@
-/* Two looks share one grid and type scale; they differ only in colour and rules.
-   Strict: red, black and white. Soft: the same with greys and blue lakes. */
+/* Swiss style: red, black and white on a strict grid. Hover and selection on the
+   map come in three treatments to compare, set by data-highlight on <html>. */
 
 :root {
   --red: #da291c;
+  --red-tint: #f7cfcc;
+  --red-deep: #a81f15;
   --ink: #000;
   --bg: #fff;
   --muted: #666;
-  --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
-}
-
-[data-style="strict"] {
   --rule: #000;
   --rule-light: #000;
   --canton: #fff;
   --canton-stroke: #000;
-  --canton-stroke-w: 0.6;
-  --canton-hover: #000;
-  --touched-hover: #000;
-  --lake: #fff;
-  --lake-stroke: #000;
-  --outline: #000;
-  --outline-w: 1.4;
-  --label: #000;
-  --row-hover-bg: #000;
-  --row-hover-ink: #fff;
-}
-
-[data-style="soft"] {
-  --ink: #1a1a1a;
-  --rule: #1a1a1a;
-  --rule-light: #dcdcdc;
-  --canton: #e6e6e6;
-  --canton-stroke: #fff;
-  --canton-stroke-w: 1;
-  --canton-hover: #cbcbcb;
-  --touched-hover: #a51e14;
-  --lake: #b8dcf2;
-  --lake-stroke: none;
-  --outline: #6a6a6a;
-  --outline-w: 1.2;
-  --label: #555;
-  --row-hover-bg: #f1f1f1;
-  --row-hover-ink: var(--ink);
+  --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 * {
@@ -98,6 +69,7 @@ button {
 
 .topbar {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
   gap: 16px;
@@ -109,6 +81,7 @@ button {
 .topbar a {
   text-decoration: none;
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .style-switch {
@@ -181,7 +154,7 @@ h1 {
 .canton {
   fill: var(--canton);
   stroke: var(--canton-stroke);
-  stroke-width: var(--canton-stroke-w);
+  stroke-width: 0.6;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
   cursor: pointer;
@@ -191,19 +164,9 @@ h1 {
   fill: var(--red);
 }
 
-.canton.is-hover,
-.canton.is-selected {
-  fill: var(--canton-hover);
-}
-
-.canton.touched.is-hover,
-.canton.touched.is-selected {
-  fill: var(--touched-hover);
-}
-
 .lakes {
-  fill: var(--lake);
-  stroke: var(--lake-stroke);
+  fill: #fff;
+  stroke: #000;
   stroke-width: 0.5;
   vector-effect: non-scaling-stroke;
   pointer-events: none;
@@ -211,14 +174,14 @@ h1 {
 
 .outline {
   fill: none;
-  stroke: var(--outline);
-  stroke-width: var(--outline-w);
+  stroke: #000;
+  stroke-width: 1.4;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
   pointer-events: none;
 }
 
-/* Soft marks the selection with an outline; strict fills it black instead. */
+/* Outlines drawn above everything for the hovered and selected canton. */
 .highlight {
   fill: none;
   stroke: #000;
@@ -235,33 +198,75 @@ h1 {
   stroke-width: 1.5;
 }
 
-[data-style="strict"] .highlight {
-  display: none;
-}
-
 .label {
   font-family: var(--font);
   font-size: calc(var(--fs) * 1px);
   font-weight: 500;
-  fill: var(--label);
+  fill: #000;
   text-anchor: middle;
   dominant-baseline: central;
   pointer-events: none;
 }
 
-.label.touched,
-[data-style="strict"] .label.is-hover,
-[data-style="strict"] .label.is-selected {
+.label.touched {
   fill: #fff;
 }
 
-[data-style="soft"] .label.is-selected {
+.label.is-hover,
+.label.is-selected {
   font-weight: 700;
 }
 
-[data-style="soft"] .label.is-hover:not(.touched),
-[data-style="soft"] .label.is-selected:not(.touched) {
-  fill: #000;
+/* Tint: a pale red for untouched cantons, a deeper red for touched ones. */
+[data-highlight="tint"] .canton.is-hover,
+[data-highlight="tint"] .canton.is-selected {
+  fill: var(--red-tint);
+}
+
+[data-highlight="tint"] .canton.touched.is-hover,
+[data-highlight="tint"] .canton.touched.is-selected {
+  fill: var(--red-deep);
+}
+
+[data-highlight="tint"] .highlight-hover {
+  display: none;
+}
+
+/* Outline: colours stay put; only a heavier black border. */
+[data-highlight="outline"] .highlight-hover {
+  stroke-width: 2;
+}
+
+[data-highlight="outline"] .highlight-selected {
+  stroke-width: 3;
+}
+
+/* Hatch: red stripes on white; deep-red stripes on touched cantons so they stay red. */
+[data-highlight="hatch"] .canton.is-hover,
+[data-highlight="hatch"] .canton.is-selected {
+  fill: url(#hatch);
+}
+
+[data-highlight="hatch"] .canton.touched.is-hover,
+[data-highlight="hatch"] .canton.touched.is-selected {
+  fill: url(#hatch-touched);
+}
+
+[data-highlight="hatch"] .highlight-hover {
+  display: none;
+}
+
+[data-highlight="hatch"] .label.is-hover,
+[data-highlight="hatch"] .label.is-selected {
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+[data-highlight="hatch"] .label.touched.is-hover,
+[data-highlight="hatch"] .label.touched.is-selected {
+  stroke: var(--red);
 }
 
 .count {
@@ -344,10 +349,6 @@ h1 {
 .swatch-todo {
   background: var(--canton);
   margin-left: 14px;
-}
-
-[data-style="soft"] .swatch-todo {
-  border-color: var(--canton);
 }
 
 @media (max-width: 799px) {
@@ -678,23 +679,13 @@ h1 {
   font-variant-numeric: tabular-nums;
 }
 
-.index-row:hover,
-.index-row.is-hover,
+.index-row:hover .name,
+.index-row.is-hover .name {
+  color: var(--red);
+}
+
 .index-row[aria-pressed="true"] {
-  background: var(--row-hover-bg);
-  color: var(--row-hover-ink);
-}
-
-.index-row:hover .code,
-.index-row:hover .date,
-.index-row.is-hover .code,
-.index-row.is-hover .date,
-.index-row[aria-pressed="true"] .code,
-.index-row[aria-pressed="true"] .date {
-  color: inherit;
-}
-
-[data-style="soft"] .index-row[aria-pressed="true"] {
+  font-weight: 700;
   box-shadow: inset 3px 0 0 var(--red);
 }
 

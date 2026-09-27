@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" data-style="strict">
+<html lang="en" data-highlight="tint">
 <head>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-3ZY845XSCQ"></script>
@@ -18,11 +18,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <script>
-    // Pick the design style before first paint: ?style=soft|strict, else the last choice.
+    // Pick the map highlight before first paint: ?highlight=tint|outline|hatch, else the last choice.
     (function () {
-      var s = new URLSearchParams(location.search).get("style");
-      try { s = s || localStorage.getItem("canton-style"); } catch (e) {}
-      document.documentElement.setAttribute("data-style", s === "soft" ? "soft" : "strict");
+      var h = new URLSearchParams(location.search).get("highlight");
+      try { h = h || localStorage.getItem("canton-highlight"); } catch (e) {}
+      document.documentElement.setAttribute("data-highlight", /^(tint|outline|hatch)$/.test(h) ? h : "tint");
     })();
   </script>
   <link rel="stylesheet" type="text/css" href="style.css">
@@ -32,10 +32,11 @@
   <div class="page" id="top">
     <nav class="topbar">
       <a href="../index.html">Mateo Guaman Castro</a>
-      <div class="style-switch" role="group" aria-label="Design style">
-        <span>Style</span>
-        <button type="button" data-style-choice="strict">Strict</button>
-        <button type="button" data-style-choice="soft">Soft</button>
+      <div class="style-switch" role="group" aria-label="Map highlight style">
+        <span>Highlight</span>
+        <button type="button" data-highlight-choice="tint">Tint</button>
+        <button type="button" data-highlight-choice="outline">Outline</button>
+        <button type="button" data-highlight-choice="hatch">Hatch</button>
       </div>
     </nav>
 

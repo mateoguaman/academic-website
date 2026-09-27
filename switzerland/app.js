@@ -94,9 +94,27 @@
     }
   }
 
+  // Stripe patterns for the "hatch" highlight. The tile is resized to keep a
+  // constant on-screen stripe width however big the map is drawn.
+  const defs = el("defs", {}, SVG_NS);
+  defs.innerHTML =
+    `<pattern id="hatch" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="100%" height="100%" fill="#fff"/><rect class="stripe" height="100%" fill="#da291c"/></pattern>` +
+    `<pattern id="hatch-touched" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="100%" height="100%" fill="#da291c"/><rect class="stripe" height="100%" fill="#a81f15"/></pattern>`;
+  function sizeHatch() {
+    const unitsPerPx = MAP.width / (svg.clientWidth || MAP.width);
+    const tile = 6 * unitsPerPx; // 6px stripe period
+    defs.querySelectorAll("pattern").forEach((p) => {
+      p.setAttribute("width", tile);
+      p.setAttribute("height", tile);
+    });
+    defs.querySelectorAll(".stripe").forEach((r) => r.setAttribute("width", tile * 0.4));
+  }
+  new ResizeObserver(sizeHatch).observe(svg);
+
   const hlSelected = el("path", { class: "highlight highlight-selected", d: "" }, SVG_NS);
   const hlHover = el("path", { class: "highlight highlight-hover", d: "" }, SVG_NS);
   svg.append(
+    defs,
     cantonGroup,
     el("path", { class: "lakes", d: MAP.lakes }, SVG_NS),
     el("path", { class: "outline", d: MAP.outline }, SVG_NS),
@@ -301,27 +319,28 @@
     else if (BY_CODE[code]) select(code, true);
   });
 
-  // ---------- Style switch (strict / soft) ----------
+  // ---------- Highlight switch (tint / outline / hatch) ----------
 
-  const styleButtons = document.querySelectorAll("[data-style-choice]");
-  function markStyle() {
-    const current = document.documentElement.getAttribute("data-style");
-    styleButtons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.styleChoice === current)));
+  const highlightButtons = document.querySelectorAll("[data-highlight-choice]");
+  function markHighlight() {
+    const current = document.documentElement.getAttribute("data-highlight");
+    highlightButtons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.highlightChoice === current)));
   }
-  styleButtons.forEach((b) =>
+  highlightButtons.forEach((b) =>
     b.addEventListener("click", () => {
-      const s = b.dataset.styleChoice;
-      document.documentElement.setAttribute("data-style", s);
+      const h = b.dataset.highlightChoice;
+      document.documentElement.setAttribute("data-highlight", h);
       try {
-        localStorage.setItem("canton-style", s);
+        localStorage.setItem("canton-highlight", h);
       } catch (e) {}
       const url = new URL(location.href);
-      url.searchParams.set("style", s);
+      url.searchParams.delete("style");
+      url.searchParams.set("highlight", h);
       history.replaceState(null, "", url);
-      markStyle();
+      markHighlight();
     })
   );
-  markStyle();
+  markHighlight();
 
   // ---------- Lightbox ----------
 
