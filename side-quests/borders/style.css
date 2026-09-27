@@ -1,9 +1,10 @@
-/* Borders map: red is what's been done. Rides are red lines, and each stretch of
-   the Swiss border turns thick red once crossed. Shared styles are in
-   ../shared/base.css. Line widths are scaled with the map in app.js. */
+/* Borders map: rides are yellow lines with a thin black edge (like roads on Swiss
+   maps), and each stretch of the Swiss border turns thick red once crossed.
+   Shared styles are in ../shared/base.css. Line widths are scaled in app.js. */
 
 :root {
   --neighbour: #ececec;
+  --yellow: #ffcc00; /* PostAuto and hiking-sign yellow */
 }
 
 /* ---------- Map ---------- */
@@ -48,10 +49,21 @@
   pointer-events: none;
 }
 
+/* The black edge is a wider black line drawn under the yellow one. */
+.ride-casing {
+  fill: none;
+  stroke: #000;
+  stroke-width: var(--ride-casing-w, 4.2px);
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
 .ride-line {
   fill: none;
-  stroke: var(--red);
-  stroke-width: var(--ride-w, 1.6px);
+  stroke: var(--yellow);
+  stroke-width: var(--ride-w, 2.2px);
   stroke-linejoin: round;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
@@ -69,9 +81,14 @@
   cursor: pointer;
 }
 
+.ride.is-hover .ride-casing,
+.ride.is-selected .ride-casing {
+  stroke-width: var(--ride-hover-casing-w, 5.8px);
+}
+
 .ride.is-hover .ride-line,
 .ride.is-selected .ride-line {
-  stroke-width: var(--ride-hover-w, 3px);
+  stroke-width: var(--ride-hover-w, 3.6px);
 }
 
 .rides.has-hover .ride:not(.is-hover) {
@@ -79,9 +96,9 @@
 }
 
 .crossing {
-  fill: var(--red);
-  stroke: #fff;
-  stroke-width: var(--crossing-ring-w, 2px);
+  fill: var(--yellow);
+  stroke: #000;
+  stroke-width: var(--crossing-ring-w, 1.2px);
   vector-effect: non-scaling-stroke;
   pointer-events: none;
 }
@@ -131,12 +148,17 @@
 .line-key {
   display: inline-block;
   width: 18px;
-  height: 0;
-  border-top: 2px solid var(--red);
+  vertical-align: middle;
 }
 
 .line-key.crossed {
-  border-top-width: 4px;
+  border-top: 4px solid var(--red);
+}
+
+.line-key.ride {
+  height: 4px;
+  background: var(--yellow);
+  box-shadow: 0 0 0 1px #000;
 }
 
 .legend .line-key:not(:first-child) {
@@ -168,9 +190,12 @@
   border: 1px solid var(--rule-light);
 }
 
+.route-map .ride-casing {
+  stroke-width: 5px;
+}
+
 .route-map .ride-line {
-  stroke: var(--red);
-  stroke-width: 2px;
+  stroke-width: 3px;
 }
 
 .route-dot {

@@ -96,7 +96,11 @@
   const crossingDots = [];
   for (const r of RIDES) {
     const g = el("g", { class: "ride", "data-id": r.id }, SVG_NS);
-    g.append(el("path", { d: r.path, class: "ride-hit" }, SVG_NS), el("path", { d: r.path, class: "ride-line" }, SVG_NS));
+    g.append(
+      el("path", { d: r.path, class: "ride-hit" }, SVG_NS),
+      el("path", { d: r.path, class: "ride-casing" }, SVG_NS),
+      el("path", { d: r.path, class: "ride-line" }, SVG_NS)
+    );
     for (const c of r.crossings) crossingDots.push(g.appendChild(el("circle", { cx: c.x, cy: c.y, r: 3, class: "crossing" }, SVG_NS)));
     rideEls[r.id] = rideGroup.appendChild(g);
   }
@@ -120,9 +124,11 @@
     svg.style.setProperty("--canton-line-w", px(0.5, 0.5) + "px");
     svg.style.setProperty("--outline-w", px(1.4, 1) + "px");
     svg.style.setProperty("--border-crossed-w", px(3.5, 2) + "px");
-    svg.style.setProperty("--ride-w", px(1.6, 1) + "px");
-    svg.style.setProperty("--ride-hover-w", px(3, 1.5) + "px");
-    svg.style.setProperty("--crossing-ring-w", px(1.5, 1) + "px");
+    svg.style.setProperty("--ride-w", px(2.2, 1.2) + "px");
+    svg.style.setProperty("--ride-casing-w", px(4.2, 2.4) + "px");
+    svg.style.setProperty("--ride-hover-w", px(3.6, 2) + "px");
+    svg.style.setProperty("--ride-hover-casing-w", px(5.8, 3.4) + "px");
+    svg.style.setProperty("--crossing-ring-w", px(1.2, 1) + "px");
     const r = px(3.5, 3) * unitsPerPx;
     for (const dot of crossingDots) dot.setAttribute("r", r);
   });
@@ -270,7 +276,7 @@
       `${countries}<path class="neighbour-lines" d="${MAP.neighbourLines}"/>` +
       `<path class="switzerland" d="${D.switzerland}"/><path class="canton-lines" d="${MAP.cantonLines}"/>` +
       `<path class="lakes" d="${D.lakes}"/><path class="outline" d="${D.outline}"/>` +
-      `<path class="ride-line" d="${r.path}"/>${dots}<circle class="route-dot" r="1" hidden/>` +
+      `<path class="ride-casing" d="${r.path}"/><path class="ride-line" d="${r.path}"/>${dots}<circle class="route-dot" r="1" hidden/>` +
       `</svg></figure>`
     );
   }
