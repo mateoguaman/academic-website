@@ -474,43 +474,6 @@ h1 {
   object-fit: cover;
 }
 
-.story-nav {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 40px;
-  padding-top: 12px;
-  border-top: 1px solid var(--rule-light);
-  font-size: 14px;
-}
-
-.story-nav button {
-  padding: 0;
-  border: 0;
-  background: none;
-  text-align: left;
-  cursor: pointer;
-}
-
-.story-nav button:last-child {
-  margin-left: auto;
-  text-align: right;
-}
-
-.story-nav button:hover {
-  color: var(--red);
-}
-
-.story-nav small {
-  display: block;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.story-nav strong {
-  font-size: 16px;
-}
-
 /* ---------- Canton list ---------- */
 
 .index {

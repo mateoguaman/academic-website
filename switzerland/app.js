@@ -73,13 +73,6 @@
     return [m[3] && pad(m[3]), m[2] && pad(m[2]), m[1]].filter(Boolean).join(".");
   }
 
-  // Touched cantons in the order they were touched; undated ones follow in official order.
-  function storyOrder() {
-    const touched = CANTONS.filter((c) => isTouched(c.code));
-    const dated = touched.filter((c) => meta(c.code).date).sort((a, b) => (meta(a.code).date < meta(b.code).date ? -1 : 1));
-    return dated.concat(touched.filter((c) => !meta(c.code).date));
-  }
-
   const touchedText = (code) => ["Touched", formatDate(meta(code).date)].filter(Boolean).join(" ");
 
   // ---------- Map ----------
@@ -195,19 +188,6 @@
       body = rendered.html.trim() ? rendered.html : `<p class="empty">No story written yet.</p>`;
     }
 
-    let nav = "";
-    if (touched) {
-      const order = storyOrder();
-      const i = order.findIndex((x) => x.code === code);
-      const link = (x, label) =>
-        x
-          ? `<button type="button" data-code="${x.code}"><small>${label}</small><strong>${escapeHtml(x.name)}</strong> ${escapeHtml(formatDate(meta(x.code).date))}</button>`
-          : "";
-      const prev = link(order[i - 1], "← Previous");
-      const next = link(order[i + 1], "Next →");
-      if (prev || next) nav = `<nav class="story-nav" aria-label="More stories">${prev}${next}</nav>`;
-    }
-
     story.innerHTML =
       `<header class="story-meta">` +
       `<p class="story-code${touched ? " touched" : ""}">${code}</p>` +
@@ -218,7 +198,6 @@
       `<div class="story-body">` +
       (m.title ? `<h3 class="story-title">${escapeHtml(m.title)}</h3>` : "") +
       body +
-      nav +
       `</div>`;
   }
 
@@ -304,11 +283,9 @@
   }
 
   story.addEventListener("click", (ev) => {
-    const t = ev.target.closest("[data-code], [data-index], [data-action]");
+    const t = ev.target.closest("[data-index], [data-action]");
     if (!t) return;
-    if (t.dataset.code) {
-      select(t.dataset.code, true);
-    } else if (t.dataset.index) {
+    if (t.dataset.index) {
       openLightbox(Number(t.dataset.index));
     } else if (t.dataset.action === "to-map") {
       ev.preventDefault();
