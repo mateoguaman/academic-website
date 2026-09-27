@@ -318,29 +318,6 @@
     else if (BY_CODE[code]) select(code, true);
   });
 
-  // ---------- Lake colour switch (temporary, for comparing options) ----------
-
-  const lakeButtons = document.querySelectorAll("[data-lake-choice]");
-  function markLakeChoice() {
-    const current = document.documentElement.getAttribute("data-lake") || "blue";
-    lakeButtons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.lakeChoice === current)));
-  }
-  lakeButtons.forEach((b) =>
-    b.addEventListener("click", () => {
-      const choice = b.dataset.lakeChoice;
-      document.documentElement.setAttribute("data-lake", choice);
-      try {
-        localStorage.setItem("canton-lake", choice);
-      } catch (e) {}
-      const url = new URL(location.href);
-      url.searchParams.delete("touched");
-      url.searchParams.set("lake", choice);
-      history.replaceState(null, "", url);
-      markLakeChoice();
-    })
-  );
-  markLakeChoice();
-
   // ---------- Lightbox ----------
 
   const lightbox = $("lightbox");

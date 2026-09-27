@@ -17,14 +17,6 @@
   <meta name="description" content="A side quest: touching every one of Switzerland's 26 cantons.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <script>
-    // Lake colour before first paint: ?lake=<choice>, else the last choice.
-    (function () {
-      var l = new URLSearchParams(location.search).get("lake");
-      try { l = l || localStorage.getItem("canton-lake"); } catch (e) {}
-      if (/^(blue|shore|pale|glacier)$/.test(l)) document.documentElement.setAttribute("data-lake", l);
-    })();
-  </script>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
@@ -32,13 +24,6 @@
   <div class="page" id="top">
     <nav class="topbar">
       <a href="../index.html">Mateo Guaman Castro</a>
-      <div class="choice-switch" role="group" aria-label="Lake colour">
-        <span>Lakes</span>
-        <button type="button" data-lake-choice="blue"><span class="sw"></span>Blue</button>
-        <button type="button" data-lake-choice="shore"><span class="sw"></span>Blue + shore</button>
-        <button type="button" data-lake-choice="pale"><span class="sw"></span>Pale</button>
-        <button type="button" data-lake-choice="glacier"><span class="sw"></span>Glacier</button>
-      </div>
     </nav>
 
     <header class="masthead">

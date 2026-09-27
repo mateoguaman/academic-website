@@ -12,26 +12,7 @@
   --canton: #fff;
   --canton-stroke: #000;
   --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
-
-  /* Lakes. Options to compare are picked by data-lake on <html>. */
-  --lake-blue: #a9d3f0;
-  --lake-pale: #d6ebf8;
-  --lake-glacier: #c4e3e6;
-  --lake-fill: var(--lake-blue);
-  --lake-stroke: none;
-}
-
-[data-lake="shore"] {
-  --lake-fill: #b7dcf3;
-  --lake-stroke: #5a9fd4;
-}
-
-[data-lake="pale"] {
-  --lake-fill: var(--lake-pale);
-}
-
-[data-lake="glacier"] {
-  --lake-fill: var(--lake-glacier);
+  --lake: #c4e3e6; /* glacier blue */
 }
 
 * {
@@ -103,45 +84,6 @@ button {
   white-space: nowrap;
 }
 
-/* Temporary switch for comparing options. */
-.choice-switch {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 6px 14px;
-  color: var(--muted);
-}
-
-.choice-switch button {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--muted);
-  cursor: pointer;
-}
-
-.choice-switch button[aria-pressed="true"] {
-  color: var(--ink);
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.choice-switch .sw {
-  width: 12px;
-  height: 12px;
-  border: 1px solid #000;
-}
-
-[data-lake-choice="blue"] .sw { background: var(--lake-blue); border-color: var(--lake-blue); }
-[data-lake-choice="shore"] .sw { background: #b7dcf3; border-color: #5a9fd4; }
-[data-lake-choice="pale"] .sw { background: var(--lake-pale); border-color: var(--lake-pale); }
-[data-lake-choice="glacier"] .sw { background: var(--lake-glacier); border-color: var(--lake-glacier); }
-
-
 /* ---------- Masthead ---------- */
 
 .masthead {
@@ -206,10 +148,7 @@ h1 {
 }
 
 .lakes {
-  fill: var(--lake-fill);
-  stroke: var(--lake-stroke);
-  stroke-width: 0.6;
-  vector-effect: non-scaling-stroke;
+  fill: var(--lake);
   pointer-events: none;
 }
 
