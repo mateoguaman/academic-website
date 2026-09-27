@@ -1,0 +1,34 @@
+/* Cantons map: touched cantons are striped red and turn solid red on hover or when
+   open; untouched ones stay white and inert. Shared styles are in ../shared/base.css. */
+
+:root {
+  --canton: #fff;
+  --canton-stroke: #000;
+}
+
+.canton {
+  fill: var(--canton);
+  stroke: var(--canton-stroke);
+  stroke-width: var(--canton-stroke-w, 0.6px); /* scaled with the map in app.js */
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.canton.touched {
+  fill: url(#stripes);
+  cursor: pointer;
+}
+
+.canton.touched.is-hover,
+.canton.touched.is-selected {
+  fill: var(--red);
+}
+
+.swatch-touched {
+  background: var(--stripes);
+}
+
+.swatch-todo {
+  background: var(--canton);
+  margin-left: 14px;
+}
