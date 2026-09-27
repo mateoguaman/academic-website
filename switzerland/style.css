@@ -84,6 +84,30 @@ button {
   white-space: nowrap;
 }
 
+/* Temporary switch for comparing options. */
+.choice-switch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 14px;
+  color: var(--muted);
+}
+
+.choice-switch button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.choice-switch button[aria-pressed="true"] {
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 /* ---------- Masthead ---------- */
 
 .masthead {
@@ -168,21 +192,44 @@ h1 {
   fill: #000;
   text-anchor: middle;
   dominant-baseline: central;
+}
+
+/* Labels (and their backing boxes) must never block the canton underneath. */
+.label-wrap {
   pointer-events: none;
 }
 
-.label.is-hover,
-.label.is-selected {
+.label-bg {
+  fill: none;
+}
+
+.label-wrap.is-hover .label,
+.label-wrap.is-selected .label {
   fill: #fff;
   font-weight: 700;
 }
 
-/* Keep labels readable on top of the stripes. */
-.label.touched:not(.is-hover):not(.is-selected) {
+/* Label styles to compare, picked by data-labels on <html>. */
+
+/* Halo: a white outline around the text on striped cantons. */
+[data-labels="halo"] .label-wrap.touched:not(.is-hover):not(.is-selected) .label {
   paint-order: stroke;
   stroke: #fff;
   stroke-width: 4px;
   stroke-linejoin: round;
+}
+
+/* Tags: a white box behind the text on striped cantons. */
+[data-labels="tags"] .label-wrap.touched:not(.is-hover):not(.is-selected) .label-bg {
+  fill: #fff;
+}
+
+/* Hover: labels only on the hovered or open canton. To-do: only untouched cantons
+   are labelled at rest. None: no labels. */
+[data-labels="hover"] .label-wrap:not(.is-hover):not(.is-selected),
+[data-labels="todo"] .label-wrap.touched:not(.is-hover):not(.is-selected),
+[data-labels="none"] .label-wrap {
+  display: none;
 }
 
 .count {

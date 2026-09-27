@@ -84,13 +84,16 @@
     const geo = MAP.cantons[c.code];
     paths[c.code] = cantonGroup.appendChild(el("path", { d: geo.d, class: "canton", "data-code": c.code }, SVG_NS));
 
-    // Skip labels that would not fit (Basel-Stadt).
+    // Skip labels that would not fit (Basel-Stadt). Each label is a text plus a
+    // backing box, which only the "tags" label style shows.
     if (geo.r >= 7) {
+      const g = el("g", { class: "label-wrap" }, SVG_NS);
+      g.style.setProperty("--fs", Math.min(16, geo.r).toFixed(1));
+      g.style.setProperty("--fs-small", Math.min(26, geo.r * 1.3).toFixed(1));
       const t = el("text", { x: geo.label[0], y: geo.label[1], class: "label" }, SVG_NS);
-      t.style.setProperty("--fs", Math.min(16, geo.r).toFixed(1));
-      t.style.setProperty("--fs-small", Math.min(26, geo.r * 1.3).toFixed(1));
       t.textContent = c.code;
-      labels[c.code] = labelGroup.appendChild(t);
+      g.append(el("rect", { class: "label-bg" }, SVG_NS), t);
+      labels[c.code] = labelGroup.appendChild(g);
     }
   }
 
@@ -107,6 +110,24 @@
     pattern.setAttribute("height", tile);
     pattern.querySelector(".stripe").setAttribute("width", tile * 0.4);
   }).observe(svg);
+
+  // Fit each label's backing box to its text. Text size changes with the
+  // screen width (see style.css), and boxes can only be measured while shown.
+  function sizeLabelBoxes() {
+    for (const g of Object.values(labels)) {
+      const b = g.lastChild.getBBox();
+      if (!b.width) continue;
+      const padX = b.height * 0.25;
+      const padY = b.height * 0.05;
+      const rect = g.firstChild;
+      rect.setAttribute("x", (b.x - padX).toFixed(1));
+      rect.setAttribute("y", (b.y - padY).toFixed(1));
+      rect.setAttribute("width", (b.width + 2 * padX).toFixed(1));
+      rect.setAttribute("height", (b.height + 2 * padY).toFixed(1));
+    }
+  }
+  new ResizeObserver(sizeLabelBoxes).observe(svg);
+  if (document.fonts) document.fonts.ready.then(sizeLabelBoxes);
 
   svg.append(
     defs,
@@ -317,6 +338,30 @@
     if (!code) select(null);
     else if (BY_CODE[code]) select(code, true);
   });
+
+  // ---------- Label style switch (temporary, for comparing options) ----------
+
+  const labelButtons = document.querySelectorAll("[data-labels-choice]");
+  function markLabelChoice() {
+    const current = document.documentElement.getAttribute("data-labels");
+    labelButtons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.labelsChoice === current)));
+  }
+  labelButtons.forEach((b) =>
+    b.addEventListener("click", () => {
+      const choice = b.dataset.labelsChoice;
+      document.documentElement.setAttribute("data-labels", choice);
+      try {
+        localStorage.setItem("canton-labels", choice);
+      } catch (e) {}
+      const url = new URL(location.href);
+      ["touched", "lake"].forEach((k) => url.searchParams.delete(k));
+      url.searchParams.set("labels", choice);
+      history.replaceState(null, "", url);
+      markLabelChoice();
+      sizeLabelBoxes();
+    })
+  );
+  markLabelChoice();
 
   // ---------- Lightbox ----------
 

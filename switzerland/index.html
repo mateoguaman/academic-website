@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en">
+<html lang="en" data-labels="hover">
 <head>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-3ZY845XSCQ"></script>
@@ -17,6 +17,14 @@
   <meta name="description" content="A side quest: touching every one of Switzerland's 26 cantons.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <script>
+    // Map label style before first paint: ?labels=<choice>, else the last choice.
+    (function () {
+      var l = new URLSearchParams(location.search).get("labels");
+      try { l = l || localStorage.getItem("canton-labels"); } catch (e) {}
+      if (/^(hover|tags|todo|none|halo)$/.test(l)) document.documentElement.setAttribute("data-labels", l);
+    })();
+  </script>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
@@ -24,6 +32,14 @@
   <div class="page" id="top">
     <nav class="topbar">
       <a href="../index.html">Mateo Guaman Castro</a>
+      <div class="choice-switch" role="group" aria-label="Map label style">
+        <span>Labels</span>
+        <button type="button" data-labels-choice="hover">Hover</button>
+        <button type="button" data-labels-choice="tags">Tags</button>
+        <button type="button" data-labels-choice="todo">To-do</button>
+        <button type="button" data-labels-choice="none">None</button>
+        <button type="button" data-labels-choice="halo">Halo</button>
+      </div>
     </nav>
 
     <header class="masthead">
