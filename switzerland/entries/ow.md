@@ -1,12 +1,13 @@
 ---
+touched: yes
 date:
 place:
 title:
 ---
 
 <!--
-Obwalden. Add the date you touched it above (YYYY-MM-DD) to paint it red on the
-map, then write the story below in Markdown.
+Obwalden. "touched: yes" paints it on the map. Add the date you touched it if you
+know it (YYYY-MM-DD), then write the story below in Markdown.
 
 Photos go in switzerland/photos/. Add one on its own line, using the caption as
 the alt text:  ![Caption](photos/ow-something.jpg)

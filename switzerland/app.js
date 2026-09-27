@@ -38,10 +38,15 @@
   const CAN_HOVER = window.matchMedia("(hover: hover)").matches;
   const SMOOTH = window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
 
-  // code -> { meta: { date, place, title }, body }. A canton is touched once its file has a date.
+  // code -> { meta: { touched, date, place, title }, body }. A canton is touched when
+  // its file says "touched: yes", or has a date (unless it says "touched: no").
   const entries = {};
   const meta = (code) => (entries[code] && entries[code].meta) || {};
-  const isTouched = (code) => !!meta(code).date;
+  const isTouched = (code) => {
+    const m = meta(code);
+    const flag = String(m.touched || "").toLowerCase();
+    return /^(yes|true)$/.test(flag) || (!!m.date && !/^(no|false)$/.test(flag));
+  };
 
   // hover: mouse over a canton (map or list); focus: keyboard focus in the list;
   // selected: the canton whose story is open.
@@ -68,9 +73,14 @@
     return [m[3] && pad(m[3]), m[2] && pad(m[2]), m[1]].filter(Boolean).join(".");
   }
 
-  // Touched cantons in the order they were touched.
-  const chronological = () =>
-    CANTONS.filter((c) => isTouched(c.code)).sort((a, b) => (meta(a.code).date < meta(b.code).date ? -1 : 1));
+  // Touched cantons in the order they were touched; undated ones follow in official order.
+  function storyOrder() {
+    const touched = CANTONS.filter((c) => isTouched(c.code));
+    const dated = touched.filter((c) => meta(c.code).date).sort((a, b) => (meta(a.code).date < meta(b.code).date ? -1 : 1));
+    return dated.concat(touched.filter((c) => !meta(c.code).date));
+  }
+
+  const touchedText = (code) => ["Touched", formatDate(meta(code).date)].filter(Boolean).join(" ");
 
   // ---------- Map ----------
 
@@ -155,7 +165,7 @@
     readout.innerHTML =
       `<p class="readout-code touched">${code}</p>` +
       `<p class="readout-name">${escapeHtml(BY_CODE[code].name)}</p>` +
-      `<p class="readout-status">${state.loaded ? "Touched " + escapeHtml(formatDate(meta(code).date)) : ""}</p>`;
+      `<p class="readout-status">${state.loaded ? escapeHtml(touchedText(code)) : ""}</p>`;
   }
 
   function renderStory() {
@@ -171,7 +181,7 @@
     const m = meta(code);
     const touched = isTouched(code);
 
-    const facts = [["Touched", state.loaded ? formatDate(m.date) : "…"]];
+    const facts = [["Touched", state.loaded ? formatDate(m.date) || "Yes" : "…"]];
     if (m.place) facts.push(["Where", m.place]);
     facts.push(["Capital", c.capital]);
 
@@ -187,14 +197,14 @@
 
     let nav = "";
     if (touched) {
-      const order = chronological();
+      const order = storyOrder();
       const i = order.findIndex((x) => x.code === code);
       const link = (x, label) =>
         x
           ? `<button type="button" data-code="${x.code}"><small>${label}</small><strong>${escapeHtml(x.name)}</strong> ${escapeHtml(formatDate(meta(x.code).date))}</button>`
           : "";
-      const prev = link(order[i - 1], "← Earlier");
-      const next = link(order[i + 1], "Later →");
+      const prev = link(order[i - 1], "← Previous");
+      const next = link(order[i + 1], "Next →");
       if (prev || next) nav = `<nav class="story-nav" aria-label="More stories">${prev}${next}</nav>`;
     }
 
@@ -244,7 +254,7 @@
   const canOpen = (code) => !state.loaded || isTouched(code);
 
   function select(code, reveal) {
-    if (code && !canOpen(code)) return;
+    if (code && !canOpen(code)) code = null; // e.g. a #GR link to an untouched canton
     state.selected = code;
     history.replaceState(null, "", code ? "#" + code : location.pathname + location.search);
     update();
@@ -387,7 +397,7 @@
           : "The stories couldn't be loaded. Try refreshing the page.";
     }
     renderSummary();
-    if (state.selected && !isTouched(state.selected)) select(null); // e.g. a #UR link
+    if (state.selected && !isTouched(state.selected)) select(null);
     update();
     renderStory();
     if (state.selected) revealStory();
