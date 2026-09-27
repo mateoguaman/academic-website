@@ -1,9 +1,15 @@
-/* Swiss style: red, black and white on a strict grid. Touched cantons are pale red
-   and turn full red on hover or when open; untouched ones stay white and inert. */
+/* Swiss style: red, black and white on a strict grid. Touched cantons rest in a
+   lighter treatment and turn full red on hover or when open; untouched ones stay
+   white and inert. The resting treatment is picked by data-touched on <html>. */
 
 :root {
   --red: #da291c;
-  --red-tint: #f6c7c3;
+  --t-blush: #fbe1de;
+  --t-pale: #f6c7c3;
+  --t-rose: #ee9f99;
+  --t-grey: #d4d4d4;
+  --t-yellow: #ffcc00;
+  --t-stripes: repeating-linear-gradient(-45deg, var(--red) 0 2px, #fff 2px 5px);
   --ink: #000;
   --bg: #fff;
   --muted: #666;
@@ -12,6 +18,35 @@
   --canton: #fff;
   --canton-stroke: #000;
   --font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  /* The resting look of touched cantons: a map fill and a CSS swatch for the legend. */
+  --touched-fill: var(--t-pale);
+  --touched-swatch: var(--t-pale);
+}
+
+[data-touched="blush"] {
+  --touched-fill: var(--t-blush);
+  --touched-swatch: var(--t-blush);
+}
+
+[data-touched="rose"] {
+  --touched-fill: var(--t-rose);
+  --touched-swatch: var(--t-rose);
+}
+
+[data-touched="stripes"] {
+  --touched-fill: url(#stripes);
+  --touched-swatch: var(--t-stripes);
+}
+
+[data-touched="grey"] {
+  --touched-fill: var(--t-grey);
+  --touched-swatch: var(--t-grey);
+}
+
+[data-touched="yellow"] {
+  --touched-fill: var(--t-yellow);
+  --touched-swatch: var(--t-yellow);
 }
 
 * {
@@ -83,6 +118,46 @@ button {
   white-space: nowrap;
 }
 
+/* Temporary switch for comparing the touched-canton look. */
+.choice-switch {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  color: var(--muted);
+}
+
+.choice-switch button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.choice-switch button[aria-pressed="true"] {
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.choice-switch .sw {
+  width: 12px;
+  height: 12px;
+  border: 1px solid #000;
+}
+
+[data-touched-choice="blush"] .sw { background: var(--t-blush); }
+[data-touched-choice="pale"] .sw { background: var(--t-pale); }
+[data-touched-choice="rose"] .sw { background: var(--t-rose); }
+[data-touched-choice="stripes"] .sw { background: var(--t-stripes); }
+[data-touched-choice="grey"] .sw { background: var(--t-grey); }
+[data-touched-choice="yellow"] .sw { background: var(--t-yellow); }
+
 /* ---------- Masthead ---------- */
 
 .masthead {
@@ -137,7 +212,7 @@ h1 {
 }
 
 .canton.touched {
-  fill: var(--red-tint);
+  fill: var(--touched-fill);
   cursor: pointer;
 }
 
@@ -177,6 +252,14 @@ h1 {
 .label.is-selected {
   fill: #fff;
   font-weight: 700;
+}
+
+/* Keep labels readable on top of the stripes. */
+[data-touched="stripes"] .label.touched:not(.is-hover):not(.is-selected) {
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 4px;
+  stroke-linejoin: round;
 }
 
 .count {
@@ -252,7 +335,7 @@ h1 {
 }
 
 .swatch-touched {
-  background: var(--red-tint);
+  background: var(--touched-swatch);
 }
 
 .swatch-todo {

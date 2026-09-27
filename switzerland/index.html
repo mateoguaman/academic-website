@@ -17,6 +17,14 @@
   <meta name="description" content="A side quest: touching every one of Switzerland's 26 cantons.">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <script>
+    // Resting look of touched cantons, before first paint: ?touched=<choice>, else the last choice.
+    (function () {
+      var t = new URLSearchParams(location.search).get("touched");
+      try { t = t || localStorage.getItem("canton-touched"); } catch (e) {}
+      if (/^(blush|pale|rose|stripes|grey|yellow)$/.test(t)) document.documentElement.setAttribute("data-touched", t);
+    })();
+  </script>
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
@@ -24,6 +32,15 @@
   <div class="page" id="top">
     <nav class="topbar">
       <a href="../index.html">Mateo Guaman Castro</a>
+      <div class="choice-switch" role="group" aria-label="Touched canton colour">
+        <span>Touched</span>
+        <button type="button" data-touched-choice="blush"><span class="sw"></span>Blush</button>
+        <button type="button" data-touched-choice="pale"><span class="sw"></span>Pale</button>
+        <button type="button" data-touched-choice="rose"><span class="sw"></span>Rose</button>
+        <button type="button" data-touched-choice="stripes"><span class="sw"></span>Stripes</button>
+        <button type="button" data-touched-choice="grey"><span class="sw"></span>Grey</button>
+        <button type="button" data-touched-choice="yellow"><span class="sw"></span>Yellow</button>
+      </div>
     </nav>
 
     <header class="masthead">

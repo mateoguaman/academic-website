@@ -94,7 +94,22 @@
     }
   }
 
+  // Red stripes for the "stripes" look. The tile is resized so the stripes keep
+  // the same on-screen width however big the map is drawn.
+  const defs = el("defs", {}, SVG_NS);
+  defs.innerHTML =
+    `<pattern id="stripes" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">` +
+    `<rect width="100%" height="100%" fill="#fff"/><rect class="stripe" height="100%" fill="#da291c"/></pattern>`;
+  new ResizeObserver(() => {
+    const tile = (5 * MAP.width) / (svg.clientWidth || MAP.width); // 5px stripe period
+    const pattern = defs.firstElementChild;
+    pattern.setAttribute("width", tile);
+    pattern.setAttribute("height", tile);
+    pattern.querySelector(".stripe").setAttribute("width", tile * 0.4);
+  }).observe(svg);
+
   svg.append(
+    defs,
     cantonGroup,
     el("path", { class: "lakes", d: MAP.lakes }, SVG_NS),
     el("path", { class: "outline", d: MAP.outline }, SVG_NS),
@@ -302,6 +317,28 @@
     if (!code) select(null);
     else if (BY_CODE[code]) select(code, true);
   });
+
+  // ---------- Touched-look switch (temporary, for comparing options) ----------
+
+  const touchedButtons = document.querySelectorAll("[data-touched-choice]");
+  function markTouchedChoice() {
+    const current = document.documentElement.getAttribute("data-touched") || "pale";
+    touchedButtons.forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.touchedChoice === current)));
+  }
+  touchedButtons.forEach((b) =>
+    b.addEventListener("click", () => {
+      const choice = b.dataset.touchedChoice;
+      document.documentElement.setAttribute("data-touched", choice);
+      try {
+        localStorage.setItem("canton-touched", choice);
+      } catch (e) {}
+      const url = new URL(location.href);
+      url.searchParams.set("touched", choice);
+      history.replaceState(null, "", url);
+      markTouchedChoice();
+    })
+  );
+  markTouchedChoice();
 
   // ---------- Lightbox ----------
 
