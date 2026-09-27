@@ -345,6 +345,7 @@ h1 {
 
 .facts dd {
   margin: 0;
+  white-space: pre-line; /* one visit date per line */
 }
 
 .to-map {

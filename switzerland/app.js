@@ -73,7 +73,16 @@
     return [m[3] && pad(m[3]), m[2] && pad(m[2]), m[1]].filter(Boolean).join(".");
   }
 
-  const touchedText = (code) => ["Touched", formatDate(meta(code).date)].filter(Boolean).join(" ");
+  // "date:" can list several visits, comma-separated. Returned oldest first, formatted.
+  const datesOf = (code) =>
+    String(meta(code).date || "")
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean)
+      .sort()
+      .map(formatDate);
+
+  const touchedText = (code) => ["Touched", datesOf(code).join(", ")].filter(Boolean).join(" ");
 
   // ---------- Map ----------
 
@@ -174,7 +183,7 @@
     const m = meta(code);
     const touched = isTouched(code);
 
-    const facts = [["Touched", state.loaded ? formatDate(m.date) || "Yes" : "…"]];
+    const facts = [["Touched", state.loaded ? datesOf(code).join("\n") || "Yes" : "…"]];
     if (m.place) facts.push(["Where", m.place]);
     facts.push(["Capital", c.capital]);
 
@@ -209,7 +218,12 @@
       const row = rows[c.code];
       if (!row) continue;
       row.disabled = !isTouched(c.code);
-      row.querySelector(".date").textContent = isTouched(c.code) ? formatDate(meta(c.code).date) : "—";
+      const dates = datesOf(c.code);
+      row.querySelector(".date").textContent = !isTouched(c.code)
+        ? "—"
+        : dates.length > 1
+          ? `${dates[0]} +${dates.length - 1}`
+          : dates.join("");
     }
   }
 
