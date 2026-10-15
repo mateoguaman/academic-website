@@ -17,6 +17,7 @@ python3 -m http.server 8000 --bind 127.0.0.1   # then http://localhost:8000
 | `side-quests/index.html` | The Side Quests page, linked from the footer         |
 | `side-quests/*/`         | A folder per quest: its page, map and stories        |
 | `terms/index.html`       | Terms of Use, linked from the footer and the menu    |
+| `LICENSE`                | The license, as the Terms of Use state it            |
 
 ## Editing
 
