@@ -101,4 +101,13 @@ code under CC BY 4.0; each paper's images and videos, and the photo, stay
 with their owners. Linked at the end of the footer on laptops and at the
 end of the menu on phones.
 
+**After changing the design or scripts** (`stylesheet.css`, `site.js`, or
+the Side Quests' own `.css`/`.js`), bump their version so browsers fetch the
+new file instead of a cached one (the server sends no caching headers, so
+browsers otherwise keep old copies for weeks):
+
+```sh
+grep -rl '?v=2026-10-15' --include=index.html . | xargs sed -i '' 's/?v=2026-10-15/?v=2026-11-02/g'
+```
+
 Analytics: Google Analytics (`G-3ZY845XSCQ`) in the head of every page.
