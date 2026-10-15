@@ -15,6 +15,7 @@ python3 -m http.server 8000 --bind 127.0.0.1   # then http://localhost:8000
 | `media/`                 | Square stills (`.jpg`) and clips (`.mp4`) per paper  |
 | `data/`                  | The CV                                               |
 | `side-quests/index.html` | The Side Quests page, linked from the footer         |
+| `terms/index.html`       | Terms of Use, linked under the footer                |
 
 ## Editing
 
@@ -70,5 +71,9 @@ update its years when you add a paper. The `id` is its link
 
 **Side Quests.** Edit `side-quests/index.html`; each quest is an `<li>` in
 the `quests` list.
+
+**Terms of Use.** `terms/index.html`, after the SGS site's: the design and
+code under CC BY 4.0; each paper's images and videos, and the photo, stay
+with their owners. Linked by the line under the footer of each page.
 
 Analytics: Google Analytics (`G-3ZY845XSCQ`) in the head of both pages.

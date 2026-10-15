@@ -409,6 +409,62 @@ section[id],
   color: var(--soft);
 }
 
+/* Under the footer: the way to the Terms of Use, as on the SGS site. */
+.foot-note {
+  padding: 0 var(--m) 0.75rem;
+  color: var(--soft);
+  font-size: 0.8rem;
+}
+.foot-note a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+/* Terms of Use: a label beside (laptops) or over (phones) each part. */
+.terms {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--g);
+  padding: 0.6rem var(--m) 3rem;
+  border-top: var(--rule);
+}
+.terms h2 {
+  grid-column: 1 / 4;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.terms-text {
+  grid-column: 4 / 13;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9em;
+  max-width: 40em;
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+}
+.terms-text ul {
+  padding-left: 1.2em;
+  list-style: disc;
+}
+.terms-text a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 767px) {
+  .terms {
+    row-gap: 0.75rem;
+  }
+  .terms h2,
+  .terms-text {
+    grid-column: 1 / -1;
+  }
+}
+
 /* The Side Quests page: its list, ruled as the index rows. */
 .quests {
   margin: 0 var(--m);
