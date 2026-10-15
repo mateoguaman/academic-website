@@ -1,0 +1,35 @@
+/* Cantons map: touched cantons rest in a pale tint of the accent and turn
+   solid on hover or when open; untouched ones stay white and inert. The
+   tint was picked over the original stripes, which shimmered on a sharp
+   screen, and over paler stripes and fine lines. Shared styles are in
+   ../shared/quest.css. */
+
+:root {
+  --tint: color-mix(in srgb, var(--accent) 20%, var(--ground));
+}
+
+.canton {
+  fill: var(--ground);
+  stroke: var(--ink);
+  stroke-width: var(--canton-stroke-w, 0.6px); /* scaled with the map in app.js */
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.canton.touched {
+  fill: var(--tint);
+  cursor: pointer;
+}
+
+.canton.touched.is-hover,
+.canton.touched.is-selected {
+  fill: var(--accent);
+}
+
+.swatch-touched {
+  background: var(--tint);
+}
+
+.swatch-todo {
+  background: var(--ground);
+}

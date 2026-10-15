@@ -1,0 +1,281 @@
+/* Borders map: rides are red lines, and each stretch of the Swiss border
+   turns thick yellow once crossed. Shared styles are in ../shared/quest.css.
+   Line widths are scaled with the map in app.js. */
+
+:root {
+  --neighbour: #ececec;
+  --ride: var(--accent);
+  --crossed: #ffcc00; /* PostAuto and hiking-sign yellow */
+}
+
+/* ---------- Map ---------- */
+
+.land,
+.country {
+  fill: var(--neighbour);
+}
+
+.country.is-hover {
+  fill: #dcdcdc;
+}
+
+/* Borders between neighbouring countries. */
+.neighbour-lines {
+  fill: none;
+  stroke: #8c8c8c;
+  stroke-width: var(--neighbour-line-w, 0.9px);
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
+.border.crossed {
+  stroke: var(--crossed);
+  stroke-width: var(--border-crossed-w, 3.5px);
+}
+
+.switzerland {
+  fill: var(--ground);
+}
+
+.canton-lines {
+  fill: none;
+  stroke: #d2d2d2;
+  stroke-width: var(--canton-line-w, 0.5px);
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
+.ride-line {
+  fill: none;
+  stroke: var(--ride);
+  stroke-width: var(--ride-w, 3px);
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
+/* A wide invisible stroke so thin ride lines are easy to hover and tap. */
+.ride-hit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: var(--ride-hit-w, 14px);
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: stroke;
+  cursor: pointer;
+}
+
+.ride.is-hover .ride-line,
+.ride.is-selected .ride-line {
+  stroke-width: var(--ride-hover-w, 4.5px);
+}
+
+.rides.has-hover .ride:not(.is-hover) {
+  opacity: 0.3;
+}
+
+.crossing {
+  fill: var(--ride);
+  stroke: var(--ground);
+  stroke-width: var(--crossing-ring-w, 1.5px);
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
+/* ---------- Side column: the five borders, ruled as the index rows ---------- */
+
+.countries {
+  margin-top: 0.9rem;
+  border-top: var(--rule);
+}
+
+.countries li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--g);
+  align-items: baseline;
+  padding: 0.3rem 0 0.35rem;
+  border-bottom: var(--rule);
+  color: var(--soft);
+}
+
+.countries li.crossed {
+  color: var(--ink);
+}
+
+.countries .status {
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.countries li.is-hover .name {
+  color: var(--accent);
+}
+
+.line-key {
+  vertical-align: 0.25em;
+  width: 1.2em;
+}
+
+.line-key.crossed {
+  border-top: 4px solid var(--crossed);
+}
+
+.line-key.ride {
+  border-top: 3px solid var(--ride);
+}
+
+/* ---------- Ride story: route map and elevation profile ---------- */
+
+/* Ride titles run longer than canton names. */
+.story-name {
+  font-size: clamp(2.4rem, 5.5vw, 6rem);
+}
+
+.route-figure {
+  margin: 0 0 0.6rem;
+}
+
+.route-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 60vh;
+  border: var(--rule);
+}
+
+.route-map .ride-line {
+  stroke-width: 3.5px;
+}
+
+.route-dot {
+  fill: var(--ride);
+  stroke: var(--ground);
+  stroke-width: 2px;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
+.profile {
+  position: relative;
+  margin: 0 0 2rem;
+}
+
+.profile-label {
+  margin-bottom: 0.2rem;
+  font-size: 0.85rem;
+  color: var(--soft);
+}
+
+.profile svg {
+  display: block;
+  width: 100%;
+  height: 150px;
+  overflow: visible;
+  touch-action: pan-y;
+}
+
+.profile .area {
+  fill: var(--ride);
+  fill-opacity: 0.1;
+}
+
+.profile .line {
+  fill: none;
+  stroke: var(--ride);
+  stroke-width: 2px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.profile .grid {
+  stroke: #e3e3e3;
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.profile .axis,
+.profile .crosshair {
+  stroke: var(--ink);
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+}
+
+.profile .tick,
+.profile .peak-label {
+  font-size: 11px;
+  fill: var(--soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.profile .peak-label {
+  fill: var(--ink);
+}
+
+.profile .peak {
+  fill: var(--ride);
+  stroke: var(--ground);
+  stroke-width: 2px;
+  vector-effect: non-scaling-stroke;
+}
+
+.profile-tip {
+  position: absolute;
+  top: 18px;
+  padding: 0.2rem 0.45rem;
+  background: var(--ground);
+  border: var(--rule);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  pointer-events: none;
+  transform: translateX(-50%);
+}
+
+/* ---------- Ride list: date, title, borders as tags, distance ---------- */
+
+.rides-empty {
+  padding: 0.3rem 0 0.35rem;
+  border-bottom: var(--rule);
+  color: var(--soft);
+}
+
+.ride-row {
+  grid-template-columns: 5.5rem minmax(0, 1fr) auto 4.5rem 1.4rem;
+}
+
+.ride-row .codes {
+  display: flex;
+  gap: 0.3em;
+  align-self: center;
+}
+
+.ride-row .km {
+  text-align: right;
+}
+
+@media (max-width: 767px) {
+  .ride-row {
+    grid-template-columns: 5.2rem minmax(0, 1fr) auto 1.1rem;
+    row-gap: 0.2rem;
+    padding: 0.45rem 0 0.5rem;
+  }
+
+  .ride-row .title {
+    grid-column: 1 / 4;
+    grid-row: 1;
+  }
+
+  .ride-row::after {
+    grid-column: 4;
+    grid-row: 1;
+  }
+
+  .ride-row .date,
+  .ride-row .km {
+    font-size: 0.9rem;
+  }
+}

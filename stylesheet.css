@@ -465,17 +465,38 @@ section[id],
   }
 }
 
-/* The Side Quests page: its list, ruled as the index rows. */
+/* The Side Quests page: its list, ruled as the index rows. Each quest is
+   a link: number, title, a line on it, arrow. A quest's own page is in its
+   folder, with side-quests/shared/quest.css on top of this. */
 .quests {
   margin: 0 var(--m);
   border-top: var(--rule);
 }
 .quests > li {
-  padding: 0.3rem 0 0.35rem;
   border-bottom: var(--rule);
   font-size: clamp(1.25rem, 2.1vw, 2.3rem);
   line-height: 1.05;
   letter-spacing: -0.025em;
+}
+.quests a {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr) minmax(0, 1fr) 1.4rem;
+  column-gap: var(--g);
+  align-items: baseline;
+  padding: 0.3rem 0 0.35rem;
+}
+.quest-n,
+.quest-note,
+.quest-go {
+  font-size: 1rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+.quest-note {
+  color: var(--soft);
+}
+.quest-go {
+  justify-self: end;
 }
 
 /* Tablets */
@@ -607,6 +628,24 @@ section[id],
   }
   .row-text {
     grid-column: 2;
+  }
+
+  .quests a {
+    grid-template-columns: 2.6rem minmax(0, 1fr) 1.1rem;
+    row-gap: 0.2rem;
+    padding: 0.45rem 0 0.5rem;
+  }
+  .quest-n {
+    font-size: 0.9rem;
+  }
+  .quest-note {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 0.9rem;
+  }
+  .quest-go {
+    grid-column: 3;
+    grid-row: 1;
   }
 
   /* One line: short labels, spread across the width. */

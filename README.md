@@ -15,6 +15,7 @@ python3 -m http.server 8000 --bind 127.0.0.1   # then http://localhost:8000
 | `media/`                 | Square stills (`.jpg`) and clips (`.mp4`) per paper  |
 | `data/`                  | The CV                                               |
 | `side-quests/index.html` | The Side Quests page, linked from the footer         |
+| `side-quests/*/`         | A folder per quest: its page, map and stories        |
 | `terms/index.html`       | Terms of Use, linked under the footer                |
 
 ## Editing
@@ -70,10 +71,26 @@ update its years when you add a paper. The `id` is its link
 (`#nav`, `#scale`, ...).
 
 **Side Quests.** Edit `side-quests/index.html`; each quest is an `<li>` in
-the `quests` list.
+the `quests` list, linking to its folder. A quest's page uses this
+stylesheet plus `side-quests/shared/quest.css` and its own `style.css`; the
+quests either side of it are linked by hand in its Side Quests column
+(`←`, `→`). Its stories are Markdown files the page fetches, so preview it
+through the server rather than from the file (`.nojekyll` keeps GitHub Pages
+from turning them into pages).
+
+- *Touching all 26 cantons*, `side-quests/cantons/`: a story per canton in
+  `entries/<code>.md`. `touched: yes` shades the canton on the map; `date:`
+  takes one or more dates (YYYY-MM-DD, comma-separated). Photos go in
+  `photos/`.
+- *Every border by bike*, `side-quests/borders/`: put a ride's GPX file in
+  `rides/` (its name becomes the ride's link) and run
+  `python3 side-quests/borders/build_rides.py`. It finds the borders
+  crossed, the distance and the climbing, writes `rides.js`, and starts a
+  story in `entries/` with the title and date, which you can change. More in
+  `side-quests/borders/README.md`.
 
 **Terms of Use.** `terms/index.html`, after the SGS site's: the design and
 code under CC BY 4.0; each paper's images and videos, and the photo, stay
 with their owners. Linked by the line under the footer of each page.
 
-Analytics: Google Analytics (`G-3ZY845XSCQ`) in the head of both pages.
+Analytics: Google Analytics (`G-3ZY845XSCQ`) in the head of every page.

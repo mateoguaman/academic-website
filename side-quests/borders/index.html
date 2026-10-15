@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3ZY845XSCQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3ZY845XSCQ');
+  </script>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Every Border by Bike · Mateo Guaman Castro</title>
+  <meta name="author" content="Mateo Guaman Castro">
+  <meta name="description" content="A side quest: crossing each of Switzerland's international borders by bike.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap">
+  <link rel="stylesheet" href="../../stylesheet.css">
+  <link rel="stylesheet" href="../shared/quest.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="license" href="../../terms/">
+</head>
+<body>
+  <header class="bar" id="bar">
+    <a class="bar-name" href="../../">Mateo Guaman Castro</a>
+    <nav class="bar-links" aria-label="Sections">
+      <a href="../../#research">About</a>
+      <a href="../../#publications">Publications</a>
+      <a href="mailto:mateogc@cs.washington.edu">Email</a>
+      <a href="../../data/MateoGuaman-CV.pdf">CV</a>
+      <a href="https://scholar.google.com/citations?user=0hkU6uEAAAAJ&amp;hl=en">Scholar</a>
+      <a href="https://github.com/mateoguaman/">GitHub</a>
+    </nav>
+    <button class="bar-menu" id="menu-button" aria-expanded="false" aria-controls="menu">Menu</button>
+  </header>
+  <nav class="menu" id="menu" aria-label="Menu">
+    <a href="../../#research">About</a>
+    <a href="../../#publications">Publications</a>
+    <a href="mailto:mateogc@cs.washington.edu">Email</a>
+    <a href="../../data/MateoGuaman-CV.pdf">CV</a>
+    <a href="https://scholar.google.com/citations?user=0hkU6uEAAAAJ&amp;hl=en">Google Scholar</a>
+    <a href="https://twitter.com/mateoguaman">Twitter</a>
+    <a href="https://github.com/mateoguaman/">GitHub</a>
+    <a class="soft" href="../../terms/">Terms of Use</a>
+  </nav>
+
+  <main id="top">
+    <h1 class="name sq-title">Every border by bike</h1>
+
+    <section class="quest-info">
+      <div>
+        <h2>Quest</h2>
+        <p class="lede">Cycle across each of Switzerland's international borders, into France, Germany, Italy, Austria and Liechtenstein.</p>
+      </div>
+      <div>
+        <h2>Crossed</h2>
+        <p class="count"><span id="count">0</span><span class="count-total">/5</span></p>
+      </div>
+      <div>
+        <h2>Key</h2>
+        <ul class="legend">
+          <li><span class="line-key crossed"></span>Border crossed</li>
+          <li><span class="line-key ride"></span>Ride</li>
+        </ul>
+      </div>
+      <div>
+        <h2><a href="../">Side Quests</a></h2>
+        <dl class="quest-nav">
+          <div><dt><span aria-label="Previous">←</span></dt><dd><a href="../cantons/">Touching all 26 cantons</a></dd></div>
+        </dl>
+      </div>
+    </section>
+
+    <section class="atlas">
+      <div class="map-col">
+        <svg id="map" role="img" aria-label="Map of Switzerland and its neighbours with the rides so far. Rides are red; stretches of the Swiss border already crossed are yellow."></svg>
+      </div>
+      <aside class="side">
+        <div class="readout" id="readout" aria-live="polite"></div>
+        <ul class="countries" id="countries" aria-label="Borders"></ul>
+      </aside>
+    </section>
+
+    <p class="notice" id="notice" hidden></p>
+
+    <article class="story" id="story" hidden></article>
+
+    <section class="index">
+      <div class="index-head"><h2>Rides</h2></div>
+      <div class="index-list" id="rides"></div>
+    </section>
+  </main>
+
+  <p class="credits">
+    Swiss boundaries and lakes: Bundesamt für Statistik (BFS), GEOSTAT, via
+    <a href="https://github.com/interactivethings/swiss-maps">swiss-maps</a>.
+    Neighbouring countries: <a href="https://www.naturalearthdata.com/">Natural Earth</a>.
+  </p>
+  <footer class="foot">
+    <a href="mailto:mateogc@cs.washington.edu">Email</a>
+    <a href="../../data/MateoGuaman-CV.pdf">CV</a>
+    <a href="https://scholar.google.com/citations?user=0hkU6uEAAAAJ&amp;hl=en"><span class="long">Google </span>Scholar</a>
+    <a href="https://twitter.com/mateoguaman">Twitter</a>
+    <a href="https://github.com/mateoguaman/">GitHub</a>
+    <a class="sq" href="../">Side Quests</a>
+    <a class="sq foot-terms" href="../../terms/">Terms of Use</a>
+  </footer>
+
+  <script src="../../site.js"></script>
+  <script src="map-data.js"></script>
+  <script src="rides.js"></script>
+  <script src="../shared/markdown.js"></script>
+  <script src="../shared/common.js"></script>
+  <script src="../shared/lightbox.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

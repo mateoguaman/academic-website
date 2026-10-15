@@ -1,0 +1,615 @@
+/* A quest page (cantons/, borders/). Loaded after ../../stylesheet.css,
+   whose bar, name title, ruled columns, index rows and footer these pages
+   reuse; the maps add one accent, red. Each quest adds its map's colours in
+   its own style.css. */
+
+:root {
+  --accent: var(--red);
+  --lake: #c4e3e6; /* glacier blue */
+  --row-title: clamp(1.25rem, 2.1vw, 2.3rem);
+}
+
+/* Author display rules (e.g. .story's grid) would otherwise override [hidden]. */
+[hidden] {
+  display: none !important;
+}
+
+/* A quest's title: the name's size and spacing, but it may wrap. */
+.sq-title {
+  white-space: normal;
+}
+
+/* Tags: the boxed word of awards and orals (.tag), for codes and dates. */
+.readout-code,
+.story-code,
+.ride-row .codes > span {
+  display: inline-block;
+  padding: 0.12em 0.4em 0.1em;
+  border: 1px solid currentColor;
+  font-size: 0.72rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.readout-code.touched,
+.story-code.touched {
+  color: var(--accent);
+}
+
+/* ---------- A quest: ruled columns under the title, as About to Contact ---------- */
+
+.quest-info {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: var(--rule);
+  border-bottom: var(--rule);
+}
+.quest-info > * {
+  padding: 0.5rem var(--g) 1.5rem;
+}
+.quest-info > :first-child {
+  padding-left: var(--m);
+}
+.quest-info > :last-child {
+  padding-right: var(--m);
+}
+.quest-info > * + * {
+  border-left: var(--rule);
+}
+.quest-info h2 {
+  margin-bottom: 1.2em;
+  font-size: 1rem;
+  font-weight: 400;
+}
+.lede {
+  max-width: 22em;
+}
+.count {
+  font-size: clamp(2.75rem, 5.4vw, 6.5rem);
+  line-height: 0.85;
+  letter-spacing: -0.045em;
+  font-variant-numeric: tabular-nums;
+}
+.count-total {
+  color: var(--soft);
+}
+.legend {
+  display: grid;
+  gap: 0.35em;
+}
+.swatch,
+.line-key {
+  display: inline-block;
+  width: 0.8em;
+  margin-right: 0.45em;
+}
+.swatch {
+  height: 0.8em;
+  border: 1px solid var(--ink);
+  vertical-align: -0.05em;
+}
+/* The quests either side of this one: an arrow, then the link. */
+.quest-nav {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 0.35em var(--g);
+}
+.quest-nav div {
+  display: contents;
+}
+.quest-nav dt {
+  color: var(--soft);
+}
+/* A long title stops at two lines, so the column stays within the quest's
+   description beside it. */
+.quest-nav dd {
+  margin: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+/* ---------- Map, with the readout pinned beside it as the paper preview ---------- */
+
+.atlas {
+  display: grid;
+  grid-template-columns: 9fr 3fr;
+  gap: var(--g);
+  margin-top: 0.9rem;
+  padding: 0 var(--m);
+}
+#map {
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.lakes {
+  fill: var(--lake);
+  pointer-events: none;
+}
+.outline {
+  fill: none;
+  stroke: var(--ink);
+  stroke-width: var(--outline-w, 1.4px); /* scaled with the map by the page script */
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+.side {
+  position: sticky;
+  top: calc(var(--bar) + 0.6rem);
+  align-self: start;
+}
+.readout {
+  min-height: 6.5rem;
+  padding-top: 0.5rem;
+  border-top: var(--rule);
+}
+.readout-name {
+  margin: 0.4rem 0 0.3rem;
+  font-size: var(--row-title);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+.readout-status,
+.readout-hint {
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+.readout-hint {
+  color: var(--soft);
+}
+@media (hover: none) {
+  .readout {
+    display: none;
+  }
+}
+
+.notice {
+  margin: 0.9rem var(--m) 0;
+  padding: 0.5rem 0;
+  border-top: var(--rule);
+  border-bottom: var(--rule);
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+/* ---------- Story: code and name as a ruled head, facts beside the text ---------- */
+
+.story {
+  display: grid;
+  grid-template-columns: 3fr 9fr;
+  column-gap: var(--g);
+  margin-top: 4rem;
+  padding: 0 var(--m);
+  border-top: var(--rule);
+  scroll-margin-top: var(--bar);
+}
+/* The tag and the name sit in one band ruled the full width, as
+   Publications; the facts go under it, beside the text. */
+.story-meta {
+  display: contents;
+}
+.story-code {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  justify-self: start;
+  margin-top: 0.6rem;
+}
+.story-name {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  margin: 0.2rem calc(-1 * var(--m)) 0;
+  padding: 0 var(--m) 0.04em;
+  border-bottom: var(--rule);
+  font-size: clamp(3rem, 9vw, 10rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  /* Long words hyphenate rather than break at an arbitrary letter. */
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  overflow-wrap: break-word;
+}
+.facts {
+  grid-column: 1;
+  grid-row: 3;
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+.facts div {
+  display: grid;
+  grid-template-columns: 5.5em minmax(0, 1fr);
+  gap: var(--g);
+  padding: 0.3rem 0 0.35rem;
+  border-bottom: var(--rule);
+}
+.facts dt {
+  color: var(--soft);
+}
+.facts dd {
+  margin: 0;
+  white-space: pre-line; /* one visit date per line */
+}
+.to-map {
+  grid-column: 1;
+  grid-row: 4;
+  justify-self: start;
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+.story-body {
+  grid-column: 2;
+  grid-row: 3 / span 3;
+  padding-top: 0.6rem;
+  line-height: 1.35;
+}
+.story-title {
+  margin-bottom: 0.8em;
+  font-size: var(--row-title);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+.story-body p,
+.story-body ul,
+.story-body ol,
+.story-body blockquote {
+  max-width: 34em;
+  margin: 0 0 1em;
+}
+.story-body ul {
+  padding-left: 1.2em;
+  list-style: disc;
+}
+.story-body ol {
+  padding-left: 1.4em;
+  list-style: decimal;
+}
+.story-body h3 {
+  margin: 1.6em 0 0.5em;
+  font-size: 1.4rem;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+/* One weight, so a smaller heading is told apart by size alone: an open
+   paper's title on the home page. */
+.story-body h4 {
+  margin: 1.4em 0 0.4em;
+  font-size: 1.15rem;
+  font-weight: 400;
+  line-height: 1.15;
+}
+.story-body a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+.story-body blockquote {
+  padding-left: var(--g);
+  border-left: var(--rule);
+}
+.story-body hr {
+  margin: 2em 0;
+  border: 0;
+  border-top: var(--rule);
+}
+.story-body code {
+  font-size: 0.9em;
+}
+.story-body .empty {
+  color: var(--soft);
+}
+.photo {
+  margin: 1.5em 0;
+}
+.photo-open {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  background: #eee;
+  cursor: zoom-in;
+}
+.photo img,
+.photo video {
+  max-height: 80vh;
+  height: auto;
+}
+.photo figcaption {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  line-height: 1.3;
+  color: var(--soft);
+}
+.gallery {
+  display: grid;
+  gap: var(--g);
+  margin: 1.5em 0;
+}
+.gallery.cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.gallery.cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.gallery .photo {
+  margin: 0;
+}
+.gallery .photo-open {
+  width: 100%;
+  aspect-ratio: 1;
+}
+.gallery .photo img,
+.gallery .photo video {
+  width: 100%;
+  height: 100%;
+  max-height: none;
+  object-fit: cover;
+}
+
+/* ---------- The list under the map: a head as Publications, rows as papers ---------- */
+
+.index {
+  margin-top: 4rem;
+}
+.index-head {
+  padding: 0 var(--m);
+  border-top: var(--rule);
+  border-bottom: var(--rule);
+}
+.index-head h2 {
+  margin-left: -0.04em;
+  font-size: clamp(3rem, 9vw, 10rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+}
+.index-list {
+  padding: 0 var(--m);
+}
+/* The page scripts name rows' cantons and countries .name, which
+   ../../stylesheet.css sizes as the home page's title. */
+.index-row .name,
+.countries .name {
+  margin: 0;
+  padding: 0;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  white-space: normal;
+}
+.index-row,
+.ride-row {
+  display: grid;
+  grid-template-columns: var(--cols);
+  column-gap: var(--g);
+  align-items: baseline;
+  width: 100%;
+  padding: 0.3rem 0 0.35rem;
+  border-bottom: var(--rule);
+  text-align: left;
+}
+.index-row .name,
+.ride-row .title {
+  font-size: var(--row-title);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+.index-row .date,
+.ride-row .date,
+.ride-row .km {
+  font-variant-numeric: tabular-nums;
+}
+/* The plus, a minus while its story is open. */
+.index-row::after,
+.ride-row::after {
+  content: "";
+  align-self: center;
+  width: 1.1rem;
+  height: 1.1rem;
+  background:
+    linear-gradient(currentColor, currentColor) center / 100% 2px no-repeat,
+    linear-gradient(currentColor, currentColor) center / 2px 100% no-repeat;
+}
+.index-row[aria-pressed="true"]::after,
+.ride-row[aria-pressed="true"]::after {
+  background: linear-gradient(currentColor, currentColor) center / 100% 2px no-repeat;
+}
+.index-row:disabled {
+  color: var(--soft);
+  cursor: default;
+}
+.index-row:disabled::after {
+  visibility: hidden;
+}
+@media (hover: hover) {
+  .index-row:not(:disabled):hover .name,
+  .ride-row:hover .title {
+    color: var(--hover);
+  }
+}
+.index-row.is-hover .name,
+.ride-row.is-hover .title,
+.index-row[aria-pressed="true"] .name,
+.ride-row[aria-pressed="true"] .title {
+  color: var(--accent);
+}
+
+.credits {
+  margin-top: 6rem;
+  padding: 0.5rem var(--m);
+  border-top: var(--rule);
+  font-size: 0.85rem;
+  line-height: 1.3;
+  color: var(--soft);
+}
+.credits a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+.credits + .foot {
+  margin-top: 0;
+}
+
+/* ---------- Lightbox ---------- */
+
+.lightbox {
+  width: min(1200px, 100vw - 32px);
+  max-width: none;
+  max-height: calc(100vh - 32px);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+}
+.lightbox::backdrop {
+  background: rgb(17 17 17 / 0.94);
+}
+.lb-media img,
+.lb-media video {
+  max-height: calc(100vh - 120px);
+  margin: 0 auto;
+}
+.lb-caption {
+  margin-top: 0.6rem;
+  color: #fff;
+  font-size: 0.85rem;
+  text-align: center;
+}
+.lb-btn {
+  position: fixed;
+  z-index: 1;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #fff;
+  background: var(--ink);
+  color: #fff;
+  font-size: 22px;
+  line-height: 1;
+}
+@media (hover: hover) {
+  .lb-btn:hover {
+    background: #fff;
+    color: var(--ink);
+  }
+}
+.lb-close {
+  top: 16px;
+  right: 16px;
+}
+.lb-prev,
+.lb-next {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.lb-prev {
+  left: 16px;
+}
+.lb-next {
+  right: 16px;
+}
+
+/* ---------- Tablets ---------- */
+
+@media (max-width: 1199px) and (min-width: 768px) {
+  .quest-info {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .quest-info > :nth-child(2) {
+    padding-right: var(--m);
+  }
+  .quest-info > :nth-child(3) {
+    border-left: 0;
+    padding-left: var(--m);
+  }
+  .quest-info > :nth-child(n + 3) {
+    border-top: var(--rule);
+  }
+}
+
+/* ---------- Phones: one column; the quest's text and list full width,
+   the count beside the key ---------- */
+
+@media (max-width: 767px) {
+  .quest-info {
+    grid-template-columns: 1fr 1fr;
+  }
+  .quest-info > * {
+    padding: 0.6rem var(--m) 1.2rem;
+  }
+  .quest-info > :first-child,
+  .quest-info > :last-child {
+    grid-column: 1 / -1;
+  }
+  .quest-info > :nth-child(2),
+  .quest-info > :last-child {
+    border-left: 0;
+  }
+  .quest-info > :nth-child(n + 2) {
+    border-top: var(--rule);
+  }
+  .quest-info h2 {
+    margin-bottom: 0.6em;
+  }
+
+  .atlas {
+    grid-template-columns: 1fr;
+  }
+  .side {
+    position: static;
+  }
+
+  .story {
+    grid-template-columns: 1fr;
+  }
+  .facts {
+    margin-top: 0.6rem;
+  }
+  .story-body {
+    grid-column: 1;
+    grid-row: auto;
+    padding-top: 1.2rem;
+  }
+
+  .index-row {
+    row-gap: 0.2rem;
+    padding: 0.45rem 0 0.5rem;
+  }
+  .index-row .code {
+    font-size: 0.9rem;
+  }
+  .index-row .date {
+    grid-column: 2;
+    grid-row: 2;
+    font-size: 0.9rem;
+  }
+  .index-row:disabled .date {
+    display: none;
+  }
+  .index-row::after {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .gallery.cols-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .lb-prev,
+  .lb-next {
+    top: auto;
+    bottom: 16px;
+    transform: none;
+  }
+}
