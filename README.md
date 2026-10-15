@@ -21,8 +21,14 @@ python3 -m http.server 8000 --bind 127.0.0.1   # then http://localhost:8000
 
 ## Editing
 
-**CV.** Replace `data/MateoGuaman-CV.pdf` (same name), then change the date
-after "CV" in the Contact column of `index.html` (`Oct. 2025`).
+**CV.** Replace `data/MateoGuaman-CV.pdf` (same name), change the date
+after "CV" in the Contact column of `index.html`, and bump the version on
+every CV link (`MateoGuaman-CV.pdf?v=2026-10`) so browsers fetch the new file
+instead of a cached one:
+
+```sh
+grep -rl 'MateoGuaman-CV.pdf?v=' --include=index.html . | xargs sed -i '' 's/?v=2026-10/?v=2027-03/g'
+```
 
 **Bio and research.** The About, Previously, Research and Contact columns
 are near the top of `index.html`.
