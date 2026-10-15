@@ -1,798 +1,598 @@
-<!DOCTYPE HTML>
+<!doctype html>
 <html lang="en">
-  <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3ZY845XSCQ"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+<head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-3ZY845XSCQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3ZY845XSCQ');
+  </script>
 
-      gtag('config', 'G-3ZY845XSCQ');
-    </script>
-    
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
-  <title>Mateo Guaman Castro</title>
-  
-  <meta name="author" content="Mateo Guaman Castro">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <link rel="stylesheet" type="text/css" href="stylesheet.css">
-	<!-- <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>"> -->
+  <title>Mateo Guaman Castro</title>
+  <meta name="author" content="Mateo Guaman Castro">
+  <meta name="description" content="Mateo Guaman Castro, PhD student at the University of Washington working on robotics and machine learning.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap">
+  <link rel="stylesheet" href="stylesheet.css">
 </head>
-
 <body>
-  <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-    <tr style="padding:0px">
-      <td style="padding:0px">
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr style="padding:0px">
-            <td style="padding:2.5%;width:63%;vertical-align:middle">
-              <p style="text-align:center">
-                <name>Mateo Guaman Castro</name>
-              </p><b>I am a PhD student at the University of Washington working on Robotics and Machine Learning, advised by <a href="https://homes.cs.washington.edu/~bboots/">Prof. Byron Boots</a> and <a href="https://homes.cs.washington.edu/~abhgupta/">Prof. Abhishek Gupta</a>.</b></p>
-              <p>Previously, I was a Master's student in Robotics in the <a href="https://www.ri.cmu.edu/">Robotics Institute</a> at Carnegie Mellon University, advised by <a href="https://theairlab.org/team/sebastian/">Prof. Sebastian Scherer</a> as a member of the <a href="https://theairlab.org/">AirLab</a> and the <a href="https://frc.ri.cmu.edu/">Field Robotics Center</a>.  Before that, I studied electrical engineering at Tufts Univesity, where I recieved my BS.
-              </p>
+  <header class="bar" id="bar">
+    <a class="bar-name" href="#top">Mateo Guaman Castro</a>
+    <nav class="bar-links" aria-label="Sections">
+      <a href="#research">About</a>
+      <a href="#publications">Publications</a>
+      <a href="mailto:mateogc@cs.washington.edu">Email</a>
+      <a href="data/MateoGuaman-CV.pdf">CV</a>
+      <a href="https://scholar.google.com/citations?user=0hkU6uEAAAAJ&amp;hl=en">Scholar</a>
+      <a href="https://github.com/mateoguaman/">GitHub</a>
+    </nav>
+    <button class="bar-menu" id="menu-button" aria-expanded="false" aria-controls="menu">Menu</button>
+  </header>
+  <nav class="menu" id="menu" aria-label="Menu">
+    <a href="#research">About</a>
+    <a href="#publications">Publications</a>
+    <a href="mailto:mateogc@cs.washington.edu">Email</a>
+    <a href="data/MateoGuaman-CV.pdf">CV</a>
+    <a href="https://scholar.google.com/citations?user=0hkU6uEAAAAJ&amp;hl=en">Google Scholar</a>
+    <a href="https://twitter.com/mateoguaman">Twitter</a>
+    <a href="https://github.com/mateoguaman/">GitHub</a>
+  </nav>
 
-              <!-- <p>Before that, I studied electrical engineering at Tufts Univesity, where I recieved my BS. I was a researcher in the <a href="https://mulip.cs.tufts.edu/">Multimodal Learning, Interaction, and Perception Lab (MuLIP)</a> advised by <a href="https://www.eecs.tufts.edu/~jsinapov/">Dr. Jivko Sinapov</a> and <a href="https://scholar.google.com/citations?user=QI6VNEgAAAAJ&hl=en">Dr. Evana Gizzi</a>. I was also a research intern working with <a href="https://www.cs.cmu.edu/~./choset/">Dr. Howie Choset</a> in the <a href="http://biorobotics.ri.cmu.edu/">Biorobotics lab</a> at Carnegie Mellon University, and <a href="https://www.marmotlab.org/bio.html">Dr. Guillaume Sartoretti</a> in the <a href="https://www.marmotlab.org/">Multi-Agent Robotic Motion (MARMoT) Lab</a> at the National University of Singapore. 
-              </p> -->
+  <main id="top">
+    <h1 class="name" aria-label="Mateo Guaman Castro">
+      <span class="name-d" aria-hidden="true">Mateo Guaman Castro</span>
+      <span class="name-m" aria-hidden="true"><span>Mateo</span><span>Guaman Castro</span></span>
+    </h1>
 
+    <!-- About, Previously, Research, Contact, photo -->
+    <section class="info" id="research">
+      <div>
+        <h2>About</h2>
+        <p>I am a PhD student at the University of Washington working on Robotics and Machine Learning, advised by <a href="https://homes.cs.washington.edu/~bboots/">Prof. Byron Boots</a> and <a href="https://homes.cs.washington.edu/~abhgupta/">Prof. Abhishek Gupta</a>.</p>
+      </div>
+      <div>
+        <h2>Previously</h2>
+        <p>Previously, I was a Master’s student in Robotics in the <a href="https://www.ri.cmu.edu/">Robotics Institute</a> at Carnegie Mellon University, advised by <a href="https://theairlab.org/team/sebastian/">Prof. Sebastian Scherer</a> as a member of the <a href="https://theairlab.org/">AirLab</a> and the <a href="https://frc.ri.cmu.edu/">Field Robotics Center</a>. Before that, I studied electrical engineering at Tufts University, where I received my BS.</p>
+      </div>
+      <div>
+        <h2>Research</h2>
+        <p>I am interested in reinforcement learning and representation learning for fast adaptation and generalization in messy environments. My ultimate goal is to develop robots that adapt fast during deployment, probe when uncertain, and make mistakes only once, if at all.</p>
+      </div>
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:mateogc@cs.washington.edu">Email</a></li>
+          <li><a href="data/MateoGuaman-CV.pdf">CV</a> <span class="soft">Oct. 2025</span></li>
+          <li><a href="https://scholar.google.com/citations?user=0hkU6uEAAAAJ&amp;hl=en">Google Scholar</a></li>
+          <li><a href="https://twitter.com/mateoguaman">Twitter</a></li>
+          <li><a href="https://github.com/mateoguaman/">GitHub</a></li>
+        </ul>
+      </div>
+      <figure class="info-photo"><img src="media/mateo.jpg" alt="Mateo Guaman Castro"></figure>
+    </section>
 
-              <p style="text-align:center">
-                <a href="mailto:mateogc@cs.washington.edu">Email</a> &nbsp/&nbsp
-                <a href="data/MateoGuaman-CV.pdf">CV</a> (Oct. 2025)&nbsp/&nbsp
-                <!-- <a href="data/JonBarron-bio.txt">Bio</a> &nbsp/&nbsp -->
-                <a href="https://scholar.google.com/citations?user=0hkU6uEAAAAJ&hl=en">Google Scholar</a> &nbsp/&nbsp
-                <a href="https://twitter.com/mateoguaman">Twitter</a> &nbsp/&nbsp
-                <a href="https://github.com/mateoguaman/">Github</a>
-              </p>
-            </td>
-            <td style="padding:2.5%;width:40%;max-width:40%">
-              <a href="images/mateo.jpg"><img style="width:100%;max-width:100%" alt="profile photo" src="images/mateo_circle.jpg" class="hoverZoomLink"></a>
-            </td>
-          </tr>
-        </tbody></table>
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-            <td style="padding:20px;width:100%;vertical-align:middle">
-              <heading>Research</heading>
-              <p>I am interested in reinforcement learning and representation learning for fast adaptation and generalization in messy environments. My ultimate goal is to develop robots that adapt fast during deployment, probe when uncertain, and make mistakes only once, if at all.
-              </p>
-            </td>
-          </tr>
-        </tbody></table>
+    <section id="publications">
+      <div class="pubs-head">
+        <h2>Publications</h2>
+        <button class="pubs-all" id="all" aria-pressed="false">Open all</button>
+      </div>
+      <div class="idx-wrap">
+        <!--
+          The index. A divider per research thread (number, name, years),
+          then one <li class="row"> per paper; to add a paper, copy a row and
+          change its text. Each paper has one square still in media/ (and
+          optionally a second image, m-alt, shown on hover, or a clip,
+          m-video). For an award or an oral, put a tag right after the
+          short title, with no space:
+            <span class="row-title">VAMOS<span class="tag" title="Full wording">Oral</span></span>
+          (Award or Oral), and the full wording as a row-award line. The
+          first row's clip is the one that plays when the page opens.
+        -->
+        <ol class="idx" id="idx">
+          <!-- 01 Reinforcement learning at scale -->
+          <li class="div" id="scale"><span class="div-n">01</span><span class="div-t">Reinforcement learning at scale</span><span class="div-y">2026</span></li>
 
-        <!-- <table width="100%" align="center" border="0" cellspacing="0" cellpadding="10">
-          <tr><td>
-            <heading>News</heading>
-            <ul>
-            <li> <b>September 2023:</b> I joined UW as a PhD student in Robotics!</li>
-            <li> <b>July 2023:</b> I attended ICML 2023, where I served as Social Chair at the <a href="https://www.latinxinai.org/icml-2023">LatinX in AI workshop</a>.</li>
-            <li> <b>July 2023:</b> I defended my Master's thesis at Carnegie Mellon University! Here is the recorded <a href="https://youtu.be/jxloFt88ozY">video</a>.</li>
-            <li> <b>May 2023:</b> I presented two conference papers and one workshop paper at ICRA 2023, my first ever in-person conference.</li>
-            </ul>
-          </td></tr>
-        </table> -->
-
-
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-
-          <!-- <tr onmouseout="vamos_stop()" onmouseover="vamos_start()"> -->
-            <!-- <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <div class="two" id='vamos_image'><video  width=100% height=100% muted autoplay loop>
-                <source src="images/cropped_vamos.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-                </video></div>
-                <img src='images/cropped_vamos_preview.png' width="160">
-              </div>
-              
-              <script type="text/javascript">
-                function vamos_start() {
-                  document.getElementById('vamos_image').style.opacity = "1";
-                }
-
-                function vamos_stop() {
-                  document.getElementById('vamos_image').style.opacity = "0";
-                }
-                vamos_stop()
-              </script>
-            </td> -->
-          <tr onmouseout="vamos_stop()" onmouseover="vamos_start()"  bgcolor="#ffffd0"></tr>
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <div class="two" id='vamos_image'>
-                  <img src='images/vamos_after.png' width="160"></div>
-                <img src='images/vamos_before.png' width="160">
-              </div>
-              <script type="text/javascript">
-                function vamos_start() {
-                  document.getElementById('vamos_image').style.opacity = "1";
-                }
-
-                function vamos_stop() {
-                  document.getElementById('vamos_image').style.opacity = "0";
-                }
-                vamos_stop()
-              </script>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://vamos-vla.github.io">
-                <papertitle>VAMOS: A Hierarchical Vision-Language-Action Model for Capability-Modulated and Steerable Navigation</papertitle>
-              </a>
-              <br>
-              <strong>Mateo Guaman Castro</strong>,
-              <a href="https://www.linkedin.com/in/sidharth-rajagopal-66932a221">Sidharth Rajagopal</a>, 
-              <a href="https://www.linkedin.com/in/daniel-gorbatov-892166220">Daniel Gorbatov</a>, 
-              <a href="https://www.mattschmittle.com/">Matthew Schmittle</a>, 
-              <a href="https://rohanblueboybaijal.github.io/">Rohan Baijal</a>, 
-              <a href="https://zoctipus.github.io/">Octi Zhang</a>, 
-              <a href="https://rosarioscalise.com/">Rosario Scalise</a>, 
-              <a href="https://www.sidharthtalia.com/">Sidharth Talia</a>, 
-              <a href="https://www.linkedin.com/in/emma-romig-97201617">Emma Romig</a>, 
-              <a href="https://celsodemelo.net/">Celso de Melo</a>, 
-              <a href="https://homes.cs.washington.edu/~bboots/">Byron Boots</a>,
-              <a href="https://abhishekunique.github.io">Abhishek Gupta</a>, 
-              <br>
-              <em>Submitted to International Conference on Robotics and Automation (ICRA), 2026</em>
-              <br>
-              <em>Oral at the CoRL 2025 Workshop on Generalist Policies in the Wild & Robo-Arena Challenge</em>
-              <br>
-              <!-- <a href="https://arxiv.org/abs/2409.10923">arXiv</a>
-              / -->
-              <a href="https://vamos-vla.github.io/VAMOS.pdf">pdf</a>
-              /
-              <a href="https://vamos-vla.github.io/">project page</a>
-              <p></p>
-              <p>
-                VAMOS is a hierarchical vision-language-action model that decouples semantic planning from embodiment grounding, enabling robust cross-embodiment navigation with natural language steerability.
-              </p>
-            </td>
-          </tr>
-
-          <!-- <tr onmouseout="lrn_stop()" onmouseover="lrn_start()">
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <div class="two" id='lrn_image'><video  width=100% height=100% muted autoplay loop>
-                <source src="images/cropped_lrn.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-                </video></div>
-                <img src='images/cropped_lrn_preview.png' width="160">
-              </div>
-              
-              <script type="text/javascript">
-                function lrn_start() {
-                  document.getElementById('lrn_image').style.opacity = "1";
-                }
-
-                function lrn_stop() {
-                  document.getElementById('lrn_image').style.opacity = "0";
-                }
-                lrn_stop()
-              </script>
-            </td> -->
-          <tr onmouseout="lrn_stop()" onmouseover="lrn_start()"></tr>
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <div class="two" id='lrn_image'>
-                  <img src='images/lrn_after.png' width="160"></div>
-                <img src='images/lrn_before.png' width="160">
-              </div>
-              <script type="text/javascript">
-                function lrn_start() {
-                  document.getElementById('lrn_image').style.opacity = "1";
-                }
-
-                function lrn_stop() {
-                  document.getElementById('lrn_image').style.opacity = "0";
-                }
-                lrn_stop()
-              </script>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://personalrobotics.github.io/lrn/">
-                <papertitle>Long Range Navigator: Extending robot planning horizons beyond metric maps</papertitle>
-              </a>
-              <br>
-              <a href="https://www.mattschmittle.com/">Matthew Schmittle</a>, 
-              <a href="https://rohanblueboybaijal.github.io/">Rohan Baijal</a>,
-              <a href="https://nhatch.github.io/">Nathan Hatch</a>,
-              <a href="https://rosarioscalise.com/">Rosario Scalise</a>,
-              <strong>Mateo Guaman Castro</strong>
-              <a href="https://www.sidharthtalia.com/">Sidharth Talia</a>, 
-              <a href="https://kkhetarpal.github.io/">Khimya Khetarpal</a>, 
-              <a href="https://goodrobot.ai/">Siddhartha Srinivasa</a>, 
-              <a href="https://homes.cs.washington.edu/~bboots/">Byron Boots</a>,
-              <br>
-              <em>Conference on Robot Learning (CoRL), 2025</em>
-              <br>
-              <em style="color:red;">Best Paper Award, RSS 2025 Workshop on Resilient Off-road Autonomous Robotics</em>
-              <br>
-              <a href="https://arxiv.org/abs/2504.13149">arXiv</a>
-              /
-              <a href="https://arxiv.org/pdf/2504.13149">pdf</a>
-              /
-              <a href="https://personalrobotics.github.io/lrn/">project page</a>
-              <p></p>
-              <p>
-                Long Range Navigator enables robots to look beyond local maps through affordances in image space.
-              </p>
-            </td>
-          </tr>
-
-          <tr onmouseout="jcod_stop()" onmouseover="jcod_start()">
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <div class="two" id='jcod_image'><video  width=100% height=100% muted autoplay loop>
-                <source src="images/cropped_jcod.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-                </video></div>
-                <img src='images/cropped_jcod_preview.png' width="160">
-              </div>
-              
-              <script type="text/javascript">
-                function jcod_start() {
-                  document.getElementById('jcod_image').style.opacity = "1";
-                }
-
-                function jcod_stop() {
-                  document.getElementById('jcod_image').style.opacity = "0";
-                }
-                jcod_stop()
-              </script>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://yxyang.github.io/jumping_cod/">
-                <papertitle>Agile Continuous Jumping in Discontinuous Terrains</papertitle>
-              </a>
-              <br>
-              <a href="https://yxyang.github.io/">Yuxiang Yang</a>, 
-              <a href="https://www.gshi.me/">Guanya Shi</a>, 
-              <a href="https://linchangyi1.github.io/">Changyi Lin</a>, 
-              <a href="https://homes.cs.washington.edu/~xiangyun/">Xiangyun Meng</a>, 
-              <a href="https://rosarioscalise.com/">Rosario Scalise</a>, 
-              <strong>Mateo Guaman Castro</strong>,
-              <a href="https://wenhaoyu.weebly.com/">Wenhao Yu</a>, 
-              <a href="https://research.google/people/TingnanZhang/">Tingnan Zhang</a>, 
-              <a href="https://www.meche.engineering.cmu.edu/directory/bios/zhao-ding.html">Ding Zhao</a>, 
-              <a href="https://www.jie-tan.net/">Jie Tan</a>, 
-              <a href="https://homes.cs.washington.edu/~bboots/">Byron Boots</a>
-              <br>
-              <em>International Conference on Robotics and Automation (ICRA), 2025</em>
-              <br>
-              <a href="https://arxiv.org/abs/2409.10923">arXiv</a>
-              /
-              <a href="https://arxiv.org/pdf/2409.10923">pdf</a>
-              /
-              <a href="https://yxyang.github.io/jumping_cod/">project page</a>
-              <p></p>
-              <p>
-                We developed a system that enables quadrupedal robots to perform continuous, precise jumps across challenging terrains like stairs and stepping stones, achieving unprecedented agility.
-              </p>
-            </td>
-          </tr>
-
-          <tr onmouseout="droid_stop()" onmouseover="droid_start()">
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <div class="two" id='droid_image'><video  width=100% height=100% muted autoplay loop>
-                <source src="images/cropped_droid.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-                </video></div>
-                <img src='images/cropped_droid_preview.png' width="160">
-              </div>
-              
-              <script type="text/javascript">
-                function droid_start() {
-                  document.getElementById('droid_image').style.opacity = "1";
-                }
-
-                function droid_stop() {
-                  document.getElementById('droid_image').style.opacity = "0";
-                }
-                droid_stop()
-              </script>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://droid-dataset.github.io/">
-                <papertitle>DROID: A Large-Scale In-the-Wild Robot Manipulation Dataset</papertitle>
-              </a>
-              <br>
-              <a href="https://droid-dataset.github.io/">DROID Dataset Team</a>
-              <br>
-              <em>Robotics: Science and Systems (RSS), 2024</em>
-              <br>
-              <a href="https://arxiv.org/abs/2403.12945">arXiv</a>
-              /
-              <a href="https://arxiv.org/pdf/2403.12945">pdf</a>
-              /
-              <a href="https://droid-dataset.github.io/">project page</a>
-              <p></p>
-              <p>
-                We present a large dataset for robot learning.
-              </p>
-            </td>
-          </tr>
-
-          <tr onmouseout="oxe_stop()" onmouseover="oxe_start()">
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <div class="two" id='oxe_image'><video  width=100% height=100% muted autoplay loop>
-                <source src="images/cropped_oxe2.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-                </video></div>
-                <img src='images/cropped_oxe2_preview.png' width="160">
-              </div>
-              
-              <script type="text/javascript">
-                function oxe_start() {
-                  document.getElementById('oxe_image').style.opacity = "1";
-                }
-
-                function oxe_stop() {
-                  document.getElementById('oxe_image').style.opacity = "0";
-                }
-                oxe_stop()
-              </script>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://robotics-transformer-x.github.io/">
-                <papertitle>Open X-Embodiment: Robotic Learning Datasets and RT-X Models</papertitle>
-              </a>
-              <br>
-              <a href="https://robotics-transformer-x.github.io/">Open X-Embodiment Collaboration</a>
-              <br>
-              <em>International Conference on Robotics and Automation (ICRA), 2024</em>
-              <br>
-              <em style="color:red;">IEEE ICRA Best Conference Paper Award</em>
-              <br>
-              <a href="https://arxiv.org/abs/2310.08864">arXiv</a>
-              /
-              <a href="https://arxiv.org/pdf/2310.08864">pdf</a>
-              /
-              <a href="https://robotics-transformer-x.github.io/">project page</a>
-              <p></p>
-              <p>
-                We present a large dataset for robot learning.
-              </p>
-            </td>
-          </tr>
-
-          <tr onmouseout="tartandrive2_stop()" onmouseover="tartandrive2_start()">
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <div class="two" id='tartandrive2_image'><video  width=100% height=100% muted autoplay loop>
-                <source src="images/cropped_tartandrive2.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-                </video></div>
-                <img src='images/cropped_tartandrive2_teaser.png' width="160">
-              </div>
-              
-              <script type="text/javascript">
-                function tartandrive2_start() {
-                  document.getElementById('tartandrive2_image').style.opacity = "1";
-                }
-
-                function tartandrive2_stop() {
-                  document.getElementById('tartandrive2_image').style.opacity = "0";
-                }
-                tartandrive2_stop()
-              </script>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://theairlab.org/TartanDrive2/">
-                <papertitle>TartanDrive 2.0: More Modalities and Better Infrastructure to Further Self-Supervised Learning Research in Off-Road Driving Tasks</papertitle>
-              </a>
-              <br>
-              <!-- <a href="https://cs.stanford.edu/~poole/">Ben Poole</a>,
-              <a href="https://www.ajayj.com/">Ajay Jain</a>, -->
-              <a href="https://matthewjsiv.github.io/">Matthew Sivaprakasam</a>, 
-              <a href="https://www.parvmaheshwari.com/">Parv Maheshwari</a>,
-              <strong>Mateo Guaman Castro</strong>,
-							<a href="https://striest.github.io/">Samuel Triest</a>, 
-              <a href="https://www.linkedin.com/in/micah-nye-9105051b7/">Micah Nye</a>, 
-              <a href="https://theairlab.org/team/stevenw/">Steven Willits</a>, 
-              <a href="https://www.linkedin.com/in/asaba96">Andrew Saba</a>, 
-              <a href="https://theairlab.org/team/wenshan/">Wenshan Wang</a>, 
-              <a href="https://theairlab.org/team/sebastian/">Sebastian Scherer</a>
-              <br>
-              <em>International Conference on Robotics and Automation (ICRA), 2024</em>
-              <br>
-              <a href="https://arxiv.org/abs/2402.01913">arXiv</a>
-              /
-              <a href="https://arxiv.org/pdf/2402.01913">pdf</a>
-              /
-              <a href="https://ieeexplore.ieee.org/document/10611265/">IEEE</a>
-              /
-              <a href="https://theairlab.org/TartanDrive2/">project page</a>
-              /
-              <a href="https://drive.google.com/file/d/1J-KePd_W2gOLecS1YwolOlKhKFw3ANbF/view">video</a>
-              <p></p>
-              <p>
-                We present a dataset for off-road driving with multiple modalities at high speed.
-              </p>
-            </td>
-          </tr>
-
-          <tr onmouseout="hdif_stop()" onmouseover="hdif_start()"  bgcolor="#ffffd0">
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <div class="two" id='hdif_image'><video  width=100% height=100% muted autoplay loop>
-                <source src="images/cropped_hdif_preview.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-                </video></div>
-                <img src='images/cropped_hdif_image.png' width="160">
-              </div>
-              
-              <script type="text/javascript">
-                function hdif_start() {
-                  document.getElementById('hdif_image').style.opacity = "1";
-                }
-
-                function hdif_stop() {
-                  document.getElementById('hdif_image').style.opacity = "0";
-                }
-                hdif_stop()
-              </script>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://mateoguaman.github.io/hdif/">
-                <papertitle>How Does It Feel? Self-Supervised Costmap Learning for Off-Road Vehicle Traversability</papertitle>
-              </a>
-              <br>
-              <!-- <a href="https://cs.stanford.edu/~poole/">Ben Poole</a>,
-              <a href="https://www.ajayj.com/">Ajay Jain</a>, -->
-              <strong>Mateo Guaman Castro</strong>,
-							<a href="https://striest.github.io/">Samuel Triest</a>, 
-              <a href="https://theairlab.org/team/wenshan/">Wenshan Wang</a>, 
-              <a href="https://www.linkedin.com/in/jason-gregory-88b70b167  ">Jason M. Gregory</a>, 
-              Felix Sanchez, 
-              <a href="https://www.linkedin.com/in/john-rogers-41921a12
-              ">John G. Rogers III</a>, 
-              <a href="https://theairlab.org/team/sebastian/">Sebastian Scherer</a>
-              <br>
-              <em>International Conference on Robotics and Automation (ICRA), 2023</em>
-              <br>
-              <a href="https://arxiv.org/abs/2209.10788">arXiv</a>
-              /
-              <a href="https://arxiv.org/pdf/2209.10788.pdf">pdf</a>
-              /
-              <a href="https://ieeexplore.ieee.org/abstract/document/10160856">IEEE</a>
-              /
-              <a href="https://mateoguaman.github.io/hdif/">project page</a>
-              /
-              <a href="https://www.youtube.com/watch?v=19sDs1S8IGk">short video</a>
-              /
-              <a href="https://www.youtube.com/watch?v=866HUBQEZnU">long video</a>
-              <p></p>
-              <p>
-                We propose a self-supervised method to predict traversability costmaps by combining exteroceptive environmental information with proprioceptive terrain interaction feedback. 
-              </p>
-            </td>
-          </tr>
-
-
-          <tr onmouseout="irl_icra_stop()" onmouseover="irl_icra_start()">
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <div class="two" id='irl_icra_image'>
-                  <img src='images/irl_icra_after.png' width="160"></div>
-                <img src='images/irl_icra_before.png' width="160">
-              </div>
-              <script type="text/javascript">
-                function irl_icra_start() {
-                  document.getElementById('irl_icra_image').style.opacity = "1";
-                }
-
-                function irl_icra_stop() {
-                  document.getElementById('irl_icra_image').style.opacity = "0";
-                }
-                irl_icra_stop()
-              </script>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <!-- <a href="TODO"> -->
-                <papertitle>Learning Risk-Aware Costmaps via Inverse Reinforcement Learning for Off-Road Navigation</papertitle>
-              </a>
-              <br>
-              <a href="https://striest.github.io/">Samuel Triest</a>, 
-              <strong>Mateo Guaman Castro</strong>,
-              <a href="https://www.parvmaheshwari.com/">Parv Maheshwari</a>,
-              <a href="https://www.linkedin.com/in/matthew-sivaprakasam-a089a1162">Matthew Sivaprakasam</a>, 
-              <a href="https://theairlab.org/team/wenshan/">Wenshan Wang</a>, 
-              <a href="https://theairlab.org/team/sebastian/">Sebastian Scherer</a>
-              <br>
-              <em>International Conference on Robotics and Automation (ICRA), 2023</em>
-              <br>
-              <a href="https://arxiv.org/abs/2302.00134">arXiv</a>
-              /
-              <a href="https://arxiv.org/pdf/2302.00134.pdf">pdf</a>
-              /
-              <a href="https://ieeexplore.ieee.org/document/10161268">IEEE</a>
-              <p></p>
-              <p>
-                We present an inverse reinforcement learning-based method that efficiently predicts uncertainty-aware costmaps for off-road traversability via conditional value-at-risk (CVaR).
-              </p>
-            </td>
-          </tr>		
-
-          
-          <tr onmouseout="pt4r_stop()" onmouseover="pt4r_start()">
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-                <div class="two" id='pt4r_image'>
-                  <img src='images/pt4r_after.png' width="160"></div>
-                <img src='images/pt4r_before.png' width="160">
-              </div>
-              <script type="text/javascript">
-                function pt4r_start() {
-                  document.getElementById('pt4r_image').style.opacity = "1";
-                }
-
-                function pt4r_stop() {
-                  document.getElementById('pt4r_image').style.opacity = "0";
-                }
-                pt4r_stop()
-              </script>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-              <!-- <a href="TODO"> -->
-                <papertitle>TartanDrive 1.5: Improving Large Multimodal Robotics Dataset Collection and Distribution</papertitle>
-              </a>
-              <br>
-              <a href="https://www.linkedin.com/in/matthew-sivaprakasam-a089a1162">Matthew Sivaprakasam</a>,
-              <a href="https://striest.github.io/">Samuel Triest</a>, 
-              <strong>Mateo Guaman Castro</strong>,
-              <a href="https://www.linkedin.com/in/micah-nye/">Micah Nye</a>,
-              <a href="https://www.linkedin.com/in/maulimov/">Mukhtar Maulimov</a>,
-              <a href="https://cherieho.com/">Cherie Ho</a>,
-              <a href="https://www.parvmaheshwari.com/">Parv Maheshwari</a>,
-              <a href="https://theairlab.org/team/wenshan/">Wenshan Wang</a>, 
-              <a href="https://theairlab.org/team/sebastian/">Sebastian Scherer</a>
-              <br>
-              <em>Workshop on Pretraining for Robotics (PT4R), International Conference on Robotics and Automation (ICRA), 2023</em>
-              <br>
-              <a href="https://openreview.net/pdf?id=7Y1pnhFJUT">pdf</a>
-              <p></p>
-              <p>
-                In this work we discuss the improvements to our previous dataset, <a href="https://arxiv.org/pdf/2205.01791.pdf">TartanDrive</a>.
-              </p>
-            </td>
-          </tr>	
-
-
-          <tr onmouseout="iccc_stop()" onmouseover="iccc_start()">
-            <td style="padding:20px;width:25%;vertical-align:middle">
-            <div class="one">
-            <div class="two" id='iccc_image'>
-              <img src='images/iccc_after.png' width="160"></div>
-            <img src='images/iccc_before.png' width="160">
-            </div>
-            <script type="text/javascript">
-            function iccc_start() {
-              document.getElementById('iccc_image').style.opacity = "1";
-            }
-  
-            function iccc_stop() {
-              document.getElementById('iccc_image').style.opacity = "0";
-            }
-            iccc_stop()
-            </script>
-            </td>
-            <td style="padding:20px;width:75%;vertical-align:middle">
-            <a href="https://computationalcreativity.net/iccc22/wp-content/uploads/2022/06/ICCC-2022_6S_Gizzi-et-al..pdf">
-            <papertitle>Toward Life-Long Creative Problem Solving: Using World Models for Increased Performance in Novelty Resolution</papertitle>
-            </a> <br>
-            <a href="https://scholar.google.com/citations?user=QI6VNEgAAAAJ&hl=en">Evana Gizzi</a>, 
-            <a href="https://www.linkedin.com/in/wo-wei-lin-908618207">Wo Wei Lin</a>, 
-            <strong>Mateo Guaman Castro</strong>,
-            <a href="https://thostle.com/">Ethan Harvey</a>,
-            <a href="https://www.eecs.tufts.edu/~jsinapov/">Jivko Sinapov</a>
-            <br>
-            <em>International Conference on Computational Creativity (ICCC)</em>, 2022
-            <br>
-            <a href="https://computationalcreativity.net/iccc22/wp-content/uploads/2022/06/ICCC-2022_6S_Gizzi-et-al..pdf">pdf</a>
-            <p></p>
-            <p>
-              In this work, we investigate methods for life-long creative problem solving (LLCPS), with the goal of increasing CPS capability over time.
-            </p>
-            </td>
-            </tr> 
-
-
-
-            <tr onmouseout="aamas_stop()" onmouseover="aamas_start()">
-              <td style="padding:20px;width:25%;vertical-align:middle">
-              <div class="one">
-              <div class="two" id='aamas_image'>
-                <img src='images/aamas_after.png' width="160"></div>
-              <img src='images/aamas_before.png' width="160">
-              </div>
-              <script type="text/javascript">
-              function aamas_start() {
-                document.getElementById('aamas_image').style.opacity = "1";
-              }
-    
-              function aamas_stop() {
-                document.getElementById('aamas_image').style.opacity = "0";
-              }
-              aamas_stop()
-              </script>
-              </td>
-              <td style="padding:20px;width:75%;vertical-align:middle">
-              <a href="https://www.ifaamas.org/Proceedings/aamas2021/pdfs/p925.pdf">
-                <papertitle>A Novelty-Centric Agent Architecture for Changing Worlds</papertitle>
-                </a> <br>
-                <a href="https://faizan-m.github.io/">Faizan Muhammad</a>, 
-                <a href="https://www.sift.net/staff/vasanth-sarathy">Vasanth Sarathy</a>, 
-                <a href="https://www.eecs.tufts.edu/~gtatiya/">Gyan Tatiya</a>,
-                <a href="https://sites.google.com/view/shivam-goel/home">Shivam Goel</a>,
-                <a href="https://www.linkedin.com/in/sauravgyawali">Saurav Gyawali</a>,
-                <strong>Mateo Guaman Castro</strong>,
-                <a href="https://www.eecs.tufts.edu/~jsinapov/">Jivko Sinapov</a>, 
-                <a href="https://engineering.tufts.edu/cs/people/faculty/matthias-scheutz">Matthias Scheutz</a> 
-                <br>
-                <em>International Conference on Autonomous Agents and Multiagent Systems (AAMAS)</em>, 2021
-                <br>
-                <a href="https://www.ifaamas.org/Proceedings/aamas2021/pdfs/p925.pdf">pdf</a>
-                <p></p>
-                <p>
-                  We present a formal framework and implementation in a cognitive agent for novelty handling and demonstrate the efficacy of the proposed methods for detecting and handling a large set of novelties in a crafting task in a simulated environment.
+          <!-- AlphaNIST -->
+          <li class="row">
+            <button class="row-head" aria-expanded="false">
+              <span class="row-year">2026</span>
+              <span class="row-title">AlphaNIST</span>
+              <span class="row-venue">In submission</span>
+              <span class="row-plus" aria-hidden="true"></span>
+            </button>
+            <div class="row-body" hidden>
+              <figure class="media row-media" data-media>
+                <img class="m-still" src="media/alphanist.jpg" alt="" loading="lazy">
+                <video class="m-video" muted loop playsinline preload="none" data-src="media/alphanist.mp4"></video>
+              </figure>
+              <div class="row-text">
+                <h3><a href="https://alpha-nist.github.io/">AlphaNIST: Emergent Assembly Skills from Binary Task Rewards</a></h3>
+                <p class="row-authors">
+                  <a href="https://zoctipus.github.io/">Octi Zhang</a>,
+                  Iretiayo Akinola,
+                  <a href="https://rosarioscalise.com/">Rosario Scalise</a>,
+                  <span class="me">Mateo Guaman Castro</span>,
+                  <a href="https://patrickyin.me/">Patrick Yin</a>,
+                  Tobias Widmer,
+                  Miles Macklin,
+                  Chris Amevor,
+                  Dylan Turpin,
+                  Dirk Van Gelder,
+                  Jan Carius,
+                  Ankur Handa,
+                  Gavriel State,
+                  Yunrong Guo,
+                  Yashraj Narang
                 </p>
-                </td>
-                </tr> 
+                <p class="row-full">In submission</p>
+                <p class="row-desc">One policy learns contact-rich assembly on the NIST task board in simulation from binary task rewards, without prescribed manipulation stages.</p>
+                <p class="row-links"><a href="https://alpha-nist.github.io/">project page</a></p>
+              </div>
+            </div>
+          </li>
 
+          <!-- SGS -->
+          <li class="row">
+            <button class="row-head" aria-expanded="false">
+              <span class="row-year">2026</span>
+              <span class="row-title">SGS</span>
+              <span class="row-venue">CoRL 2026</span>
+              <span class="row-plus" aria-hidden="true"></span>
+            </button>
+            <div class="row-body" hidden>
+              <figure class="media row-media" data-media>
+                <img class="m-still" src="media/sgs.jpg" alt="" loading="lazy">
+                <video class="m-video" muted loop playsinline preload="none" data-src="media/sgs.mp4"></video>
+              </figure>
+              <div class="row-text">
+                <h3><a href="https://sgs-rl.github.io/">A Balanced Data Diet: Addressing the Exploration Bottleneck in Mega-Scale RL for Robot Control</a></h3>
+                <p class="row-authors">
+                  <a href="https://zoctipus.github.io/">Octi Zhang</a><sup>*</sup>,
+                  <span class="me">Mateo Guaman Castro</span><sup>*</sup>,
+                  <a href="https://patrickyin.me/">Patrick Yin</a><sup>*</sup>,
+                  <a href="https://www.linkedin.com/in/iggydagnino">Ignacio Dagnino</a>,
+                  <a href="https://homes.cs.washington.edu/~abhgupta/">Abhishek Gupta</a>,
+                  <a href="https://rosarioscalise.com/">Rosario Scalise</a><sup>†</sup>,
+                  <a href="https://homes.cs.washington.edu/~bboots/">Byron Boots</a><sup>†</sup>
+                </p>
+                <p class="soft">*Equal contribution &emsp; †Equal advising</p>
+                <p class="row-full">Conference on Robot Learning (CoRL), 2026</p>
+                <p class="row-desc">Success-Guided Sampling (SGS) trains on the task configurations that are neither too easy nor too hard for the current policy. With it, reinforcement learning scales much more effectively, to over a million simulated robots at once, in legged locomotion and contact-rich manipulation.</p>
+                <p class="row-links"><a href="https://arxiv.org/abs/2610.12465">arXiv</a> <a href="https://sgs-rl.github.io/">project page</a></p>
+              </div>
+            </div>
+          </li>
 
+          <!-- 02 Navigation and locomotion -->
+          <li class="div" id="nav"><span class="div-n">02</span><span class="div-t">Navigation and locomotion</span><span class="div-y">2025&ndash;2026</span></li>
 
+          <!-- VAMOS -->
+          <li class="row">
+            <button class="row-head" aria-expanded="false">
+              <span class="row-year">2026</span>
+              <span class="row-title">VAMOS<span class="tag" title="Oral at the CoRL 2025 Workshop on Generalist Policies in the Wild &amp; Robo-Arena Challenge">Oral</span></span>
+              <span class="row-venue">RA-L 2026</span>
+              <span class="row-plus" aria-hidden="true"></span>
+            </button>
+            <div class="row-body" hidden>
+              <figure class="media row-media" data-media>
+                <img class="m-still" src="media/vamos.jpg" alt="" loading="lazy">
+                <img class="m-alt" src="media/vamos-2.jpg" alt="" loading="lazy">
+              </figure>
+              <div class="row-text">
+                <h3><a href="https://vamos-vla.github.io">VAMOS: A Hierarchical Vision-Language-Action Model for Capability-Modulated and Steerable Navigation</a></h3>
+                <p class="row-authors">
+                  <span class="me">Mateo Guaman Castro</span>,
+                  <a href="https://www.linkedin.com/in/sidharth-rajagopal-66932a221">Sidharth Rajagopal</a>,
+                  <a href="https://www.linkedin.com/in/daniel-gorbatov-892166220">Daniel Gorbatov</a>,
+                  <a href="https://www.mattschmittle.com/">Matthew Schmittle</a>,
+                  <a href="https://rohanblueboybaijal.github.io/">Rohan Baijal</a>,
+                  <a href="https://zoctipus.github.io/">Octi Zhang</a>,
+                  <a href="https://rosarioscalise.com/">Rosario Scalise</a>,
+                  <a href="https://www.sidharthtalia.com/">Sidharth Talia</a>,
+                  <a href="https://www.linkedin.com/in/emma-romig-97201617">Emma Romig</a>,
+                  <a href="https://celsodemelo.net/">Celso de Melo</a>,
+                  <a href="https://homes.cs.washington.edu/~bboots/">Byron Boots</a>,
+                  <a href="https://abhishekunique.github.io">Abhishek Gupta</a>
+                </p>
+                <p class="row-full">IEEE Robotics and Automation Letters (RA-L), 2026</p>
+                <p class="row-award">Oral at the CoRL 2025 Workshop on Generalist Policies in the Wild &amp; Robo-Arena Challenge</p>
+                <p class="row-desc">VAMOS is a hierarchical vision-language-action model that decouples semantic planning from embodiment grounding, enabling robust cross-embodiment navigation with natural language steerability.</p>
+                <p class="row-links"><a href="https://vamos-vla.github.io/VAMOS.pdf">pdf</a> <a href="https://vamos-vla.github.io/">project page</a></p>
+              </div>
+            </div>
+          </li>
 
-                <tr onmouseout="rss_dnr_rob_stop()" onmouseover="rss_dnr_rob_start()">
-                  <td style="padding:20px;width:25%;vertical-align:middle">
-                  <div class="one">
-                  <div class="two" id='rss_dnr_rob_image'>
-                    <img src='images/rss_2021_after.png' width="160"></div>
-                  <img src='images/rss_2021_before.png' width="160">
-                  </div>
-                  <script type="text/javascript">
-                  function rss_dnr_rob_start() {
-                    document.getElementById('rss_dnr_rob_image').style.opacity = "1";
-                  }
-        
-                  function rss_dnr_rob_stop() {
-                    document.getElementById('rss_dnr_rob_image').style.opacity = "0";
-                  }
-                  rss_dnr_rob_stop()
-                  </script>
-                  </td>
-                  <td style="padding:20px;width:75%;vertical-align:middle">
-                  <a href="https://drive.google.com/file/d/1oWU2UpRq73BLvkcMEffqHkildm5uIa8i/view">
-                    <papertitle>A Framework for Creative Problem
-                      Solving Through Action Discovery</papertitle>
-                    </a> <br>
-                    <a href="https://scholar.google.com/citations?user=QI6VNEgAAAAJ&hl=en">Evana Gizzi</a>, 
-                    <strong>Mateo Guaman Castro</strong>, 
-                    <a href="https://www.linkedin.com/in/wo-wei-lin-908618207">Wo Wei Lin</a>, 
-                    <a href="https://www.eecs.tufts.edu/~jsinapov/">Jivko Sinapov</a>
-                    <br>
-                    <em>Workshop on Declarative and Neurosymbolic Representations in Robot Learning and Control, Robotics: Science and Systems (RSS)</em>, 2021
-                    <br>
-                    <a href="https://drive.google.com/file/d/1oWU2UpRq73BLvkcMEffqHkildm5uIa8i/view">pdf</a>
-                    <p></p>
-                    <p>
-                      We introduce a unified framework for creative problem solving through action discovery. We describe two methods which enable action discovery at a declarative and neurosymbolic level, namely through action primitive segmentation, and behavior babbling, respectively.
-                    </p>
-                    </td>
-                    </tr> 
+          <!-- Long Range Navigator -->
+          <li class="row">
+            <button class="row-head" aria-expanded="false">
+              <span class="row-year">2025</span>
+              <span class="row-title">Long Range Navigator<span class="tag" title="Best Paper Award, RSS 2025 Workshop on Resilient Off-road Autonomous Robotics">Award</span></span>
+              <span class="row-venue">CoRL 2025</span>
+              <span class="row-plus" aria-hidden="true"></span>
+            </button>
+            <div class="row-body" hidden>
+              <figure class="media row-media" data-media>
+                <img class="m-still" src="media/lrn.jpg" alt="" loading="lazy">
+              </figure>
+              <div class="row-text">
+                <h3><a href="https://personalrobotics.github.io/lrn/">Long Range Navigator: Extending robot planning horizons beyond metric maps</a></h3>
+                <p class="row-authors">
+                  <a href="https://www.mattschmittle.com/">Matthew Schmittle</a>,
+                  <a href="https://rohanblueboybaijal.github.io/">Rohan Baijal</a>,
+                  <a href="https://nhatch.github.io/">Nathan Hatch</a>,
+                  <a href="https://rosarioscalise.com/">Rosario Scalise</a>,
+                  <span class="me">Mateo Guaman Castro</span>,
+                  <a href="https://www.sidharthtalia.com/">Sidharth Talia</a>,
+                  <a href="https://kkhetarpal.github.io/">Khimya Khetarpal</a>,
+                  <a href="https://goodrobot.ai/">Siddhartha Srinivasa</a>,
+                  <a href="https://homes.cs.washington.edu/~bboots/">Byron Boots</a>
+                </p>
+                <p class="row-full">Conference on Robot Learning (CoRL), 2025</p>
+                <p class="row-award">Best Paper Award, RSS 2025 Workshop on Resilient Off-road Autonomous Robotics</p>
+                <p class="row-desc">Long Range Navigator enables robots to look beyond local maps through affordances in image space.</p>
+                <p class="row-links"><a href="https://arxiv.org/abs/2504.13149">arXiv</a> <a href="https://arxiv.org/pdf/2504.13149">pdf</a> <a href="https://personalrobotics.github.io/lrn/">project page</a></p>
+              </div>
+            </div>
+          </li>
 
+          <!-- Agile Continuous Jumping -->
+          <li class="row">
+            <button class="row-head" aria-expanded="false">
+              <span class="row-year">2025</span>
+              <span class="row-title">Agile Continuous Jumping</span>
+              <span class="row-venue">ICRA 2025</span>
+              <span class="row-plus" aria-hidden="true"></span>
+            </button>
+            <div class="row-body" hidden>
+              <figure class="media row-media" data-media>
+                <img class="m-still" src="media/jcod.jpg" alt="" loading="lazy">
+                <video class="m-video" muted loop playsinline preload="none" data-src="media/jcod.mp4"></video>
+              </figure>
+              <div class="row-text">
+                <h3><a href="https://yxyang.github.io/jumping_cod/">Agile Continuous Jumping in Discontinuous Terrains</a></h3>
+                <p class="row-authors">
+                  <a href="https://yxyang.github.io/">Yuxiang Yang</a>,
+                  <a href="https://www.gshi.me/">Guanya Shi</a>,
+                  <a href="https://linchangyi1.github.io/">Changyi Lin</a>,
+                  <a href="https://homes.cs.washington.edu/~xiangyun/">Xiangyun Meng</a>,
+                  <a href="https://rosarioscalise.com/">Rosario Scalise</a>,
+                  <span class="me">Mateo Guaman Castro</span>,
+                  <a href="https://wenhaoyu.weebly.com/">Wenhao Yu</a>,
+                  <a href="https://research.google/people/TingnanZhang/">Tingnan Zhang</a>,
+                  <a href="https://www.meche.engineering.cmu.edu/directory/bios/zhao-ding.html">Ding Zhao</a>,
+                  <a href="https://www.jie-tan.net/">Jie Tan</a>,
+                  <a href="https://homes.cs.washington.edu/~bboots/">Byron Boots</a>
+                </p>
+                <p class="row-full">International Conference on Robotics and Automation (ICRA), 2025</p>
+                <p class="row-desc">We developed a system that enables quadrupedal robots to perform continuous, precise jumps across challenging terrains like stairs and stepping stones, achieving unprecedented agility.</p>
+                <p class="row-links"><a href="https://arxiv.org/abs/2409.10923">arXiv</a> <a href="https://arxiv.org/pdf/2409.10923">pdf</a> <a href="https://yxyang.github.io/jumping_cod/">project page</a></p>
+              </div>
+            </div>
+          </li>
 
+          <!-- 03 Robot datasets -->
+          <li class="div" id="data"><span class="div-n">03</span><span class="div-t">Robot datasets</span><span class="div-y">2024</span></li>
 
+          <!-- DROID -->
+          <li class="row">
+            <button class="row-head" aria-expanded="false">
+              <span class="row-year">2024</span>
+              <span class="row-title">DROID</span>
+              <span class="row-venue">RSS 2024</span>
+              <span class="row-plus" aria-hidden="true"></span>
+            </button>
+            <div class="row-body" hidden>
+              <figure class="media row-media" data-media>
+                <img class="m-still" src="media/droid.jpg" alt="" loading="lazy">
+                <video class="m-video" muted loop playsinline preload="none" data-src="media/droid.mp4"></video>
+              </figure>
+              <div class="row-text">
+                <h3><a href="https://droid-dataset.github.io/">DROID: A Large-Scale In-the-Wild Robot Manipulation Dataset</a></h3>
+                <p class="row-authors">
+                  <a href="https://droid-dataset.github.io/">DROID Dataset Team</a>
+                </p>
+                <p class="row-full">Robotics: Science and Systems (RSS), 2024</p>
+                <p class="row-desc">We present a large dataset for robot learning.</p>
+                <p class="row-links"><a href="https://arxiv.org/abs/2403.12945">arXiv</a> <a href="https://arxiv.org/pdf/2403.12945">pdf</a> <a href="https://droid-dataset.github.io/">project page</a></p>
+              </div>
+            </div>
+          </li>
 
+          <!-- Open X-Embodiment -->
+          <li class="row">
+            <button class="row-head" aria-expanded="false">
+              <span class="row-year">2024</span>
+              <span class="row-title">Open X-Embodiment<span class="tag" title="IEEE ICRA Best Conference Paper Award">Award</span></span>
+              <span class="row-venue">ICRA 2024</span>
+              <span class="row-plus" aria-hidden="true"></span>
+            </button>
+            <div class="row-body" hidden>
+              <figure class="media row-media" data-media>
+                <img class="m-still" src="media/oxe.jpg" alt="" loading="lazy">
+                <video class="m-video" muted loop playsinline preload="none" data-src="media/oxe.mp4"></video>
+              </figure>
+              <div class="row-text">
+                <h3><a href="https://robotics-transformer-x.github.io/">Open X-Embodiment: Robotic Learning Datasets and RT-X Models</a></h3>
+                <p class="row-authors">
+                  <a href="https://robotics-transformer-x.github.io/">Open X-Embodiment Collaboration</a>
+                </p>
+                <p class="row-full">International Conference on Robotics and Automation (ICRA), 2024</p>
+                <p class="row-award">IEEE ICRA Best Conference Paper Award</p>
+                <p class="row-desc">We present a large dataset for robot learning.</p>
+                <p class="row-links"><a href="https://arxiv.org/abs/2310.08864">arXiv</a> <a href="https://arxiv.org/pdf/2310.08864">pdf</a> <a href="https://robotics-transformer-x.github.io/">project page</a></p>
+              </div>
+            </div>
+          </li>
 
-                    <tr onmouseout="icdl_stop()" onmouseover="icdl_start()">
-                      <td style="padding:20px;width:25%;vertical-align:middle">
-                      <div class="one">
-                      <div class="two" id='icdl_image'>
-                        <img src='images/icdl_after.png' width="160"></div>
-                      <img src='images/icdl_before.png' width="160">
-                      </div>
-                      <script type="text/javascript">
-                      function icdl_start() {
-                        document.getElementById('icdl_image').style.opacity = "1";
-                      }
-            
-                      function icdl_stop() {
-                        document.getElementById('icdl_image').style.opacity = "0";
-                      }
-                      icdl_stop()
-                      </script>
-                      </td>
-                      <td style="padding:20px;width:75%;vertical-align:middle">
-                      <a href="https://ieeexplore.ieee.org/abstract/document/8850711">
-                        <papertitle>Creative Problem Solving by Robots Using Action Primitive Discovery</papertitle>
-                        </a> <br>
-                        <a href="https://scholar.google.com/citations?user=QI6VNEgAAAAJ&hl=en">Evana Gizzi</a>, 
-                        <strong>Mateo Guaman Castro</strong>, 
-                        <a href="https://www.eecs.tufts.edu/~jsinapov/">Jivko Sinapov</a>
-                        <br>
-                        <em>International Conference on Development and Learning (ICDL)</em>, 2019
-                        <br>
-                        <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8850711">pdf</a>
-                        /
-                        <a href="https://ieeexplore.ieee.org/document/8850711">IEEE</a>
-                        <p></p>
-                        <p>
-                          We describe a method for discovering new action primitives through object exploration and action segmentation, which is able to iteratively update the robot's knowledge base on-the-fly until the solution becomes feasible.
-                        </p>
-                        </td>
-                        </tr> 
+          <!-- 04 Off-road driving -->
+          <li class="div" id="offroad"><span class="div-n">04</span><span class="div-t">Off-road driving</span><span class="div-y">2023&ndash;2024</span></li>
 
-        </tbody></table>
+          <!-- TartanDrive 2.0 -->
+          <li class="row">
+            <button class="row-head" aria-expanded="false">
+              <span class="row-year">2024</span>
+              <span class="row-title">TartanDrive 2.0</span>
+              <span class="row-venue">ICRA 2024</span>
+              <span class="row-plus" aria-hidden="true"></span>
+            </button>
+            <div class="row-body" hidden>
+              <figure class="media row-media" data-media>
+                <img class="m-still" src="media/td2.jpg" alt="" loading="lazy">
+                <video class="m-video" muted loop playsinline preload="none" data-src="media/td2.mp4"></video>
+              </figure>
+              <div class="row-text">
+                <h3><a href="https://theairlab.org/TartanDrive2/">TartanDrive 2.0: More Modalities and Better Infrastructure to Further Self-Supervised Learning Research in Off-Road Driving Tasks</a></h3>
+                <p class="row-authors">
+                  <a href="https://matthewjsiv.github.io/">Matthew Sivaprakasam</a>,
+                  <a href="https://www.parvmaheshwari.com/">Parv Maheshwari</a>,
+                  <span class="me">Mateo Guaman Castro</span>,
+                  <a href="https://striest.github.io/">Samuel Triest</a>,
+                  <a href="https://www.linkedin.com/in/micah-nye-9105051b7/">Micah Nye</a>,
+                  <a href="https://theairlab.org/team/stevenw/">Steven Willits</a>,
+                  <a href="https://www.linkedin.com/in/asaba96">Andrew Saba</a>,
+                  <a href="https://theairlab.org/team/wenshan/">Wenshan Wang</a>,
+                  <a href="https://theairlab.org/team/sebastian/">Sebastian Scherer</a>
+                </p>
+                <p class="row-full">International Conference on Robotics and Automation (ICRA), 2024</p>
+                <p class="row-desc">We present a dataset for off-road driving with multiple modalities at high speed.</p>
+                <p class="row-links"><a href="https://arxiv.org/abs/2402.01913">arXiv</a> <a href="https://arxiv.org/pdf/2402.01913">pdf</a> <a href="https://ieeexplore.ieee.org/document/10611265/">IEEE</a> <a href="https://theairlab.org/TartanDrive2/">project page</a> <a href="https://drive.google.com/file/d/1J-KePd_W2gOLecS1YwolOlKhKFw3ANbF/view">video</a></p>
+              </div>
+            </div>
+          </li>
 
-				
-        <!-- <table width="100%" align="center" border="0" cellspacing="0" cellpadding="20"><tbody>
-          <tr>
-            <td>
-              <heading>Misc</heading>
-            </td>
-          </tr>
-        </tbody></table>
-        <table width="100%" align="center" border="0" cellpadding="20"><tbody>
-					
-          <tr>
-            <td style="padding:20px;width:25%;vertical-align:middle"><img src="images/cvf.jpg"></td>
-            <td width="75%" valign="center">
-              <a href="https://cvpr2022.thecvf.com/area-chairs">Area Chair, CVPR 2022</a>
-              <br>
-              <a href="http://cvpr2021.thecvf.com/area-chairs">Area Chair & Longuet-Higgins Award Committee Member, CVPR 2021</a>
-              <br>
-              <a href="http://cvpr2019.thecvf.com/area_chairs">Area Chair, CVPR 2019</a>
-              <br>
-              <a href="http://cvpr2018.thecvf.com/organizers/area_chairs">Area Chair, CVPR 2018</a>
-            </td>
-          </tr>
-          <tr>
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <img src="images/cs188.jpg" alt="cs188">
-            </td>
-            <td width="75%" valign="center">
-              <a href="http://inst.eecs.berkeley.edu/~cs188/sp11/announcements.html">Graduate Student Instructor, CS188 Spring 2011</a>
-              <br>
-              <a href="http://inst.eecs.berkeley.edu/~cs188/fa10/announcements.html">Graduate Student Instructor, CS188 Fall 2010</a>
-              <br>
-              <a href="http://aima.cs.berkeley.edu/">Figures, "Artificial Intelligence: A Modern Approach", 3rd Edition</a>
-            </td>
-          </tr>
-					
+          <!-- How Does It Feel? -->
+          <li class="row">
+            <button class="row-head" aria-expanded="false">
+              <span class="row-year">2023</span>
+              <span class="row-title">How Does It Feel?</span>
+              <span class="row-venue">ICRA 2023</span>
+              <span class="row-plus" aria-hidden="true"></span>
+            </button>
+            <div class="row-body" hidden>
+              <figure class="media row-media" data-media>
+                <img class="m-still" src="media/hdif.jpg" alt="" loading="lazy">
+                <video class="m-video" muted loop playsinline preload="none" data-src="media/hdif.mp4"></video>
+              </figure>
+              <div class="row-text">
+                <h3><a href="https://mateoguaman.github.io/hdif/">How Does It Feel? Self-Supervised Costmap Learning for Off-Road Vehicle Traversability</a></h3>
+                <p class="row-authors">
+                  <span class="me">Mateo Guaman Castro</span>,
+                  <a href="https://striest.github.io/">Samuel Triest</a>,
+                  <a href="https://theairlab.org/team/wenshan/">Wenshan Wang</a>,
+                  <a href="https://www.linkedin.com/in/jason-gregory-88b70b167">Jason M. Gregory</a>,
+                  Felix Sanchez,
+                  <a href="https://www.linkedin.com/in/john-rogers-41921a12">John G. Rogers III</a>,
+                  <a href="https://theairlab.org/team/sebastian/">Sebastian Scherer</a>
+                </p>
+                <p class="row-full">International Conference on Robotics and Automation (ICRA), 2023</p>
+                <p class="row-desc">We propose a self-supervised method to predict traversability costmaps by combining exteroceptive environmental information with proprioceptive terrain interaction feedback.</p>
+                <p class="row-links"><a href="https://arxiv.org/abs/2209.10788">arXiv</a> <a href="https://arxiv.org/pdf/2209.10788.pdf">pdf</a> <a href="https://ieeexplore.ieee.org/abstract/document/10160856">IEEE</a> <a href="https://mateoguaman.github.io/hdif/">project page</a> <a href="https://www.youtube.com/watch?v=19sDs1S8IGk">short video</a> <a href="https://www.youtube.com/watch?v=866HUBQEZnU">long video</a></p>
+              </div>
+            </div>
+          </li>
 
-          <tr>
-            <td align="center" style="padding:20px;width:25%;vertical-align:middle">
-							<heading>Basically <br> Blog Posts</heading>
-            </td>
-            <td width="75%" valign="middle">
-              <a href="https://arxiv.org/abs/2112.11687">Squareplus: A Softplus-Like Algebraic Rectifier</a>
-              <br>
-              <a href="https://arxiv.org/abs/2010.09714">A Convenient Generalization of Schlick's Bias and Gain Functions</a>
-              <br>
-              <a href="https://arxiv.org/abs/1704.07483">Continuously Differentiable Exponential Linear Units</a>
-            </td>
-          </tr> -->
-					
-        <!-- </tbody></table> -->
+          <!-- Risk-Aware Costmaps -->
+          <li class="row">
+            <button class="row-head" aria-expanded="false">
+              <span class="row-year">2023</span>
+              <span class="row-title">Risk-Aware Costmaps</span>
+              <span class="row-venue">ICRA 2023</span>
+              <span class="row-plus" aria-hidden="true"></span>
+            </button>
+            <div class="row-body" hidden>
+              <figure class="media row-media" data-media>
+                <img class="m-still" src="media/irl.jpg" alt="" loading="lazy">
+                <img class="m-alt" src="media/irl-2.jpg" alt="" loading="lazy">
+              </figure>
+              <div class="row-text">
+                <h3><a href="https://arxiv.org/abs/2302.00134">Learning Risk-Aware Costmaps via Inverse Reinforcement Learning for Off-Road Navigation</a></h3>
+                <p class="row-authors">
+                  <a href="https://striest.github.io/">Samuel Triest</a>,
+                  <span class="me">Mateo Guaman Castro</span>,
+                  <a href="https://www.parvmaheshwari.com/">Parv Maheshwari</a>,
+                  <a href="https://www.linkedin.com/in/matthew-sivaprakasam-a089a1162">Matthew Sivaprakasam</a>,
+                  <a href="https://theairlab.org/team/wenshan/">Wenshan Wang</a>,
+                  <a href="https://theairlab.org/team/sebastian/">Sebastian Scherer</a>
+                </p>
+                <p class="row-full">International Conference on Robotics and Automation (ICRA), 2023</p>
+                <p class="row-desc">We present an inverse reinforcement learning-based method that efficiently predicts uncertainty-aware costmaps for off-road traversability via conditional value-at-risk (CVaR).</p>
+                <p class="row-links"><a href="https://arxiv.org/abs/2302.00134">arXiv</a> <a href="https://arxiv.org/pdf/2302.00134.pdf">pdf</a> <a href="https://ieeexplore.ieee.org/document/10161268">IEEE</a></p>
+              </div>
+            </div>
+          </li>
 
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr>
-            <td style="padding:0px">
-              <br>
-                <br>
-              </p>
-              <td align=right>
-                Website template from <a href="https://jonbarron.info/">Jon Barron</a>.</td>
-            </td>
-          </tr>
-        </tbody></table>
-      </td>
-    </tr>
-  </table>
+          <!-- TartanDrive 1.5 -->
+          <li class="row">
+            <button class="row-head" aria-expanded="false">
+              <span class="row-year">2023</span>
+              <span class="row-title">TartanDrive 1.5</span>
+              <span class="row-venue">ICRA 2023 Workshop</span>
+              <span class="row-plus" aria-hidden="true"></span>
+            </button>
+            <div class="row-body" hidden>
+              <figure class="media row-media" data-media>
+                <img class="m-still" src="media/td15.jpg" alt="" loading="lazy">
+                <img class="m-alt" src="media/td15-2.jpg" alt="" loading="lazy">
+              </figure>
+              <div class="row-text">
+                <h3><a href="https://openreview.net/pdf?id=7Y1pnhFJUT">TartanDrive 1.5: Improving Large Multimodal Robotics Dataset Collection and Distribution</a></h3>
+                <p class="row-authors">
+                  <a href="https://www.linkedin.com/in/matthew-sivaprakasam-a089a1162">Matthew Sivaprakasam</a>,
+                  <a href="https://striest.github.io/">Samuel Triest</a>,
+                  <span class="me">Mateo Guaman Castro</span>,
+                  <a href="https://www.linkedin.com/in/micah-nye/">Micah Nye</a>,
+                  <a href="https://www.linkedin.com/in/maulimov/">Mukhtar Maulimov</a>,
+                  <a href="https://cherieho.com/">Cherie Ho</a>,
+                  <a href="https://www.parvmaheshwari.com/">Parv Maheshwari</a>,
+                  <a href="https://theairlab.org/team/wenshan/">Wenshan Wang</a>,
+                  <a href="https://theairlab.org/team/sebastian/">Sebastian Scherer</a>
+                </p>
+                <p class="row-full">Workshop on Pretraining for Robotics (PT4R), International Conference on Robotics and Automation (ICRA), 2023</p>
+                <p class="row-desc">In this work we discuss the improvements to our previous dataset, TartanDrive.</p>
+                <p class="row-links"><a href="https://openreview.net/pdf?id=7Y1pnhFJUT">pdf</a> <a href="https://arxiv.org/pdf/2205.01791.pdf">TartanDrive</a></p>
+              </div>
+            </div>
+          </li>
+
+          <!-- 05 Creative problem solving -->
+          <li class="div" id="cps"><span class="div-n">05</span><span class="div-t">Creative problem solving</span><span class="div-y">2019&ndash;2022</span></li>
+
+          <!-- Life-Long Creative Problem Solving -->
+          <li class="row">
+            <button class="row-head" aria-expanded="false">
+              <span class="row-year">2022</span>
+              <span class="row-title">Life-Long Creative Problem Solving</span>
+              <span class="row-venue">ICCC 2022</span>
+              <span class="row-plus" aria-hidden="true"></span>
+            </button>
+            <div class="row-body" hidden>
+              <figure class="media row-media" data-media>
+                <img class="m-still" src="media/iccc.jpg" alt="" loading="lazy">
+                <img class="m-alt" src="media/iccc-2.jpg" alt="" loading="lazy">
+              </figure>
+              <div class="row-text">
+                <h3><a href="https://computationalcreativity.net/iccc22/wp-content/uploads/2022/06/ICCC-2022_6S_Gizzi-et-al..pdf">Toward Life-Long Creative Problem Solving: Using World Models for Increased Performance in Novelty Resolution</a></h3>
+                <p class="row-authors">
+                  <a href="https://scholar.google.com/citations?user=QI6VNEgAAAAJ&amp;hl=en">Evana Gizzi</a>,
+                  <a href="https://www.linkedin.com/in/wo-wei-lin-908618207">Wo Wei Lin</a>,
+                  <span class="me">Mateo Guaman Castro</span>,
+                  <a href="https://thostle.com/">Ethan Harvey</a>,
+                  <a href="https://www.eecs.tufts.edu/~jsinapov/">Jivko Sinapov</a>
+                </p>
+                <p class="row-full">International Conference on Computational Creativity (ICCC), 2022</p>
+                <p class="row-desc">In this work, we investigate methods for life-long creative problem solving (LLCPS), with the goal of increasing CPS capability over time.</p>
+                <p class="row-links"><a href="https://computationalcreativity.net/iccc22/wp-content/uploads/2022/06/ICCC-2022_6S_Gizzi-et-al..pdf">pdf</a></p>
+              </div>
+            </div>
+          </li>
+
+          <!-- Novelty-Centric Agents -->
+          <li class="row">
+            <button class="row-head" aria-expanded="false">
+              <span class="row-year">2021</span>
+              <span class="row-title">Novelty-Centric Agents</span>
+              <span class="row-venue">AAMAS 2021</span>
+              <span class="row-plus" aria-hidden="true"></span>
+            </button>
+            <div class="row-body" hidden>
+              <figure class="media row-media" data-media>
+                <img class="m-still" src="media/aamas.jpg" alt="" loading="lazy">
+                <img class="m-alt" src="media/aamas-2.jpg" alt="" loading="lazy">
+              </figure>
+              <div class="row-text">
+                <h3><a href="https://www.ifaamas.org/Proceedings/aamas2021/pdfs/p925.pdf">A Novelty-Centric Agent Architecture for Changing Worlds</a></h3>
+                <p class="row-authors">
+                  <a href="https://faizan-m.github.io/">Faizan Muhammad</a>,
+                  <a href="https://www.sift.net/staff/vasanth-sarathy">Vasanth Sarathy</a>,
+                  <a href="https://www.eecs.tufts.edu/~gtatiya/">Gyan Tatiya</a>,
+                  <a href="https://sites.google.com/view/shivam-goel/home">Shivam Goel</a>,
+                  <a href="https://www.linkedin.com/in/sauravgyawali">Saurav Gyawali</a>,
+                  <span class="me">Mateo Guaman Castro</span>,
+                  <a href="https://www.eecs.tufts.edu/~jsinapov/">Jivko Sinapov</a>,
+                  <a href="https://engineering.tufts.edu/cs/people/faculty/matthias-scheutz">Matthias Scheutz</a>
+                </p>
+                <p class="row-full">International Conference on Autonomous Agents and Multiagent Systems (AAMAS), 2021</p>
+                <p class="row-desc">We present a formal framework and implementation in a cognitive agent for novelty handling and demonstrate the efficacy of the proposed methods for detecting and handling a large set of novelties in a crafting task in a simulated environment.</p>
+                <p class="row-links"><a href="https://www.ifaamas.org/Proceedings/aamas2021/pdfs/p925.pdf">pdf</a></p>
+              </div>
+            </div>
+          </li>
+
+          <!-- Action Discovery -->
+          <li class="row">
+            <button class="row-head" aria-expanded="false">
+              <span class="row-year">2021</span>
+              <span class="row-title">Action Discovery</span>
+              <span class="row-venue">RSS 2021 Workshop</span>
+              <span class="row-plus" aria-hidden="true"></span>
+            </button>
+            <div class="row-body" hidden>
+              <figure class="media row-media" data-media>
+                <img class="m-still" src="media/rss21.jpg" alt="" loading="lazy">
+                <img class="m-alt" src="media/rss21-2.jpg" alt="" loading="lazy">
+              </figure>
+              <div class="row-text">
+                <h3><a href="https://drive.google.com/file/d/1oWU2UpRq73BLvkcMEffqHkildm5uIa8i/view">A Framework for Creative Problem Solving Through Action Discovery</a></h3>
+                <p class="row-authors">
+                  <a href="https://scholar.google.com/citations?user=QI6VNEgAAAAJ&amp;hl=en">Evana Gizzi</a>,
+                  <span class="me">Mateo Guaman Castro</span>,
+                  <a href="https://www.linkedin.com/in/wo-wei-lin-908618207">Wo Wei Lin</a>,
+                  <a href="https://www.eecs.tufts.edu/~jsinapov/">Jivko Sinapov</a>
+                </p>
+                <p class="row-full">Workshop on Declarative and Neurosymbolic Representations in Robot Learning and Control, Robotics: Science and Systems (RSS), 2021</p>
+                <p class="row-desc">We introduce a unified framework for creative problem solving through action discovery. We describe two methods which enable action discovery at a declarative and neurosymbolic level, namely through action primitive segmentation, and behavior babbling, respectively.</p>
+                <p class="row-links"><a href="https://drive.google.com/file/d/1oWU2UpRq73BLvkcMEffqHkildm5uIa8i/view">pdf</a></p>
+              </div>
+            </div>
+          </li>
+
+          <!-- Action Primitive Discovery -->
+          <li class="row">
+            <button class="row-head" aria-expanded="false">
+              <span class="row-year">2019</span>
+              <span class="row-title">Action Primitive Discovery</span>
+              <span class="row-venue">ICDL 2019</span>
+              <span class="row-plus" aria-hidden="true"></span>
+            </button>
+            <div class="row-body" hidden>
+              <figure class="media row-media" data-media>
+                <img class="m-still" src="media/icdl.jpg" alt="" loading="lazy">
+                <img class="m-alt" src="media/icdl-2.jpg" alt="" loading="lazy">
+              </figure>
+              <div class="row-text">
+                <h3><a href="https://ieeexplore.ieee.org/abstract/document/8850711">Creative Problem Solving by Robots Using Action Primitive Discovery</a></h3>
+                <p class="row-authors">
+                  <a href="https://scholar.google.com/citations?user=QI6VNEgAAAAJ&amp;hl=en">Evana Gizzi</a>,
+                  <span class="me">Mateo Guaman Castro</span>,
+                  <a href="https://www.eecs.tufts.edu/~jsinapov/">Jivko Sinapov</a>
+                </p>
+                <p class="row-full">International Conference on Development and Learning (ICDL), 2019</p>
+                <p class="row-desc">We describe a method for discovering new action primitives through object exploration and action segmentation, which is able to iteratively update the robot’s knowledge base on-the-fly until the solution becomes feasible.</p>
+                <p class="row-links"><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=8850711">pdf</a> <a href="https://ieeexplore.ieee.org/document/8850711">IEEE</a></p>
+              </div>
+            </div>
+          </li>
+        </ol>
+        <aside class="preview" id="preview" aria-hidden="true"></aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <a href="mailto:mateogc@cs.washington.edu">Email</a>
+    <a href="data/MateoGuaman-CV.pdf">CV</a>
+    <a href="https://scholar.google.com/citations?user=0hkU6uEAAAAJ&amp;hl=en"><span class="long">Google </span>Scholar</a>
+    <a href="https://twitter.com/mateoguaman">Twitter</a>
+    <a href="https://github.com/mateoguaman/">GitHub</a>
+    <a class="sq" href="side-quests/">Side Quests</a>
+  </footer>
+
+  <script src="site.js"></script>
 </body>
-
 </html>
