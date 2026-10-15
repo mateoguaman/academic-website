@@ -404,22 +404,15 @@ section[id],
   border-top: var(--rule);
 }
 
-/* Side Quests: grey, at the end of the footer. */
+/* Side Quests and Terms of Use: grey, at the end of the footer. On phones
+   Terms of Use moves to the end of the menu so the footer keeps one line. */
 .sq {
   color: var(--soft);
 }
-
-/* Under the footer: the way to the Terms of Use, as on the SGS site. */
-.foot-note {
-  padding: 0 var(--m) 0.75rem;
-  color: var(--soft);
-  font-size: 0.8rem;
-}
-.foot-note a {
-  color: var(--ink);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.15em;
+@media (max-width: 767px) {
+  .foot .foot-terms {
+    display: none;
+  }
 }
 
 /* Terms of Use: a label beside (laptops) or over (phones) each part. */

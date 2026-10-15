@@ -16,7 +16,7 @@ python3 -m http.server 8000 --bind 127.0.0.1   # then http://localhost:8000
 | `data/`                  | The CV                                               |
 | `side-quests/index.html` | The Side Quests page, linked from the footer         |
 | `side-quests/*/`         | A folder per quest: its page, map and stories        |
-| `terms/index.html`       | Terms of Use, linked under the footer                |
+| `terms/index.html`       | Terms of Use, linked from the footer and the menu    |
 
 ## Editing
 
@@ -91,6 +91,7 @@ from turning them into pages).
 
 **Terms of Use.** `terms/index.html`, after the SGS site's: the design and
 code under CC BY 4.0; each paper's images and videos, and the photo, stay
-with their owners. Linked by the line under the footer of each page.
+with their owners. Linked at the end of the footer on laptops and at the
+end of the menu on phones.
 
 Analytics: Google Analytics (`G-3ZY845XSCQ`) in the head of every page.
